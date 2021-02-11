@@ -18,7 +18,7 @@ public class ConnectionDB {
 
     ConnectionDB(){
         try {
-            p.load(new FileInputStream("src/resources/setting.properties"));
+            p.load(new FileInputStream("src/main/resources/setting.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
