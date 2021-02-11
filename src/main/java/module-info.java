@@ -8,7 +8,15 @@
     requires javafx.controls;
     requires javafx.graphics;
     requires javafx.fxml;
+    requires java.sql;
+    requires mysql.connector.java;
+    requires org.controlsfx.controls;
+    //opens view;
+    opens connection;
+    opens controller;
+    opens main;
+    opens modell;
+    opens utils;
 
 
-    opens sample;
 }
