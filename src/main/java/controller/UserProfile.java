@@ -24,19 +24,19 @@ public class UserProfile {
     public PasswordField passField;
     public Button startB;
     public AnchorPane mainPane;
-    private Utils changeScene;
+    private Utils util;
+
     public void initialize() throws IOException {
-        changeScene=new Utils();
-
-
+        util = new Utils();
         //call query to check the password and the user name, respond if any is not ok go to main window
-        startB.setOnAction(e->{if(passField.getText().equals("a")) {
-            try {
-                changeScene.changeScene("/webbshopPage.fxml",mainPane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+        startB.setOnAction(e -> {
+            if (passField.getText().equals("a")) {
+                try {
+                    util.changeScene("/webbshopPage.fxml", mainPane);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
-        }
         });
 
     }
