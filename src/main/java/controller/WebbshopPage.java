@@ -106,7 +106,7 @@ public class WebbshopPage {
             //using obs list
 
             shoesList=QueryExec.returnList("SELECT shoes.id as id,size,shoes_number,br.name as FK_brand_id,color,price,quantity\n" +
-                    " FROM Shoes\n" +
+                    " FROM shoes\n" +
                     " join brand br on br.id =FK_brand_id;");
             tableTest.setItems(shoesList);
 
