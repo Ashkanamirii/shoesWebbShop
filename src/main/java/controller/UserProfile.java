@@ -32,7 +32,7 @@ public class UserProfile {
         //call query to check the password and the user name, respond if any is not ok go to main window
         startB.setOnAction(e->{if(passField.getText().equals("a")) {
             try {
-                changeScene.changeScene("/main.fxml",mainPane);
+                changeScene.changeScene("/webbshopPage.fxml",mainPane);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
