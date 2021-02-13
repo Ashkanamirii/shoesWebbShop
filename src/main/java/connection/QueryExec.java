@@ -6,7 +6,10 @@ import modell.Shoes;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -24,7 +27,6 @@ public class QueryExec {
             Connection con = new ConnectionDB().getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            //TODO:build a method for each query, and use properties for log in.
             while (rs.next()) {
                 list.add(new Shoes(rs.getInt("id"),
                         rs.getInt("size"),
@@ -61,5 +63,32 @@ public class QueryExec {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static List<String> returnQueryToListnew(String query) {
+        List<String> c = new ArrayList<>();
+        try {
+            Connection con = new ConnectionDB().getConnection();
+            Statement stmt = null;
+            stmt = con.createStatement();
+            ResultSet rs = null;
+            rs = stmt.executeQuery(query);
+            while (true) {
+                if (!rs.next()) break;
+                int numColumns = 0;
+                numColumns = rs.getMetaData().getColumnCount();
+                for (int i = 1; i <= numColumns; i++) {
+                    // Column numbers start at 1.
+                    // Also there are many methods on the result set to return
+                    //  the column as a particular type. Refer to the Sun documentation
+                    //  for the list of valid conversions.
+                    System.out.println("COLUMN " + i + " = " + rs.getObject(i));
+                    c.add(rs.getString(i));
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return c;
     }
 }
