@@ -81,6 +81,7 @@ public class WebbshopPage {
             UserLogin.getInstance(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
                 loginL.setText("You are logged in!!!!");
+                loginPane.setVisible(false);
                 shoppinCartP.setVisible(true);
             }
 
@@ -110,7 +111,7 @@ public class WebbshopPage {
         try {
             showColors.itemsProperty().setValue(QueryExec.getColorsList());
             showCategories.itemsProperty().setValue(QueryExec.getCategoriesList());
-           // showBrands.itemsProperty().setValue(QueryExec.returnQueryToList("select distinct from category"));
+            showBrands.itemsProperty().setValue(QueryExec.getBrandList());
             //using obs list
 
             shoesList = QueryExec.getShoesList();
@@ -122,9 +123,8 @@ public class WebbshopPage {
             e.printStackTrace();
         }
 
-
-
-
+        showBrands.valueProperty().addListener(((observableValue, o, t1) ->
+                shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         showColors.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         searchField.textProperty().addListener(((observableValue, s, t1) ->
@@ -163,8 +163,8 @@ public class WebbshopPage {
 
 //Now searches only color and brand
     private boolean isFound(Shoes shoesData, String searchText) {
-        return (shoesData.getColor().toLowerCase().contains(searchText)
-                || shoesData.getBrand().toLowerCase().contains(searchText));
+        return (shoesData.getColor().toLowerCase().contains(searchText.toLowerCase())
+                || shoesData.getBrand().toLowerCase().contains(searchText.toLowerCase()));
     }
 
 

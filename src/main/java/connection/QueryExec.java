@@ -115,5 +115,8 @@ public class QueryExec {
     public static ObservableList<String> getCategoriesList(){
         return QueryExec.returnQueryToList("select name from category");
     }
+    public static ObservableList<String> getBrandList(){
+        return QueryExec.returnQueryToList("select distinct br.name from shoes join brand br on br.id=FK_brand_id");
+    }
 
 }

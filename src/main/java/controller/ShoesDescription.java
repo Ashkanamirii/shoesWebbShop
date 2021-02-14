@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 import modell.Shoes;
 import utils.UserLogin;
 
+import java.util.stream.Collector;
+
 /**
  * Created by Hodei Eceiza
  * Date: 2/14/2021
@@ -41,9 +43,14 @@ public class ShoesDescription {
         addToCartB.setOnMouseClicked(e-> {
 
             shoesData.setQuantity(quantityS.getValue());
+            if(shoppingCart.stream().anyMatch(s->s.getId()==shoesData.getId())) {
+              //  TODO:implement so updates the shoe quantity
+            }
+                else
             shoppingCart.add(shoesData);
-            //update Label
-            totalPriceL.setText(shoppingCart.stream().map(Shoes::getPrice).reduce(0,(a,b)->a+b).toString());
+
+            //update totalPrice
+            totalPriceL.setText(shoppingCart.stream().map(s->s.getPrice()*s.getQuantity()).reduce(1,Integer::sum).toString());
         });
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,shoesData.getQuantity()));
