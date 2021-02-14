@@ -1,8 +1,6 @@
 package controller;
 
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -21,16 +19,14 @@ public class Home {
     public Utils changeScene;
 
 
-    public void initialize()  {
+    public void initialize() {
         changeScene = new Utils();
-
         loginBtn.setOnAction(e -> {
             try {
                 changeScene.changeScene("/userProfile.fxml", homePane);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-
         });
 
         log.setOnAction(e -> {
@@ -39,7 +35,6 @@ public class Home {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-
         });
 
         guestBtn.setOnAction(e -> {
@@ -48,7 +43,6 @@ public class Home {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-
         });
 
 
@@ -58,7 +52,6 @@ public class Home {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-
         });
 
 
@@ -66,14 +59,12 @@ public class Home {
 }
 
 
-
-
 //Måste fixa fel Om vi har tid (On Action)
-    // On Action fungerade inte
-    // Jag testade att första view ska vara home.fxml
-    // Main class -->
-    // Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-    // Om ma klicka t.ex LoginBtn kommer det massor med fel
+// On Action fungerade inte
+// Jag testade att första view ska vara home.fxml
+// Main class -->
+// Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
+// Om ma klicka t.ex LoginBtn kommer det massor med fel
 
 /*
         public void goToLogin (ActionEvent e){

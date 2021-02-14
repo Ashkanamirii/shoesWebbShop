@@ -29,6 +29,14 @@ public class Customer {
         this.email = email;
         this.pswd = pswd;
     }
+    public Customer(String name, String phoneNumber, String address, String country, String email, String pswd) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.country = country;
+        this.email = email;
+        this.pswd = pswd;
+    }
 
     public String getName() {
         return name;
