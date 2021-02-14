@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="shoesDescrptionPane" prefHeight="200.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShoesDescription">
    <children>
       <ImageView fx:id="shoesImage" fitHeight="154.0" fitWidth="200.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true">
@@ -40,6 +39,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Label text="Price">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             <Label text="On stock">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -56,10 +60,11 @@
             <Label fx:id="sizeL" text="Label" />
             <Label fx:id="colorL" text="Label" />
             <Label fx:id="categoryL" text="Label" />
+            <Label fx:id="priceL" text="Label" />
             <Label fx:id="onStockL" text="Label" />
          </children>
       </VBox>
-      <Button layoutX="440.0" layoutY="151.0" mnemonicParsing="false" text="Add to cart" />
+      <Button fx:id="addToCartB" layoutX="440.0" layoutY="151.0" mnemonicParsing="false" text="Add to cart" />
       <Spinner fx:id="quantityS" layoutX="445.0" layoutY="78.0" prefHeight="26.0" prefWidth="66.0" />
       <Label layoutX="450.0" layoutY="47.0" text="Quantity" />
    </children>
