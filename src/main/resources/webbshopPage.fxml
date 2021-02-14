@@ -7,54 +7,60 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.TextFlow?>
-<?import org.controlsfx.control.Rating?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0"
-            prefWidth="949.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebbshopPage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebbshopPage">
     <children>
-        <TextFlow layoutX="13.0" layoutY="14.0" prefHeight="298.0" prefWidth="558.0">
-            <effect>
-                <DropShadow />
-            </effect>
-        </TextFlow>
-        <Label layoutX="208.0" layoutY="355.0" prefHeight="18.0" prefWidth="276.0" text="Shoes web shop" />
-        <Pane id="mainPane" layoutX="4.0" layoutY="131.0" prefHeight="387.0" prefWidth="577.0">
+        <Pane id="mainPane" layoutY="5.0" prefHeight="370.0" prefWidth="626.0">
             <children>
-                <TableView fx:id="tableTest" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="541.0">
+                <TableView fx:id="shoesTable" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="541.0">
                     <columns>
                         <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
                         <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
                         <TableColumn fx:id="c3" prefWidth="75.0" text="C3" />
                         <TableColumn fx:id="c4" prefWidth="75.0" text="C4" />
                         <TableColumn fx:id="c5" prefWidth="75.0" text="C5" />
-                        <TableColumn fx:id="c6" prefWidth="75.0" text="C6" />
-                        <TableColumn fx:id="c7" prefWidth="75.0" text="C7" />
+                        <TableColumn fx:id="c6" prefWidth="84.0" text="C6" />
+                        <TableColumn fx:id="c7" prefWidth="80.800048828125" text="C7" />
                     </columns>
                 </TableView>
-                <ComboBox fx:id="showColors" layoutX="387.0" layoutY="311.0" prefWidth="150.0" />
-                <Button fx:id="showTable" layoutX="79.0" layoutY="311.0" mnemonicParsing="false" text="Show all" />
-                <TextField fx:id="searchField" layoutX="35.0" layoutY="23.0" />
-            </children></Pane>
-        <Button fx:id="startLogInB" layoutX="747.0" layoutY="105.0" mnemonicParsing="false" text="Button" />
-        <PasswordField fx:id="passF" layoutX="699.0" layoutY="66.0" />
-        <TextField fx:id="email" layoutX="699.0" layoutY="34.0" />
-        <Label fx:id="loginL" layoutX="747.0" layoutY="14.0" text="Log in" />
-        <Rating fx:id="ratingTest" layoutX="571.0" layoutY="18.0" max="4" visible="false" />
-        <TableView fx:id="shoppingCartView" layoutX="582.0" layoutY="199.0" prefHeight="348.0" prefWidth="298.0">
-            <columns>
-                <TableColumn fx:id="cartId" prefWidth="75.0" text="id" />
-                <TableColumn fx:id="cartPrice" prefWidth="75.0" text="price" />
-                <TableColumn fx:id="cartBrand" prefWidth="75.0" text="Brand" />
-                <TableColumn fx:id="cartQuantity" prefWidth="75.0" text="quantity" />
-            </columns>
-        </TableView>
-        <Label layoutX="717.0" layoutY="560.0" text="TOTAL PRICE" />
-        <Label fx:id="totalPriceL" layoutX="834.0" layoutY="560.0" text="Label" />
+                <ComboBox fx:id="showColors" layoutX="438.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
+                <Button fx:id="showTable" layoutX="23.0" layoutY="312.0" mnemonicParsing="false" text="Show all" />
+                <TextField fx:id="searchField" layoutX="151.0" layoutY="23.0" prefHeight="25.0" prefWidth="404.0" />
+            <ComboBox fx:id="showBrands" layoutX="295.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
+            <ComboBox fx:id="showCategories" layoutX="160.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
+            <Label layoutX="469.0" layoutY="279.0" text="Select colors" />
+            <Label layoutX="320.0" layoutY="279.0" text="Select brand" />
+            <Label layoutX="178.0" layoutY="279.0" text="Select category" />
+            </children>
+      </Pane>
+        <Label fx:id="loginL" alignment="CENTER" layoutX="673.0" layoutY="18.0" prefHeight="18.0" prefWidth="258.0" text="Log in" textAlignment="CENTER" />
+      <Pane fx:id="loginPane" layoutX="666.0" layoutY="36.0" prefHeight="134.0" prefWidth="247.0">
+         <children>
+              <Button fx:id="startLogInB" layoutX="138.0" layoutY="97.0" mnemonicParsing="false" text="Log in" />
+              <PasswordField fx:id="passF" layoutX="88.0" layoutY="55.0" />
+              <TextField fx:id="email" layoutX="88.0" layoutY="14.0" />
+            <Button fx:id="toRegister" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Register" />
+            <Label layoutX="14.0" layoutY="18.0" text="E-mail" />
+            <Label layoutX="14.0" layoutY="59.0" text="Password" />
+         </children>
+      </Pane>
+      <Pane fx:id="shoppinCartP" layoutX="604.0" layoutY="190.0" prefHeight="408.0" prefWidth="330.0">
+         <children>
+              <TableView fx:id="shoppingCartView" layoutX="34.0" layoutY="24.0" prefHeight="323.0" prefWidth="282.0">
+                  <columns>
+                      <TableColumn fx:id="cartBrand" prefWidth="97.60009765625" text="Brand" />
+                      <TableColumn fx:id="cartPrice" prefWidth="98.39990234375" text="price" />
+                      <TableColumn fx:id="cartQuantity" prefWidth="103.2000732421875" text="quantity" />
+                  </columns>
+              </TableView>
+              <Label layoutX="175.0" layoutY="356.0" text="TOTAL PRICE" />
+              <Label fx:id="totalPriceL" layoutX="267.0" layoutY="356.0" text="Label" />
+            <Label alignment="CENTER" layoutX="74.0" layoutY="6.0" prefHeight="17.0" prefWidth="180.0" text="SOPPING CART" />
+            <Button fx:id="confirmOrder" layoutX="54.0" layoutY="352.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="ORDER" />
+         </children>
+      </Pane>
+      <Pane fx:id="shoesDescriptionP" layoutX="20.0" layoutY="375.0" prefHeight="200.0" prefWidth="530.0" />
     </children>
 </AnchorPane>
-
