@@ -3,10 +3,9 @@ package modell;
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-11
- * Time:  10:00
+ * Time:  09:27
  * Project: shoesWebbShop
  * Copyright: MIT
  */
-public class Surveys {
-    private int id;
+public class Orders {
 }

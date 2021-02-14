@@ -42,7 +42,7 @@
             </children></Pane>
         <Button fx:id="startLogInB" layoutX="747.0" layoutY="105.0" mnemonicParsing="false" text="Button" />
         <PasswordField fx:id="passF" layoutX="699.0" layoutY="66.0" />
-        <TextField fx:id="nameF" layoutX="699.0" layoutY="34.0" />
+        <TextField fx:id="email" layoutX="699.0" layoutY="34.0" />
         <Label fx:id="loginL" layoutX="747.0" layoutY="14.0" text="Log in" />
         <Rating fx:id="ratingTest" layoutX="571.0" layoutY="18.0" max="4" visible="false" />
         <TableView fx:id="shoppingCartView" layoutX="582.0" layoutY="199.0" prefHeight="348.0" prefWidth="298.0">
