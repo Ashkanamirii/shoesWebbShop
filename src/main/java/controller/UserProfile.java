@@ -37,7 +37,6 @@ public class UserProfile {
             try {
                 if (checkInput()) {
                     UserLogin.getInstance(email.getText(), passField.getText());
-
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
 

@@ -4,6 +4,7 @@ import connection.QueryExec;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
@@ -12,7 +13,9 @@ import javafx.scene.layout.Pane;
 import modell.Shoes;
 import org.controlsfx.control.Rating;
 import utils.UserLogin;
+import utils.Utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,8 @@ public class WebbshopPage {
     public TableColumn cartBrand;
     public TableColumn cartQuantity;
     public Label totalPriceL;
+    public Button register;
+    public Utils utils;
 
 
     private ObservableList<Shoes> shoesList;
@@ -49,7 +54,7 @@ public class WebbshopPage {
     private ObservableList<Shoes> shoppingCart;
 
     public void initialize() {
-
+        utils = new Utils();
         //testing shopping cart
         shoppingCart = FXCollections.observableArrayList();
         cartId.setCellValueFactory(new PropertyValueFactory("id"));
@@ -64,7 +69,13 @@ public class WebbshopPage {
         //testing rating
         ratingTest.setOrientation(Orientation.VERTICAL);
 
-
+        register.setOnAction(e -> {
+            try {
+                utils.changeScene("/registerCustomer.fxml", mainPane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         //testing the log in with the singleton
         startLogInB.setOnAction(e -> {
 
@@ -184,4 +195,6 @@ public class WebbshopPage {
         }
         return FXCollections.observableArrayList(filteredList);
     }
+
+
 }
