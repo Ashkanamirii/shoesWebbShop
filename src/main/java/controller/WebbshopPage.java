@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import modell.Shoes;
 import org.controlsfx.control.Rating;
@@ -21,7 +22,6 @@ import java.util.List;
 
 public class WebbshopPage {
     @FXML
-    public Pane mainPane;
     public TableColumn c1;
     public TableColumn c2;
     public TableColumn c3;
@@ -47,6 +47,7 @@ public class WebbshopPage {
     public Label totalPriceL;
     public Button register;
     public Utils utils;
+    public AnchorPane mainPage;
 
 
     private ObservableList<Shoes> shoesList;
@@ -71,7 +72,7 @@ public class WebbshopPage {
 
         register.setOnAction(e -> {
             try {
-                utils.changeScene("/registerCustomer.fxml", mainPane);
+                utils.changeScene("/registerCustomer.fxml", mainPage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
