@@ -2,6 +2,7 @@ package connection;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import modell.Customer;
 import modell.Shoes;
 
 import java.sql.Connection;
@@ -63,6 +64,53 @@ public class QueryExec {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static Customer customerInfo(String query) {
+        Customer customer = null;
+        try {
+            Connection con = new ConnectionDB().getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                customer = new Customer(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("phone"),
+                        rs.getString("address"),
+                        rs.getString("country"),
+                        rs.getString("email"),
+                        rs.getString("pswd"));
+                rs.getConcurrency();
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("return list error");
+            e.printStackTrace();
+        }
+        return customer;
+    }
+
+    public static void insertIntoCustomer(Customer c){
+
+            try
+            {
+                Connection con = new ConnectionDB().getConnection();
+
+                Statement st = con.createStatement();
+
+                // note that i'm leaving "date_created" out of this insert statement
+                st.executeUpdate("INSERT INTO customer (name, phone, address, country, email, pswd) "
+                        +"VALUES ('"+c.getName()+"','"+c.getPhoneNumber()+"','"+c.getAddress()+
+                        "','"+c.getCountry()+"','"+c.getEmail()+"','"+c.getPswd()+"')");
+
+                con.close();
+            }
+            catch (Exception e)
+            {
+                System.err.println("Got an exception!");
+                System.err.println(e.getMessage());
+            }
+
     }
 
     public static List<String> returnQueryToListnew(String query) {

@@ -13,14 +13,16 @@ import java.util.List;
  */
 public class Customer {
     private String name;
+    private int id;
     private String phoneNumber;
     private String address;
     private String country;
     private String email;
     private String pswd;
 
-    public Customer(String name, String phoneNumber, String address, String country, String email, String pswd) {
+    public Customer(int id,String name, String phoneNumber, String address, String country, String email, String pswd) {
         this.name = name;
+        this.id = id;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.country = country;

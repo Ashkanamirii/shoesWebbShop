@@ -2,10 +2,10 @@ package modell;
 
 /**
  * Created by Ashkan Amiri
- * Date:  2021-02-11
- * Time:  09:27
+ * Date:  2021-02-14
+ * Time:  11:02
  * Project: shoesWebbShop
  * Copyright: MIT
  */
-public class Order {
+public class Category {
 }
