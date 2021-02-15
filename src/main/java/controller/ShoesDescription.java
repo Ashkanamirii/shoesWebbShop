@@ -30,7 +30,7 @@ public class ShoesDescription {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
-        Shoes selected=shoesData;
+        System.out.println(shoesData.getQuantity());
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
@@ -42,15 +42,15 @@ public class ShoesDescription {
         onStockL.setText((shoesData.getQuantity() > 0) ? "ON STOCK" : "NO AVAILABLE");
 
         addToCartB.setOnMouseClicked(e -> {
+//TODO:rewrite this code to be more clear
+            if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
+                int index = shoppingCart.indexOf(shoppingCart.stream().filter(s -> s.getId() == shoesData.getId()).findFirst().get());
 
-            shoesData.setQuantity(quantityS.getValue());
-            if(shoppingCart.stream().anyMatch(s->s.getId()==shoesData.getId())) {
-              //  TODO:implement so updates the shoe quantity
-                int index=shoppingCart.indexOf(shoppingCart.stream().filter(s->s.getId()==shoesData.getId()).findFirst().get());
-                shoppingCart.remove(index);
-            }
-                else
-            shoppingCart.add(shoesData);
+                shoppingCart.set(index, new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
+                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), shoppingCart.get(index).getQuantity() + quantityS.getValue()));
+
+            } else
+                shoppingCart.add(new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(), shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue()));
 
             //update totalPrice
             totalPriceL.setText(shoppingCart.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
