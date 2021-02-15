@@ -28,39 +28,39 @@
                 <ComboBox fx:id="showColors" layoutX="438.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
                 <Button fx:id="showTable" layoutX="23.0" layoutY="312.0" mnemonicParsing="false" text="Show all" />
                 <TextField fx:id="searchField" layoutX="151.0" layoutY="23.0" prefHeight="25.0" prefWidth="404.0" />
-            <ComboBox fx:id="showBrands" layoutX="295.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
-            <ComboBox fx:id="showCategories" layoutX="160.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
-            <Label layoutX="469.0" layoutY="279.0" text="Select colors" />
-            <Label layoutX="320.0" layoutY="279.0" text="Select brand" />
-            <Label layoutX="178.0" layoutY="279.0" text="Select category" />
+                <ComboBox fx:id="showBrands" layoutX="295.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
+                <ComboBox fx:id="showCategories" layoutX="160.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
+                <Label layoutX="469.0" layoutY="279.0" text="Select colors" />
+                <Label layoutX="320.0" layoutY="279.0" text="Select brand" />
+                <Label layoutX="178.0" layoutY="279.0" text="Select category" />
             </children>
-      </Pane>
+        </Pane>
         <Label fx:id="loginL" alignment="CENTER" layoutX="673.0" layoutY="18.0" prefHeight="18.0" prefWidth="258.0" text="Log in" textAlignment="CENTER" />
-      <Pane fx:id="loginPane" layoutX="666.0" layoutY="36.0" prefHeight="134.0" prefWidth="247.0">
-         <children>
-              <Button fx:id="startLogInB" layoutX="138.0" layoutY="97.0" mnemonicParsing="false" text="Log in" />
-              <PasswordField fx:id="passF" layoutX="88.0" layoutY="55.0" />
-              <TextField fx:id="email" layoutX="88.0" layoutY="14.0" />
-            <Button fx:id="toRegister" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Register" />
-            <Label layoutX="14.0" layoutY="18.0" text="E-mail" />
-            <Label layoutX="14.0" layoutY="59.0" text="Password" />
-         </children>
-      </Pane>
-      <Pane fx:id="shoppinCartP" layoutX="604.0" layoutY="190.0" prefHeight="408.0" prefWidth="330.0">
-         <children>
-              <TableView fx:id="shoppingCartView" layoutX="34.0" layoutY="24.0" prefHeight="323.0" prefWidth="282.0">
-                  <columns>
-                      <TableColumn fx:id="cartBrand" prefWidth="97.60009765625" text="Brand" />
-                      <TableColumn fx:id="cartPrice" prefWidth="98.39990234375" text="price" />
-                      <TableColumn fx:id="cartQuantity" prefWidth="103.2000732421875" text="quantity" />
-                  </columns>
-              </TableView>
-              <Label layoutX="175.0" layoutY="356.0" text="TOTAL PRICE" />
-              <Label fx:id="totalPriceL" layoutX="267.0" layoutY="356.0" text="Label" />
-            <Label alignment="CENTER" layoutX="74.0" layoutY="6.0" prefHeight="17.0" prefWidth="180.0" text="SOPPING CART" />
-            <Button fx:id="confirmOrder" layoutX="54.0" layoutY="352.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="ORDER" />
-         </children>
-      </Pane>
-      <Pane fx:id="shoesDescriptionP" layoutX="20.0" layoutY="375.0" prefHeight="200.0" prefWidth="530.0" />
+        <Pane fx:id="loginPane" layoutX="666.0" layoutY="36.0" prefHeight="134.0" prefWidth="247.0">
+            <children>
+                <Button fx:id="startLogInB" layoutX="138.0" layoutY="97.0" mnemonicParsing="false" text="Log in" />
+                <PasswordField fx:id="passF" layoutX="88.0" layoutY="55.0" />
+                <TextField fx:id="email" layoutX="88.0" layoutY="14.0" />
+                <Button fx:id="toRegister" layoutX="14.0" layoutY="97.0" mnemonicParsing="false" text="Register" />
+                <Label layoutX="14.0" layoutY="18.0" text="E-mail" />
+                <Label layoutX="14.0" layoutY="59.0" text="Password" />
+            </children>
+        </Pane>
+        <Pane fx:id="shoppinCartP" layoutX="604.0" layoutY="190.0" prefHeight="408.0" prefWidth="330.0">
+            <children>
+                <TableView fx:id="shoppingCartView" layoutX="34.0" layoutY="24.0" prefHeight="323.0" prefWidth="282.0">
+                    <columns>
+                        <TableColumn fx:id="cartBrand" prefWidth="97.60009765625" text="Brand" />
+                        <TableColumn fx:id="cartPrice" prefWidth="98.39990234375" text="price" />
+                        <TableColumn fx:id="cartQuantity" prefWidth="103.2000732421875" text="quantity" />
+                    </columns>
+                </TableView>
+                <Label layoutX="175.0" layoutY="356.0" text="TOTAL PRICE" />
+                <Label fx:id="totalPriceL" layoutX="267.0" layoutY="356.0" text="Label" />
+                <Label alignment="CENTER" layoutX="74.0" layoutY="6.0" prefHeight="17.0" prefWidth="180.0" text="SOPPING CART" />
+                <Button fx:id="confirmOrder" layoutX="54.0" layoutY="352.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="ORDER" />
+            </children>
+        </Pane>
+        <Pane fx:id="shoesDescriptionP" layoutX="20.0" layoutY="375.0" prefHeight="200.0" prefWidth="530.0" />
     </children>
 </AnchorPane>
