@@ -28,11 +28,6 @@
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="log" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Login" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
                     </buttons>
                   </ButtonBar>
                </children>
