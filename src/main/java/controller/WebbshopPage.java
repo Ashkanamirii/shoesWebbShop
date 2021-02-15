@@ -149,7 +149,7 @@ public class WebbshopPage {
             e.printStackTrace();
         }
         ShoesDescription controller = loader.getController();
-        controller.setData(shoesData, shoppingCart, totalPriceL);
+        controller.setData(shoesData, shoppingCart, totalPrice);
         shoesDescriptionP.getChildren().add(newLoadedPane);
     }
 
