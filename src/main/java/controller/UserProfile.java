@@ -39,7 +39,7 @@ public class UserProfile {
                     UserLogin.getInstance(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
-
+                         //TODO ska skicka user info
                     } else {
                         regLabel.setText("You must be register first");
                         login.setText("Register");
@@ -74,33 +74,7 @@ public class UserProfile {
     }
 
     private boolean checkInput() {
-        return !passField.getText().isBlank() && !passField.getText().isBlank();
+        return !email.getText().isBlank() && !passField.getText().isBlank();
     }
 
-//    public void validLogin() {
-//
-//        Connection con = new ConnectionDB().getConnection();
-//        String verifyLogin = "SELECT count(1) FROM customer WHERE " +
-//                "email = '" + email.getText() + "' AND pswd =md5('" + passField.getText() + "');";
-//        try {
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(verifyLogin);
-//
-//            while (rs.next()) {
-//                if (rs.getInt(1) == 1) {
-//                    //loginMessageLabel.setText("Congratulation");
-//                    String customerQuery = "SELECT * FROM customer WHERE email = '" + email.getText() + "';";
-//                    QueryExec.customerInfo(customerQuery); // Det här retunerar en customer
-//                    //TODO: Visa customer info
-//                } else {
-//                    //loginMessageLabel.setText("Invalid login. please try again");
-//                    //TODO: visa register panel
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            e.getCause();
-//        }
-//    }
 }

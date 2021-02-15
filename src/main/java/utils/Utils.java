@@ -38,32 +38,17 @@ public class Utils {
         primaryStage.setWidth(((Pane)primaryStage.getScene().getRoot()).getPrefWidth());
         primaryStage.setHeight(((Pane)primaryStage.getScene().getRoot()).getPrefHeight());
     }
-    public void loadViews(String FXMLFileName, Label logOutLabel) {
-        try {
-            // Detta är för att stänga föregående scene och ladda en ny
-            Stage stage = (Stage) logOutLabel.getScene().getWindow();
-            stage.close();
 
-            Parent userLogin = FXMLLoader.load(getClass().getClassLoader()
-                    .getResource(FXMLFileName + ".fxml"));
-            stage = new Stage();
-            stage.setResizable(false);
-            stage.setScene(new Scene(userLogin));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void md5 (String password){
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.update(password.getBytes());
-            byte[] digest = messageDigest.digest();
-            //String hashPswd = DatatypeConvertor
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void md5 (String password){
+//        try {
+//            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+//            messageDigest.update(password.getBytes());
+//            byte[] digest = messageDigest.digest();
+//            //String hashPswd = DatatypeConvertor
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
         public static String getMd5(String password)

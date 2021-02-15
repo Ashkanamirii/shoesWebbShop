@@ -26,21 +26,22 @@ public class ShoesDescription {
     public Button addToCartB;
     public Spinner<Integer> quantityS;
 
-    public void initialize(){
+    public void initialize() {
     }
-    public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart,Label totalPriceL){
 
-        if(!UserLogin.getIsLogged())
+    public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
+
+        if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
 
         brandL.setText(shoesData.getBrand());
         colorL.setText(shoesData.getColor());
-        priceL.setText(shoesData.getPrice()+"");
-        sizeL.setText(shoesData.getSize()+"");
-        onStockL.setText((shoesData.getQuantity()>0)?"ON STOCK":"NO AVAILABLE");
+        priceL.setText(shoesData.getPrice() + "");
+        sizeL.setText(shoesData.getSize() + "");
+        onStockL.setText((shoesData.getQuantity() > 0) ? "ON STOCK" : "NO AVAILABLE");
 
-        addToCartB.setOnMouseClicked(e-> {
+        addToCartB.setOnMouseClicked(e -> {
 
             shoesData.setQuantity(quantityS.getValue());
             if(shoppingCart.stream().anyMatch(s->s.getId()==shoesData.getId())) {
@@ -50,10 +51,10 @@ public class ShoesDescription {
             shoppingCart.add(shoesData);
 
             //update totalPrice
-            totalPriceL.setText(shoppingCart.stream().map(s->s.getPrice()*s.getQuantity()).reduce(1,Integer::sum).toString());
+            totalPriceL.setText(shoppingCart.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(1, Integer::sum).toString());
         });
 
-        quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,shoesData.getQuantity()));
+        quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));
 
 
     }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modell.Customer;
 import modell.Shoes;
+import utils.UserLogin;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import java.sql.Statement;
  */
 public class QueryExec {
 
-    public static ObservableList<Shoes> returnList(String query) {
+    public static ObservableList<Shoes> shoesListInfo(String query) {
         ObservableList<Shoes> list = FXCollections.observableArrayList();
         try {
             Connection con = new ConnectionDB().getConnection();
@@ -104,7 +105,7 @@ public class QueryExec {
         }
     }
     public static ObservableList<Shoes>getShoesList(){
-       return QueryExec.returnList("SELECT shoes.id as id,size,shoes_number," +
+       return QueryExec.shoesListInfo("SELECT shoes.id as id,size,shoes_number," +
                 "br.name as FK_brand_id,color,price,quantity\n" +
                 " FROM shoes\n" +
                 " join brand br on br.id =FK_brand_id;");
@@ -117,6 +118,31 @@ public class QueryExec {
     }
     public static ObservableList<String> getBrandList(){
         return QueryExec.returnQueryToList("select distinct br.name from shoes join brand br on br.id=FK_brand_id");
+    }
+
+    public static boolean validLogin(String email, String passField) {
+
+        Connection con = new ConnectionDB().getConnection();
+        String verifyLogin = "SELECT count(1) FROM customer WHERE " +
+                "email = '" + email + "' AND pswd =md5('" + passField + "');";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(verifyLogin);
+
+            while (rs.next()) {
+                if (rs.getInt(1) == 1) {
+                    String customerQuery = "SELECT * FROM customer WHERE email = '" + email + "';";
+                    Customer c = QueryExec.customerInfo(customerQuery);
+                    UserLogin.setCustomer(c);
+                    return true;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+        return false;
     }
 
 }

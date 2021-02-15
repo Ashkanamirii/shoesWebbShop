@@ -20,11 +20,12 @@ public class UserLogin {
     private String email;
     private String password;
     private boolean isLogged;
+    private Customer customer;
 
     private UserLogin(String email, String password) {
         this.email = email;
         this.password = password;
-        this.isLogged = checkPassword(email,password);
+        this.isLogged = checkPassword();
         //here we can run query
     }
 
@@ -36,37 +37,46 @@ public class UserLogin {
         return instance;
     }
 
-    private boolean checkPassword(String email, String password) {
-        Connection con = new ConnectionDB().getConnection();
-        String verifyLogin = "SELECT count(1) FROM customer WHERE " +
-                "email = '" + email + "' AND pswd =md5('" + password + "');";
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(verifyLogin);
+    private boolean checkPassword() {
+        return (QueryExec.validLogin(email,password));
 
-            while (rs.next()) {
-                if (rs.getInt(1) == 1) {
-                    //loginMessageLabel.setText("Congratulation");
-                    // Det här retunerar en customer
-                    Customer c = QueryExec.customerInfo("SELECT * FROM customer WHERE email = '" + email + "';");
-                    System.out.println(c.getName());
-                    return true;
-                    //TODO: Visa customer info
-                } else {
-                    //loginMessageLabel.setText("Invalid login. please try again");
-                    //TODO: visa register panel
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getCause();
-        }
-        return (password.equals("a"));//TODO fix it
+//        Connection con = new ConnectionDB().getConnection();
+//        String verifyLogin = "SELECT count(1) FROM customer WHERE " +
+//                "email = '" + email + "' AND pswd = md5('" + password + "');";
+//        try {
+//            Statement stmt = con.createStatement();
+//            ResultSet rs = stmt.executeQuery(verifyLogin);
+//
+//            while (rs.next()) {
+//                if (rs.getInt(1) == 1) {
+//                    //loginMessageLabel.setText("Congratulation");
+//                    // Det här retunerar en customer
+//                    customer = QueryExec.customerInfo("SELECT * FROM customer WHERE email = '" + email + "';");
+//                    setCustomer(customer);
+//                    System.out.println(customer.getName());
+//                    return true;
+//                    //TODO: Visa customer info
+//                } else {
+//                    //loginMessageLabel.setText("Invalid login. please try again");
+//                    //TODO: visa register panel
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            e.getCause();
+//        }
+        //return (password.equals("a"));//TODO fix it
     }
 
     public static boolean getIsLogged() {
         return instance.isLogged;
     }
 
+    public static Customer getCustomer() {
+        return instance.customer;
+    }
+    public static void setCustomer(Customer customer) {
+        instance.customer = customer;
+    }
 }
