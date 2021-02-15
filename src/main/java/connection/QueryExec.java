@@ -103,4 +103,20 @@ public class QueryExec {
             System.err.println(e.getMessage());
         }
     }
+    public static ObservableList<Shoes>getShoesList(){
+       return QueryExec.returnList("SELECT shoes.id as id,size,shoes_number," +
+                "br.name as FK_brand_id,color,price,quantity\n" +
+                " FROM shoes\n" +
+                " join brand br on br.id =FK_brand_id;");
+    }
+    public static ObservableList<String> getColorsList(){
+        return QueryExec.returnQueryToList("select distinct color from shoes;");
+    }
+    public static ObservableList<String> getCategoriesList(){
+        return QueryExec.returnQueryToList("select name from category");
+    }
+    public static ObservableList<String> getBrandList(){
+        return QueryExec.returnQueryToList("select distinct br.name from shoes join brand br on br.id=FK_brand_id");
+    }
+
 }
