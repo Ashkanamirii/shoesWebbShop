@@ -70,6 +70,7 @@ public class UserLogin {
     }
 
     public static boolean getIsLogged() {
+         instance.checkPassword();
         return instance.isLogged;
     }
 

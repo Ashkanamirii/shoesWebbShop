@@ -62,11 +62,11 @@ public class WebbshopPage {
             shoppinCartP.setVisible(false);
         else {
             loginPane.setVisible(false);
-            loginL.setText("you are logged as " ); //we get here the customer name
+            loginL.setText("you are logged as " + UserLogin.getCustomer().getName()); //we get here the customer name
         }
         //shoping cart
         shoppingCart = FXCollections.observableArrayList();
-        cartId.setCellValueFactory(new PropertyValueFactory("id"));
+        //cartId.setCellValueFactory(new PropertyValueFactory("id"));
         cartPrice.setCellValueFactory(new PropertyValueFactory("price"));
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
@@ -155,8 +155,8 @@ public class WebbshopPage {
 
     //Now searches only color and brand
     private boolean isFound(Shoes shoesData, String searchText) {
-        return (shoesData.getColor().toLowerCase().contains(searchText)
-                || shoesData.getBrand().toLowerCase().contains(searchText));
+        return (shoesData.getColor().toLowerCase().contains(searchText.toLowerCase())
+                || shoesData.getBrand().toLowerCase().contains(searchText.toLowerCase()));
     }
 
 

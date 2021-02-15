@@ -30,7 +30,7 @@ public class ShoesDescription {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
-
+        Shoes selected=shoesData;
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
@@ -46,12 +46,14 @@ public class ShoesDescription {
             shoesData.setQuantity(quantityS.getValue());
             if(shoppingCart.stream().anyMatch(s->s.getId()==shoesData.getId())) {
               //  TODO:implement so updates the shoe quantity
+                int index=shoppingCart.indexOf(shoppingCart.stream().filter(s->s.getId()==shoesData.getId()).findFirst().get());
+                shoppingCart.remove(index);
             }
                 else
             shoppingCart.add(shoesData);
 
             //update totalPrice
-            totalPriceL.setText(shoppingCart.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(1, Integer::sum).toString());
+            totalPriceL.setText(shoppingCart.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
         });
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));
