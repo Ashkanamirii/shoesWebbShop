@@ -121,11 +121,11 @@ public class QueryExec {
     }
 
     public static boolean validLogin(String email, String passField) {
-
+        try {
         Connection con = new ConnectionDB().getConnection();
         String verifyLogin = "SELECT count(1) FROM customer WHERE " +
                 "email = '" + email + "' AND pswd =md5('" + passField + "');";
-        try {
+
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(verifyLogin);
 

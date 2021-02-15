@@ -55,6 +55,7 @@ drop trigger update_stock;
 
 select *
 from order_line_item;
+
 insert into order_line_item(FK_shoes_id, FK_order_id, quantity)
 values (10, 9, 10);
 select *
@@ -89,6 +90,7 @@ BEGIN
     then
         update orders set order_date=curdate() where id = orderId;
         if (select FK_shoes_id from order_line_item where FK_order_id = orderId) = shoesId
+            -- delete function
         then
             update order_line_item
             set FK_shoes_id=shoesId, quantity=quantity
