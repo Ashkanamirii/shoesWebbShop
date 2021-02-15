@@ -29,14 +29,6 @@ public class Home {
             }
         });
 
-        log.setOnAction(e -> {
-            try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-
         guestBtn.setOnAction(e -> {
             try {
                 changeScene.changeScene("/webbshopPage.fxml", homePane);
