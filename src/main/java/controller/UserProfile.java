@@ -34,7 +34,7 @@ public class UserProfile {
     public void initialize() throws IOException {
         util = new Utils();
 
-        //Start button är inte active om man inte skriva bånde name och passward
+        //login button är inte active om man inte skriva både email och passward
         login.disableProperty().bind(email.textProperty().isEmpty().or(passField.textProperty().isEmpty()));
 
         login.setOnAction(e -> {

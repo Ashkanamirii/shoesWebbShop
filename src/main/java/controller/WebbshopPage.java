@@ -82,7 +82,7 @@ public class WebbshopPage {
             }
         });
 
-        //Start button är inte active om man inte skriva bånde name och passward
+        //login button är inte active om man inte skriva både email och passward
         startLogInB.disableProperty().bind(email.textProperty().isEmpty().or(passF.textProperty().isEmpty()));
 
         //testing the log in with the singleton
