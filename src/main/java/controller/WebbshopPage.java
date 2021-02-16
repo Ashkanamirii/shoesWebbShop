@@ -57,6 +57,7 @@ public class WebbshopPage {
     private ObservableList<Shoes> shoppingCart;
 
     public void initialize() {
+
         utils = new Utils();
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
@@ -80,6 +81,10 @@ public class WebbshopPage {
                 ioException.printStackTrace();
             }
         });
+
+        //Start button är inte active om man inte skriva bånde name och passward
+        startLogInB.disableProperty().bind(email.textProperty().isEmpty().or(passF.textProperty().isEmpty()));
+
         //testing the log in with the singleton
         startLogInB.setOnAction(e -> {
             UserLogin.getInstance(email.getText(), passF.getText());
