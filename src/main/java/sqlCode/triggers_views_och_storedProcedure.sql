@@ -31,7 +31,7 @@ create trigger update_no_stock
     if (select quantity
         from shoes
         where id = new.id) <= 0 then
-        insert into no_stock(shoes_id) values (new.id);
+        insert into no_stock(FK_shoes_id) values (new.id);
     end if//
 delimiter ;
 
@@ -79,27 +79,25 @@ IN(order.id int, customer_id int, shoes_id
 
 */
 DELIMITER //
-create procedure AddToCart(IN customerId int, IN orderId int, IN shoesId int, IN _quantity int)
+create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN quantity int, IN returnedShoesId int)
 BEGIN
-    -- 1
-    if orderId is null
-    then
-        insert into orders (FK_customer_id, order_date) values (customerId, curdate());
-        -- 2 och 3?
+-- 1
+	 if orderId is null
+	 then
+		insert into orders (FK_customer_id,order_date) values (customerId,curdate());
+	-- 2 och 3?
     elseif orderId is not null
     then
-        update orders set order_date=curdate() where id = orderId;
-        if (select FK_shoes_id from order_line_item where FK_order_id = orderId) = shoesId
-            -- delete function
-            -- status return for
-        then
-            update order_line_item
-            set FK_shoes_id = shoesId, quantity = _quantity
-            where FK_order_id = orderId AND FK_shoes_id = shoesId;
+    update orders set order_date=curdate() where id=orderId;
+        if (select FK_shoes_id from order_line_item where FK_order_id=orderId)=shoesId then
+        update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
+        elseif (select FK_shoes_id from order_line_item where FK_order_id=orderId)=returnedShoesId then
+        delete from order_line_item where FK_order_id=orderId AND FK_shoes_id=returnedShoesId;
+        update orders set status = 5 where id=orderId;
         else
-            insert into order_line_item (FK_order_id, FK_shoes_id, quantity) values (orderId, shoesId, _quantity);
-        end if;
-    end if;
+		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
+end if;
+end if;
 end//
 DELIMITER ;
 

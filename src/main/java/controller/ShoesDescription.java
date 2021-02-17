@@ -25,12 +25,12 @@ public class ShoesDescription {
     public Label priceL;
     public Button addToCartB;
     public Spinner<Integer> quantityS;
-
+    private Shoes selectedShoes;
     public void initialize() {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
-        System.out.println(shoesData.getQuantity());
+
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
@@ -42,18 +42,21 @@ public class ShoesDescription {
         onStockL.setText((shoesData.getQuantity() > 0) ? "ON STOCK" : "NO AVAILABLE");
 
         addToCartB.setOnMouseClicked(e -> {
-//TODO:rewrite this code to be more clear
-            if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
-                int index = shoppingCart.indexOf(shoppingCart.stream().filter(s -> s.getId() ==
-                        shoesData.getId()).findFirst().get());
 
-                shoppingCart.set(index, new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(),
-                        shoppingCart.get(index).getQuantity() + quantityS.getValue()));
+            selectedShoes=new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
+                    shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
+
+            if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
+                int index = shoppingCart.indexOf(shoppingCart.stream()
+                                                .filter(s -> s.getId() == shoesData.getId())
+                                                .findFirst().get());
+                selectedShoes.setQuantity(shoppingCart.get(index).getQuantity() + quantityS.getValue());
+                shoppingCart.set(index,selectedShoes);
+
 
             } else
-                shoppingCart.add(new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue()));
+                shoppingCart.add(selectedShoes);
+
 
             //update totalPrice
             totalPriceL.setText(shoppingCart.stream().

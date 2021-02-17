@@ -28,7 +28,7 @@ public class WebbshopPage {
     public TableColumn c5;
     public TableColumn c6;
     public TableColumn c7;
-    public TableView tableTest;
+
     public ComboBox showColors;
     public Button showTable;
     public TextField searchField;
@@ -36,7 +36,7 @@ public class WebbshopPage {
     public Label loginL;
     public PasswordField passF;
     public TextField email;
-    public Rating ratingTest;
+
     public TableView shoppingCartView;
     public TableColumn cartId;
     public TableColumn cartPrice;
@@ -94,7 +94,7 @@ public class WebbshopPage {
                 shoppinCartP.setVisible(true);
             }
         });
-        System.out.println(QueryExec.shoesListInfo("SELECT * FROM shoes;").toString());
+
         //Show in table-> brand, color, size,price,rating,category,quantity
         //TODO: implement rating and category to shoes.
         c1.setCellValueFactory(new PropertyValueFactory("brand"));
@@ -139,6 +139,8 @@ public class WebbshopPage {
         showTable.setOnAction(e -> {
             shoesTable.setItems(shoesList);
         });
+
+       // confirmOrder.setOnAction(e->shoppingCart.forEach(e->QueryExec.addToCart(UserLogin.getCustomer().getId(),null,e.getId(),e.getQuantity(),null)));
     }
 
     //adds the shoes description panel

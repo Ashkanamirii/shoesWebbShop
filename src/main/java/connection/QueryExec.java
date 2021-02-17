@@ -1,5 +1,6 @@
 package connection;
 
+import com.mysql.cj.jdbc.CallableStatement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import modell.Customer;
@@ -8,6 +9,7 @@ import utils.UserLogin;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -143,6 +145,27 @@ public class QueryExec {
             e.getCause();
         }
         return false;
+    }
+
+    public static void addToCart(int customerId,int orderId, int shoesId, int quantity,int returnedShoesId){
+        Connection con = new ConnectionDB().getConnection();
+        try {
+            CallableStatement callableStatement= (CallableStatement) con.prepareCall("{call AddToCart(?,?,?,?,?)}");
+        callableStatement.setInt(1,customerId);
+        callableStatement.setInt(2,orderId);
+        callableStatement.setInt(3,shoesId);
+        callableStatement.setInt(4,quantity);
+        callableStatement.setInt(5,returnedShoesId);
+
+        callableStatement.execute();
+        callableStatement.close();
+
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
     }
 
 }
