@@ -43,12 +43,12 @@
                <children>
                   <Text fill="#0ae418" layoutX="280.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text fx:id="cutomerName" layoutX="421.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="211.13671875">
+                  <Text fx:id="cutomerName" fill="#2b0d75" layoutX="433.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.13671875">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                      </font>
                   </Text>
                </children>
@@ -64,7 +64,7 @@
          <left>
             <VBox fx:id="surveyBtn" prefHeight="513.0" prefWidth="214.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
                <children>
-                  <Button maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" onAction="#myPagesBtn" prefHeight="40.0" style="-fx-background-color: #b0e0e6;" text="MyPages">
+                  <Button fx:id="myPagesBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0e0e6;" styleClass="active" stylesheets="@css/style.css" text="MyPages">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>

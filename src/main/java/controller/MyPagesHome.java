@@ -3,7 +3,10 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
@@ -11,41 +14,25 @@ import java.io.IOException;
 
 public class MyPagesHome {
     @FXML
-    public AnchorPane homePane;
-    public Button log;
-    public Button reg;
-    public Button loginBtn;
-    public Button guestBtn;
+    public AnchorPane myPagesHomePane;
+    public Button logout;
+    public Text cutomerName;
     public Utils changeScene;
 
 
     public void initialize() {
         changeScene = new Utils();
-        loginBtn.setOnAction(e -> {
+
+
+       cutomerName.setText( UserLogin.getCustomer().getName() );
+
+        logout.setOnAction(e -> {
             try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
+                changeScene.changeScene("/home.fxml", myPagesHomePane);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
-
-        guestBtn.setOnAction(e -> {
-            try {
-                changeScene.changeScene("/webbshopPage.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-
-
-        reg.setOnAction(e -> {
-            try {
-                changeScene.changeScene("/registerCustomer.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
-
 
     }
 }
