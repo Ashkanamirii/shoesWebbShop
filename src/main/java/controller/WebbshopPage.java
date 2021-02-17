@@ -140,7 +140,9 @@ public class WebbshopPage {
             shoesTable.setItems(shoesList);
         });
 
-       // confirmOrder.setOnAction(e->shoppingCart.forEach(e->QueryExec.addToCart(UserLogin.getCustomer().getId(),null,e.getId(),e.getQuantity(),null)));
+
+        // I added getId to use easier for the SP
+        confirmOrder.setOnAction(e->shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),6,s.getId(),s.getQuantity(),0)));
     }
 
     //adds the shoes description panel
