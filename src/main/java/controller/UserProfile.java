@@ -26,6 +26,7 @@ public class UserProfile {
     public PasswordField passField;
     public AnchorPane mainPane;
     public Button login;
+    public Button myPages;
     public Label regLabel;
     private Utils util;
     //public Label loginMessageLabel;
@@ -36,6 +37,8 @@ public class UserProfile {
 
         //login button är inte active om man inte skriva både email och passward
         login.disableProperty().bind(email.textProperty().isEmpty().or(passField.textProperty().isEmpty()));
+        //myPages button är inte active om man inte skriva både email och passward
+        myPages.disableProperty().bind(email.textProperty().isEmpty().or(passField.textProperty().isEmpty()));
 
         login.setOnAction(e -> {
             try {
@@ -43,6 +46,15 @@ public class UserProfile {
                     UserLogin.getInstance(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
+
+                        myPages.setOnAction(event -> {
+                            try {
+                                System.out.println("You must be register first");
+                                util.changeScene("/myPagesHome.fxml", mainPane);
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        });
                          //TODO ska skicka user info
                     } else {
                         regLabel.setText("You must be register first");
@@ -74,7 +86,6 @@ public class UserProfile {
                 ioException.printStackTrace();
             }
         });
-
     }
 
     private boolean checkInput() {
