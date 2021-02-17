@@ -125,6 +125,7 @@ public class WebbshopPage {
         }
         showBrands.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
+
         showColors.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         searchField.textProperty().addListener(((observableValue, s, t1) ->

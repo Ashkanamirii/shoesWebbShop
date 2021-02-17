@@ -93,7 +93,7 @@ BEGIN
         update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
         elseif (select FK_shoes_id from order_line_item where FK_order_id=orderId)=returnedShoesId then
         delete from order_line_item where FK_order_id=orderId AND FK_shoes_id=returnedShoesId;
-        update orders set status = 5 where id=orderId;
+        update order_line_item set status = 5 where id=orderId;
         else
 		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
 end if;
