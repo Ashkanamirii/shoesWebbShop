@@ -6,6 +6,14 @@
     -fx-background-size: cover, auto;
 }
 
+.bgMyPagesHome {
+    -fx-background-image: url("../img/myPagesHome.jpg");
+    -fx-background-insets: -20, -10;
+    -fx-background-position: left top, center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
+}
+
 .active {
     -fx-text-fill: #b22222;
 }
