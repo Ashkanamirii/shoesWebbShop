@@ -78,6 +78,7 @@ IN(order.id int, customer_id int, shoes_id
 5 Använd dig av transaktioner och felhantering //
 
 */
+-- add to cart return SQL exception subquery return more than 1 row. have to review the if expressions and use another method
 DELIMITER //
 create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN quantity int, IN returnedShoesId int)
 BEGIN
