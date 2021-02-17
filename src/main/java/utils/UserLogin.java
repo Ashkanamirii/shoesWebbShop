@@ -39,34 +39,6 @@ public class UserLogin {
 
     private boolean checkPassword() {
         return (QueryExec.validLogin(email,password));
-
-//        Connection con = new ConnectionDB().getConnection();
-//        String verifyLogin = "SELECT count(1) FROM customer WHERE " +
-//                "email = '" + email + "' AND pswd = md5('" + password + "');";
-//        try {
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery(verifyLogin);
-//
-//            while (rs.next()) {
-//                if (rs.getInt(1) == 1) {
-//                    //loginMessageLabel.setText("Congratulation");
-//                    // Det här retunerar en customer
-//                    customer = QueryExec.customerInfo("SELECT * FROM customer WHERE email = '" + email + "';");
-//                    setCustomer(customer);
-//                    System.out.println(customer.getName());
-//                    return true;
-//                    //TODO: Visa customer info
-//                } else {
-//                    //loginMessageLabel.setText("Invalid login. please try again");
-//                    //TODO: visa register panel
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            e.getCause();
-//        }
-        //return (password.equals("a"));//TODO fix it
     }
 
     public static boolean getIsLogged() {
