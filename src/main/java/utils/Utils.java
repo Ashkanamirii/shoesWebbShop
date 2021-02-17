@@ -1,23 +1,15 @@
 package utils;
-import connection.ConnectionDB;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import modell.Shoes;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import org.apache.commons.codec.digest.DigestUtils;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * Created by Ashkan Amiri
@@ -38,19 +30,22 @@ public class Utils {
         primaryStage.setWidth(((Pane)primaryStage.getScene().getRoot()).getPrefWidth());
         primaryStage.setHeight(((Pane)primaryStage.getScene().getRoot()).getPrefHeight());
     }
+    public static void md5Hashing(String password){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        md.update(password.getBytes());
+        byte[] digest = md.digest();
+        // You can choose ByteToHex instead of DataTypeConverter
+        String hash = DatatypeConverter.printHexBinary(digest).toUpperCase();
 
-//    public void md5 (String password){
-//        try {
-//            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-//            messageDigest.update(password.getBytes());
-//            byte[] digest = messageDigest.digest();
-//            //String hashPswd = DatatypeConvertor
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
+        //----------------
+        //MD5 using Apache Commons
+        String md5Hex = DigestUtils.md5Hex(password).toUpperCase();
+    }
         public static String getMd5(String password)
         {
             try {

@@ -79,7 +79,7 @@ IN(order.id int, customer_id int, shoes_id
 
 */
 DELIMITER //
-create procedure AddToCart(IN customerId int, IN orderId int, IN shoesId int, IN quantity int)
+create procedure AddToCart(IN customerId int, IN orderId int, IN shoesId int, IN _quantity int)
 BEGIN
     -- 1
     if orderId is null
@@ -91,12 +91,13 @@ BEGIN
         update orders set order_date=curdate() where id = orderId;
         if (select FK_shoes_id from order_line_item where FK_order_id = orderId) = shoesId
             -- delete function
+            -- status return for
         then
             update order_line_item
-            set FK_shoes_id=shoesId, quantity=quantity
+            set FK_shoes_id = shoesId, quantity = _quantity
             where FK_order_id = orderId AND FK_shoes_id = shoesId;
         else
-            insert into order_line_item (FK_order_id, FK_shoes_id, quantity) values (orderId, shoesId, quantity);
+            insert into order_line_item (FK_order_id, FK_shoes_id, quantity) values (orderId, shoesId, _quantity);
         end if;
     end if;
 end//

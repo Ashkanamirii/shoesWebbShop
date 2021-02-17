@@ -11,6 +11,8 @@
     requires java.sql;
     requires mysql.connector.java;
     requires org.controlsfx.controls;
+    requires org.apache.commons.codec;
+    requires java.xml.bind;
     //opens view;
     opens connection;
     opens controller;

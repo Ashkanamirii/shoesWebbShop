@@ -44,16 +44,20 @@ public class ShoesDescription {
         addToCartB.setOnMouseClicked(e -> {
 //TODO:rewrite this code to be more clear
             if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
-                int index = shoppingCart.indexOf(shoppingCart.stream().filter(s -> s.getId() == shoesData.getId()).findFirst().get());
+                int index = shoppingCart.indexOf(shoppingCart.stream().filter(s -> s.getId() ==
+                        shoesData.getId()).findFirst().get());
 
                 shoppingCart.set(index, new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), shoppingCart.get(index).getQuantity() + quantityS.getValue()));
+                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(),
+                        shoppingCart.get(index).getQuantity() + quantityS.getValue()));
 
             } else
-                shoppingCart.add(new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(), shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue()));
+                shoppingCart.add(new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
+                        shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue()));
 
             //update totalPrice
-            totalPriceL.setText(shoppingCart.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
+            totalPriceL.setText(shoppingCart.stream().
+                    map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
         });
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));
