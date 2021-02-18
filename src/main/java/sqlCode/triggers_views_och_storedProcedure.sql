@@ -78,8 +78,7 @@ IN(order.id int, customer_id int, shoes_id
 5 Använd dig av transaktioner och felhantering //
 
 */
--- add to cart returns SQL exception subquery return more than 1 row. have to review the if expressions and use another method
--- getNewOrderId can be just a function?
+*/
 DELIMITER //
 create procedure getNewOrderId(INOUT orderId int ,IN customerId int)
 BEGIN
@@ -94,32 +93,19 @@ DELIMITER ;
 drop procedure getNewOrderId;
 
 DELIMITER //
-create procedure AddToCart (IN customerId int, INOUT orderId int, IN shoesId int, IN quantity int, IN returnedShoesId int)
+create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN quantity int, IN returned boolean)
 BEGIN
-if orderId = -1 then set orderId=null;
-end if;
--- SET SQL_SAFE_UPDATES = 0;
--- 1
-	 if orderId is null
-	 then
-		insert into orders (FK_customer_id,order_date) values (customerId,curdate());
-        set orderId := last_insert_id();
-insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
 
--- 2 och 3?
-elseif orderId is not null
+    if returned is true
     then
-update orders set order_date=curdate() where id=orderId;
---  if (select FK_shoes_id from order_line_item where FK_order_id=orderId) = shoesId then
--- update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
---   elseif (select FK_shoes_id from order_line_item where FK_order_id=orderId)=returnedShoesId then
---  delete from order_line_item where FK_order_id=orderId AND FK_shoes_id=returnedShoesId;
--- update order_line_item set status = 5 where id=orderId;
--- else
-insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
--- end if;
+update order_line_item set status = 5 where FK_order_id=orderId AND FK_shoes_id=shoesId;
+else
+		if (select FK_shoes_id from order_line_item where FK_order_id=orderId) = shoesId then
+update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
+else
+		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
 end if;
--- SET SQL_SAFE_UPDATES = 1;
+end if;
 end//
 DELIMITER ;
 

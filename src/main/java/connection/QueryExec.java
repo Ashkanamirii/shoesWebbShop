@@ -147,7 +147,7 @@ public class QueryExec {
         return false;
     }
 
-    public static void addToCart(int customerId, Integer orderId, int shoesId, int quantity, int returnedShoesId){
+    public static void addToCart(int customerId, Integer orderId, int shoesId, int quantity, boolean areReturned){
         Connection con = new ConnectionDB().getConnection();
         try {
             CallableStatement callableStatement= (CallableStatement) con.prepareCall("{call AddToCart(?,?,?,?,?)}");
@@ -155,7 +155,7 @@ public class QueryExec {
         callableStatement.setInt(2,orderId);
         callableStatement.setInt(3,shoesId);
         callableStatement.setInt(4,quantity);
-        callableStatement.setInt(5,returnedShoesId);
+        callableStatement.setBoolean(5,areReturned);
 
         callableStatement.execute();
         callableStatement.close();

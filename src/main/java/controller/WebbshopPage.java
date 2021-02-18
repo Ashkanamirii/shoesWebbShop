@@ -115,6 +115,10 @@ public class WebbshopPage {
             showColors.itemsProperty().setValue(QueryExec.getColorsList());
             showCategories.itemsProperty().setValue(QueryExec.getCategoriesList());
             showBrands.itemsProperty().setValue(QueryExec.getBrandList());
+
+            showColors.getSelectionModel().selectFirst();
+            showCategories.getSelectionModel().selectFirst();
+            showBrands.getSelectionModel().selectFirst();
             //using obs list
 
             shoesList = QueryExec.getShoesList();
@@ -146,7 +150,7 @@ public class WebbshopPage {
         //first send orderId as -1, then get its orderId number and send with that
         confirmOrder.setOnAction(e->{
             int orderId=QueryExec.getCreatedOrder(UserLogin.getCustomer().getId(),-1);
-            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),0));});
+            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),false));});
     }
 
     //adds the shoes description panel
