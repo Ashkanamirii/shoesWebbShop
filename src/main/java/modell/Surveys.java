@@ -8,5 +8,5 @@ package modell;
  * Copyright: MIT
  */
 public class Surveys {
-    private int id;
+
 }

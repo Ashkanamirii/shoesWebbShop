@@ -84,7 +84,7 @@ create table orders
     FK_customer_id int,
     created        timestamp    DEFAULT current_timestamp,
     orders_comment varchar(255) DEFAULT 'NI ÄR FANTASTIKA',
-    order_date     timestamp    DEFAULT current_timestamp,
+    order_date     date  not null ,
     foreign key (FK_customer_id) references customer (id) on delete set null on update cascade,
     updated        timestamp ON UPDATE CURRENT_TIMESTAMP
 
@@ -199,23 +199,23 @@ values (1, 1),
        (3, 8);
 
 insert into orders(FK_customer_id, order_date)
-values (1, '2020-01-15 11:40:59'),
-       (2, '2020-01-17 11:40:59'),
-       (3, '2020-01-18 11:40:59'),
-       (7, '2021-01-03 11:40:59'),
-       (8, '2020-01-29 11:40:59'),
-       (4, '2020-01-06 11:40:59'),
-       (1, '2020-03-17 11:40:59'),
-       (5, '2020-01-03 11:40:59'),
-       (1, '2020-05-06 11:40:59'),
-       (1, '2020-01-05 11:40:59'),
-       (6, '2020-05-03 11:40:59'),
-       (1, '2021-01-25 11:40:59'),
-       (1, '2020-03-09 11:40:59'),
-       (5, '2020-01-25 11:40:59'),
-       (5, '2020-01-14 11:40:59'),
-       (2, '2020-08-25 11:40:59'),
-       (2, '2020-01-03 11:40:59');
+values (1, '2020-01-15'),
+       (2, '2020-01-17'),
+       (3, '2020-01-18'),
+       (7, '2021-01-03'),
+       (8, '2020-01-29'),
+       (4, '2020-01-06'),
+       (1, '2020-03-17'),
+       (5, '2020-01-03'),
+       (1, '2020-05-06'),
+       (1, '2020-01-05'),
+       (6, '2020-05-03'),
+       (1, '2021-01-25'),
+       (1, '2020-03-09'),
+       (5, '2020-01-25'),
+       (5, '2020-01-14'),
+       (2, '2020-08-25'),
+       (2, '2020-01-03');
 
 insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
 values (2, 1, 2, 'CONFIRMED'),
