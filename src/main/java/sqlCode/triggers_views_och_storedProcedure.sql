@@ -98,7 +98,7 @@ BEGIN
 
     if returned is true
     then
-update order_line_item set status = 3 where FK_order_id=orderId AND FK_shoes_id=shoesId;
+update order_line_item set status = 5 where FK_order_id=orderId AND FK_shoes_id=shoesId;
 else
 		if (select FK_shoes_id from order_line_item where FK_order_id=orderId) = shoesId then
 update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
