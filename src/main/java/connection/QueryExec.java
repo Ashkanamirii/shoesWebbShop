@@ -147,7 +147,7 @@ public class QueryExec {
         return false;
     }
 
-    public static void addToCart(int customerId, int orderId, int shoesId, int quantity, int returnedShoesId){
+    public static void addToCart(int customerId, Integer orderId, int shoesId, int quantity, int returnedShoesId){
         Connection con = new ConnectionDB().getConnection();
         try {
             CallableStatement callableStatement= (CallableStatement) con.prepareCall("{call AddToCart(?,?,?,?,?)}");
@@ -166,6 +166,25 @@ public class QueryExec {
         }
 
 
+    }
+    public static int getCreatedOrder(int customerId, Integer orderId){
+        Connection con = new ConnectionDB().getConnection();
+        try {
+            CallableStatement callableStatement= (CallableStatement) con.prepareCall("{call getNewOrderId(?,?)}");
+            callableStatement.setInt(1,orderId);
+            callableStatement.setInt(2,customerId);
+
+
+            callableStatement.execute();
+            orderId=callableStatement.getInt(1);
+            callableStatement.close();
+
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return orderId;
     }
 
 }

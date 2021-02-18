@@ -143,7 +143,10 @@ public class WebbshopPage {
 
 
         // I added getId to use easier for the SP
-        confirmOrder.setOnAction(e->shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),6,s.getId(),s.getQuantity(),0)));
+        //first send orderId as -1, then get its orderId number and send with that
+        confirmOrder.setOnAction(e->{
+            int orderId=QueryExec.getCreatedOrder(UserLogin.getCustomer().getId(),-1);
+            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),0));});
     }
 
     //adds the shoes description panel
