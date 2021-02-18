@@ -1,5 +1,3 @@
--- testing stuff
-use shoes_workshop;
 
 -- update shoes quantity by order quantity
 create trigger update_stock
@@ -9,18 +7,6 @@ create trigger update_stock
     update shoes
     set shoes.quantity = shoes.quantity - NEW.quantity
     where shoes.id = NEW.FK_shoes_id;
-
--- create table NoStock
-create table no_stock
-(
-    id       int not null auto_increment primary key,
-    shoes_id int not null,
-    end_date timestamp default current_timestamp on update current_timestamp
-);
-
--- drop the table, just in case we have a non desired error
-drop table no_stock;
-
 
 -- update table NoStock
 delimiter //
@@ -32,15 +18,13 @@ create trigger update_no_stock
         from shoes
         where id = new.id) <= 0 then
         insert into no_stock(FK_shoes_id) values (new.id);
-    end if//
+end if//
 delimiter ;
-
--- drop the trigger, just in case we have a fatal error
-drop trigger update_no_stock;
 
 
 
 -- view for color and size.alter
+/*
 create view colors AS
 select distinct color
 from shoes;
@@ -48,37 +32,14 @@ from shoes;
 create view sizes AS
 select distinct size
 from shoes;
-
+*/
 -- need to insert an order id
 
-drop trigger update_stock;
-
-select *
-from order_line_item;
-
-insert into order_line_item(FK_shoes_id, FK_order_id, quantity)
-values (10, 9, 10);
-select *
-from shoes;
-
-SET SQL_SAFE_UPDATES = 0;
-
-/*
-IN(order.id int, customer_id int, shoes_id
-1 Om beställningen inte finns eller om vi skickar in null som beställningsid ska en ny beställning skapas och produkten läggas till i den.
 
 
-2 Om beställningen redan finns ska produkten läggas till i beställningen.
-.
-
-3 Om beställningen finns och produkten redan finns i den ska vi lägga till ytterligare ett exemplar av produkten i beställningen.
 
 
-4 För varje produkt som blir tillagd i en beställning ska lagerantalet av produkten minska. //DONE with trigger
-5 Använd dig av transaktioner och felhantering //
-
-*/
-*/
+-- SP to get order id when we create a new one (should be simplified, no need of null.) and maybe transform to a function.
 DELIMITER //
 create procedure getNewOrderId(INOUT orderId int ,IN customerId int)
 BEGIN
@@ -90,10 +51,12 @@ end if;
 end//
 DELIMITER ;
 
-drop procedure getNewOrderId;
+-- drop procedure getNewOrderId;
 
+
+-- Add to cart combined with getNewOrderId can create a new order. it can update an order, and can change the status if the product is returned
 DELIMITER //
-create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN quantity int, IN returned boolean)
+create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN ordered_quantity int, IN returned boolean)
 BEGIN
 
     if returned is true
@@ -101,23 +64,21 @@ BEGIN
 update order_line_item set status = 5 where FK_order_id=orderId AND FK_shoes_id=shoesId;
 else
 		if (select FK_shoes_id from order_line_item where FK_order_id=orderId) = shoesId then
-update order_line_item set FK_shoes_id=shoesId, quantity=quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
+update order_line_item set FK_shoes_id=shoesId, quantity=ordered_quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
 else
-		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,quantity);
+		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,ordered_quantity);
 end if;
 end if;
 end//
 DELIMITER ;
 
-drop procedure AddToCart;
-
--- testin addtocart
--- test if order is null
-call AddToCart(6, null, 3, 50);
--- test if order exists and has sent product (customer 5 changes order 15, changes quantity of shoes id 10 to 9)
-call AddToCart(5, 15, 10, 9);
--- test if order exists but has no sent product (customer 5 changes order 15, adds shoes 1 with quantity 3)
-call addToCart(5, 15, 1, 3);
-select id, FK_customer_id
-from orders
-where id = 4;
+-- trigger for status can transform to case, if want to trigger something else with the different status
+delimiter //
+create trigger on_status_update
+    after update on order_line_item
+    for each row
+begin
+    if new.status<>old.status and new.status= 'RETURNED' then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
+end if;
+end//
+delimiter ;
