@@ -83,8 +83,7 @@ create table orders
     id             int not null auto_increment primary key,
     FK_customer_id int,
     created        timestamp    DEFAULT current_timestamp,
-    orders_comment varchar(255) DEFAULT 'NI ÄR FANTASTIKA',
-    order_date     date  not null ,
+    order_date     date not null,
     foreign key (FK_customer_id) references customer (id) on delete set null on update cascade,
     updated        timestamp ON UPDATE CURRENT_TIMESTAMP
 
@@ -118,7 +117,8 @@ create table grade
 (
 
     id      int         not null auto_increment primary key,
-    name    varchar(50) not null,
+    name    varchar(50) not null unique,
+    rating_number int not null unique,
     created timestamp DEFAULT CURRENT_TIMESTAMP,
     updated timestamp ON UPDATE CURRENT_TIMESTAMP
 
@@ -128,9 +128,9 @@ create table surveys
 (
 
     id             int not null auto_increment,
-    comment        varchar(255) DEFAULT 'JAG ÄLSKAR MINA SKOR',
+    comment        varchar(255) DEFAULT 'no comment',
     FK_grade_id    int not null,
-    issue_date     timestamp    DEFAULT CURRENT_TIMESTAMP,
+    issue_date     DATE    DEFAULT null,
     FK_shoes_id    int not null,
     FK_customer_id int not null,
     primary key (id),
@@ -223,8 +223,7 @@ values (2, 1, 2, 'CONFIRMED'),
        (10, 1, 1, 'CONFIRMED'),
        (7, 2, 2, 'CONFIRMED'),
        (2, 2, 2, 'CONFIRMED'),
-       (8, 2, 2, 'CONFIRMED')
-        ,
+       (8, 2, 2, 'CONFIRMED'),
        (9, 2, 2, 'CONFIRMED'),
        (7, 3, 2, 'CONFIRMED'),
        (4, 3, 2, 'CONFIRMED'),
@@ -246,12 +245,8 @@ values (2, 1, 2, 'CONFIRMED'),
        (7, 17, 2, 5);
 
 
-insert into grade(name)
-values ('MISSNÖJD'),
-       ('GANSKA NÖJD'),
-       ('NÖJD'),
-       ('MYCKET NÖJD'),
-       ('FANTASTISK');
+insert into grade(name , rating_number)
+values ('BAD',1), ('GOODISH',2) , ('GOOD',3), ('VERY GOOD',4),('FANTASTIC',5);
 
 insert into surveys (FK_grade_id, FK_customer_id, FK_shoes_id)
 values (5, 1, 9),
