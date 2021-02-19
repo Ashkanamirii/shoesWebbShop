@@ -28,7 +28,7 @@ public class WebbshopPage {
     public TableColumn c5;
     public TableColumn c6;
     public TableColumn c7;
-    public TableView tableTest;
+
     public ComboBox showColors;
     public Button showTable;
     public TextField searchField;
@@ -36,7 +36,7 @@ public class WebbshopPage {
     public Label loginL;
     public PasswordField passF;
     public TextField email;
-    public Rating ratingTest;
+
     public TableView shoppingCartView;
     public TableColumn cartId;
     public TableColumn cartPrice;
@@ -94,7 +94,7 @@ public class WebbshopPage {
                 shoppinCartP.setVisible(true);
             }
         });
-        System.out.println(QueryExec.shoesListInfo("SELECT * FROM shoes;").toString());
+
         //Show in table-> brand, color, size,price,rating,category,quantity
         //TODO: implement rating and category to shoes.
         c1.setCellValueFactory(new PropertyValueFactory("brand"));
@@ -115,6 +115,10 @@ public class WebbshopPage {
             showColors.itemsProperty().setValue(QueryExec.getColorsList());
             showCategories.itemsProperty().setValue(QueryExec.getCategoriesList());
             showBrands.itemsProperty().setValue(QueryExec.getBrandList());
+
+            showColors.getSelectionModel().selectFirst();
+            showCategories.getSelectionModel().selectFirst();
+            showBrands.getSelectionModel().selectFirst();
             //using obs list
 
             shoesList = QueryExec.getShoesList();
@@ -125,6 +129,7 @@ public class WebbshopPage {
         }
         showBrands.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
+
         showColors.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         searchField.textProperty().addListener(((observableValue, s, t1) ->
@@ -139,6 +144,25 @@ public class WebbshopPage {
         showTable.setOnAction(e -> {
             shoesTable.setItems(shoesList);
         });
+
+
+
+        //create new order and get its id, then call addtocart and send the values for each element
+        confirmOrder.setOnAction(e->{
+            int orderId=QueryExec.getCreatedOrder(UserLogin.getCustomer().getId(),-1);
+            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),false));
+            //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
+            Dialog<String>dialogTest=new Dialog();
+            dialogTest.setHeaderText("Pay to confirm delivery");
+            dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress());
+            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
+            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
+            dialogTest.showAndWait();
+
+
+        });
+
+
     }
 
     //adds the shoes description panel

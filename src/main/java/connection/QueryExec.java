@@ -10,7 +10,9 @@ import utils.UserLogin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.CallableStatement;
 
 
 /**
@@ -170,6 +172,46 @@ public class QueryExec {
             e.printStackTrace();
         }
         return brand;
+    }
+
+    public static void addToCart(int customerId, Integer orderId, int shoesId, int quantity, boolean areReturned){
+        Connection con = new ConnectionDB().getConnection();
+        try {
+            CallableStatement callableStatement=  con.prepareCall("{call AddToCart(?,?,?,?,?)}");
+        callableStatement.setInt(1,customerId);
+        callableStatement.setInt(2,orderId);
+        callableStatement.setInt(3,shoesId);
+        callableStatement.setInt(4,quantity);
+        callableStatement.setBoolean(5,areReturned);
+
+        callableStatement.execute();
+        callableStatement.close();
+
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }
+    public static int getCreatedOrder(int customerId, Integer orderId){
+        Connection con = new ConnectionDB().getConnection();
+        try {
+            CallableStatement callableStatement= con.prepareCall("{call getNewOrderId(?,?)}");
+            callableStatement.setInt(1,orderId);
+            callableStatement.setInt(2,customerId);
+
+
+            callableStatement.execute();
+            orderId=callableStatement.getInt(1);
+            callableStatement.close();
+
+            con.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return orderId;
     }
 
 }

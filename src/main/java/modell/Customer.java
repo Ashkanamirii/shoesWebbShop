@@ -86,4 +86,6 @@ public class Customer {
         this.pswd = pswd;
     }
 
+    public int getId(){return id;}
+
 }
