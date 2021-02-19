@@ -10,24 +10,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebbshopPage">
+<AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #708090;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebbshopPage">
     <children>
         <Pane id="mainPane" layoutY="5.0" prefHeight="370.0" prefWidth="626.0">
             <children>
-                <TableView fx:id="shoesTable" layoutX="14.0" layoutY="60.0" prefHeight="200.0" prefWidth="541.0">
+                <TableView fx:id="shoesTable" layoutX="14.0" layoutY="60.0" prefHeight="215.0" prefWidth="591.0" stylesheets="@css/style.css">
                     <columns>
                         <TableColumn fx:id="c1" prefWidth="75.0" text="C1" />
                         <TableColumn fx:id="c2" prefWidth="75.0" text="C2" />
                         <TableColumn fx:id="c3" prefWidth="75.0" text="C3" />
                         <TableColumn fx:id="c4" prefWidth="75.0" text="C4" />
                         <TableColumn fx:id="c5" prefWidth="75.0" text="C5" />
-                        <TableColumn fx:id="c6" prefWidth="84.0" text="C6" />
-                        <TableColumn fx:id="c7" prefWidth="80.800048828125" text="C7" />
+                        <TableColumn fx:id="c6" prefWidth="115.20001220703125" text="C6" />
+                        <TableColumn fx:id="c7" minWidth="0.0" prefWidth="75.20001220703125" text="C7" />
                     </columns>
                 </TableView>
                 <ComboBox fx:id="showColors" layoutX="438.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
                 <Button fx:id="showTable" layoutX="23.0" layoutY="312.0" mnemonicParsing="false" text="Show all" />
-                <TextField fx:id="searchField" layoutX="151.0" layoutY="23.0" prefHeight="25.0" prefWidth="404.0" promptText="Type to search" />
+                <TextField fx:id="searchField" layoutX="151.0" layoutY="23.0" prefHeight="25.0" prefWidth="436.0" promptText="Type to search" />
                 <ComboBox fx:id="showBrands" layoutX="295.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
                 <ComboBox fx:id="showCategories" layoutX="160.0" layoutY="312.0" prefHeight="25.0" prefWidth="117.0" />
                 <Label layoutX="469.0" layoutY="279.0" text="Select colors" />
@@ -36,8 +36,8 @@
             <Label layoutX="99.0" layoutY="27.0" text="Search" />
             </children>
         </Pane>
-        <Label fx:id="loginL" alignment="CENTER" layoutX="673.0" layoutY="18.0" prefHeight="18.0" prefWidth="258.0" text="Log in" textAlignment="CENTER" />
-        <Pane fx:id="loginPane" layoutX="666.0" layoutY="36.0" prefHeight="134.0" prefWidth="247.0">
+        <Label fx:id="loginL" alignment="CENTER" layoutX="691.0" layoutY="14.0" prefHeight="18.0" prefWidth="258.0" text="Log in" textAlignment="CENTER" />
+        <Pane fx:id="loginPane" layoutX="684.0" layoutY="36.0" prefHeight="134.0" prefWidth="272.0" style="-fx-background-color: rgb(164, 130, 42);">
             <children>
                 <Button fx:id="startLogInB" layoutX="138.0" layoutY="97.0" mnemonicParsing="false" text="Log in" />
                 <PasswordField fx:id="passF" layoutX="88.0" layoutY="55.0" />
@@ -47,13 +47,13 @@
                 <Label layoutX="14.0" layoutY="59.0" text="Password" />
             </children>
         </Pane>
-        <Pane fx:id="shoppinCartP" layoutX="604.0" layoutY="158.0" prefHeight="440.0" prefWidth="330.0">
+        <Pane fx:id="shoppinCartP" layoutX="655.0" layoutY="155.0" prefHeight="440.0" prefWidth="330.0">
             <children>
-                <TableView fx:id="shoppingCartView" layoutX="34.0" layoutY="59.0" prefHeight="323.0" prefWidth="282.0">
+                <TableView fx:id="shoppingCartView" layoutX="34.0" layoutY="59.0" prefHeight="323.0" prefWidth="282.0" stylesheets="@css/style.css">
                     <columns>
                         <TableColumn fx:id="cartBrand" prefWidth="97.60009765625" text="Brand" />
                         <TableColumn fx:id="cartPrice" prefWidth="98.39990234375" text="price" />
-                        <TableColumn fx:id="cartQuantity" prefWidth="103.2000732421875" text="quantity" />
+                        <TableColumn fx:id="cartQuantity" prefWidth="84.4000244140625" text="quantity" />
                     </columns>
                 </TableView>
                 <Label layoutX="175.0" layoutY="398.0" text="TOTAL PRICE" />
@@ -63,6 +63,6 @@
             <Button fx:id="myPageB" layoutX="125.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="MY PAGE" />
             </children>
         </Pane>
-        <Pane fx:id="shoesDescriptionP" layoutX="20.0" layoutY="375.0" prefHeight="200.0" prefWidth="530.0" />
+        <Pane fx:id="shoesDescriptionP" layoutX="26.0" layoutY="358.0" prefHeight="200.0" prefWidth="530.0" stylesheets="@css/style.css" />
     </children>
 </AnchorPane>

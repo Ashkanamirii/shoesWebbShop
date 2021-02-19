@@ -9,3 +9,34 @@
 .active {
     -fx-text-fill: #b22222;
 }
+.table-view{
+    -fx-background-color:transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-insets: 0 11px 0 0;
+
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+    -fx-text-background-color:black;
+}
+.table-row-cell:hover {
+    -fx-background-color: transparent;
+    -fx-text-background-color:orange;
+}
+.table-row-cell:odd{
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell:even{
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.column-header{
+    -fx-background-color: transparent;
+}
