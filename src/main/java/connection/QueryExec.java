@@ -2,11 +2,13 @@ package connection;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import modell.Brand;
 import modell.Customer;
 import modell.Shoes;
 import utils.UserLogin;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -143,6 +145,31 @@ public class QueryExec {
             e.getCause();
         }
         return false;
+    }
+
+    public Brand getBrandByShoesId(int shoesID){
+        Brand brand = null;
+        ResultSet rs = null;
+        String query = "select b.id, b.name "
+                + "from brand b " +
+                "inner join shoes sh on sh.FK_brand_id = b.id "
+                + "where sh.id = ?";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)){
+
+            stmt.setString(1, shoesID+"");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                brand = new Brand(
+                        rs.getInt("id"),rs.getString("name"));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return brand;
     }
 
 }

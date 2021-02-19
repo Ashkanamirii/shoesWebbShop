@@ -8,5 +8,67 @@ package modell;
  * Copyright: MIT
  */
 public class Surveys {
+    private int id;
+    private String comment;
+    private String grade;
+    private String issueDate;
+    private Shoes shoesId;
+    private Customer customer;
 
+    public Surveys(int id, String comment, String grade, String issueDate, Shoes shoesId, Customer customer) {
+        this.id = id;
+        this.comment = comment;
+        this.grade = grade;
+        this.issueDate = issueDate;
+        this.shoesId = shoesId;
+        this.customer = customer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
+    }
+
+    public Shoes getShoesId() {
+        return shoesId;
+    }
+
+    public void setShoesId(Shoes shoesId) {
+        this.shoesId = shoesId;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }
