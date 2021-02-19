@@ -17,6 +17,7 @@ public class Shoes {
     private SimpleIntegerProperty shoes_number;
     private SimpleStringProperty brand;
     private int brandId;//TODO: tar FK_brand_id
+    private Brand brand1;
     private SimpleStringProperty color;
     private SimpleIntegerProperty price;
     private SimpleIntegerProperty quantity;
