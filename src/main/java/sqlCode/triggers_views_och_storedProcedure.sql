@@ -94,8 +94,10 @@ BEGIN
             -- status return for
         then
             update order_line_item
-            set FK_shoes_id = shoesId, quantity = _quantity
-            where FK_order_id = orderId AND FK_shoes_id = shoesId;
+            set FK_shoes_id = shoesId,
+                quantity    = _quantity
+            where FK_order_id = orderId
+              AND FK_shoes_id = shoesId;
         else
             insert into order_line_item (FK_order_id, FK_shoes_id, quantity) values (orderId, shoesId, _quantity);
         end if;

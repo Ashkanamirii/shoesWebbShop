@@ -235,6 +235,7 @@ values (5, 1, 9),
        (1, 5, 2),
        (5, 2, 2);
 
+
 create index IX_customerName on customer (name);
 ALTER TABLE shoes
     ADD COLUMN quantity INT NOT NULL DEFAULT 0 AFTER updated;

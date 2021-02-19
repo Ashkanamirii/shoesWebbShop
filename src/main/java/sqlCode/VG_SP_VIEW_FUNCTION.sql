@@ -18,7 +18,7 @@ END$$
 
 DELIMITER ;
 
-select getShoesAverageGrade(2); -- 4,5
+select getShoesAverageGrade(10); -- 4,5
 
 
 -- Skapa en vy som visar medelbetyget i siffror och i text för samtliga produkter (om en produkt inte
