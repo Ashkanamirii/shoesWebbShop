@@ -1,7 +1,7 @@
 -- skapas alla tabeller med främmande nycklar och används av de olika varianter av referens-integritet
-drop database if exists shoesDB;
-create database shoesDB;
-use shoesDB;
+drop database if exists shoes_enum;
+create database shoes_enum;
+use shoes_enum;
 -- SET SQL_SAFE_UPDATES = 0;
 
 create table brand
@@ -50,13 +50,9 @@ create table shoes
     FK_brand_id  int            not null,
     color        varchar(15)    not null,
     price        decimal(11, 2) not null,
--- När nyckeln till en post i Brand-tabellen uppdateras vill vi också
--- uppdatera FK_brand_id-värdet i Shoes-tabellen.
--- om en brand uppdaterats då kommer att uppdatera också i shoes tabellen.
     foreign key (FK_brand_id) references brand (id) on update cascade,
     created      timestamp DEFAULT CURRENT_TIMESTAMP,
     updated      timestamp ON UPDATE CURRENT_TIMESTAMP
-
 
 );
 
@@ -66,10 +62,6 @@ create table shoes_category
     FK_category_id int not null,
     FK_shoes_id    int not null,
     primary key (FK_category_id, FK_shoes_id),-- undvika att man gör dubbel lagring
-
--- När en post i Shoes-tabellen tas bort vill vi att alla Shoes-poster från
--- det märket också ska tas bort ur Shoes_category-tabellen
--- men om en category updaterats då blir också updaterats posten här.
     foreign key (FK_category_id) references category (id) on update cascade,
     foreign key (FK_shoes_id) references shoes (id) on delete cascade on update cascade,
     created        timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -113,28 +105,17 @@ create table order_line_item
     updated     timestamp ON UPDATE CURRENT_TIMESTAMP
 );
 
-create table grade
-(
-
-    id      int         not null auto_increment primary key,
-    name    varchar(50) not null unique,
-    rating_number int not null unique,
-    created timestamp DEFAULT CURRENT_TIMESTAMP,
-    updated timestamp ON UPDATE CURRENT_TIMESTAMP
-
-);
 
 create table surveys
 (
 
     id             int not null auto_increment,
     comment        varchar(255) DEFAULT 'no comment',
-    FK_grade_id    int not null,
-    issue_date     DATE    DEFAULT null,
+    grade      ENUM ('BAD', 'GOODISH' , 'GOOD' , 'VERYGOOD','FANTASTIC') not null ,
+    issue_date     date    DEFAULT null,
     FK_shoes_id    int not null,
     FK_customer_id int not null,
     primary key (id),
-    foreign key (FK_grade_id) references grade (id) on update cascade,
     foreign key (FK_shoes_id) references shoes (id) on delete cascade,
     foreign key (FK_customer_id) references customer (id) on delete cascade,
     created        timestamp    DEFAULT CURRENT_TIMESTAMP,
@@ -244,11 +225,7 @@ values (2, 1, 2, 'CONFIRMED'),
        (7, 17, 2, 1),
        (7, 17, 2, 5);
 
-
-insert into grade(name , rating_number)
-values ('BAD',1), ('GOODISH',2) , ('GOOD',3), ('VERY GOOD',4),('FANTASTIC',5);
-
-insert into surveys (FK_grade_id, FK_customer_id, FK_shoes_id)
+insert into surveys (grade, FK_customer_id, FK_shoes_id)
 values (5, 1, 9),
        (4, 1, 10),
        (2, 1, 2),
@@ -258,17 +235,7 @@ values (5, 1, 9),
        (1, 5, 2),
        (5, 2, 2);
 
--- create index IX_brandName on brand(name);   Det är inte rimlig för att vi har inte så många brander i varkligheten.
 create index IX_customerName on customer (name);
-
-
--- Sigruns krav
--- ER-modellen ska vara på 3NF. Om du medvetet väljer att frångå 3NF för någon eller några
--- tabeller ska detta motiveras med en bra anledning varför, i en kommentar.
--- vår anledning
--- Gäller om 3NF måste vi dela upp customer och country till 2 separata tabell (country -> address)
--- DOCK behöver vi  inte göra det för att det är onödigt(med tänk på databas krav) för vår databas dessutom vi betjänt inte oss att ha två separata tabell.
-
 ALTER TABLE shoes
     ADD COLUMN quantity INT NOT NULL DEFAULT 0 AFTER updated;
 
