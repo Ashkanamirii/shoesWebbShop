@@ -2,6 +2,7 @@ package controller;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import modell.Shoes;
 import utils.UserLogin;
@@ -29,7 +30,10 @@ public class ShoesDescription {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
-
+        switch(shoesData.getBrand().getName()){
+            case "Adidas"->shoesImage.setImage(new Image("src/main/resources/img/adibas.png"));
+            case "Reebok"->shoesImage.setImage(new Image("src/main/resources/img/reebok.jpg"));
+        }
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
