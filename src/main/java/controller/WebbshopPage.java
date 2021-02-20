@@ -165,6 +165,7 @@ public class WebbshopPage {
             dialogTest.setHeaderText("Pay to confirm delivery");
             dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress()+"\n"+
                     "ORDER ID"+ orderId);
+            dialogTest.setHeight(600);
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
             dialogTest.showAndWait();

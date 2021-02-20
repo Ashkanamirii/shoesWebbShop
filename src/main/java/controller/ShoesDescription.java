@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import modell.Shoes;
 import utils.UserLogin;
 
-import java.util.stream.Collector;
 
 /**
  * Created by Hodei Eceiza
@@ -37,6 +36,7 @@ public class ShoesDescription {
 
         brandL.setText(shoesData.getBrand().getName());
         colorL.setText(shoesData.getColor());
+        categoryL.setText(shoesData.getCategoriesP());
         priceL.setText(shoesData.getPrice() + "");
         sizeL.setText(shoesData.getSize() + "");
         onStockL.setText((shoesData.getQuantity() > 0) ? "ON STOCK" : "NO AVAILABLE");
