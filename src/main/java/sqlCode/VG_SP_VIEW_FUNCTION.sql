@@ -79,3 +79,48 @@ call rate(1,9,3,"it's so so");
 call rate(1,3,1,"AWFUL");
 call rate(4,3,5,"BEST IN THE WORLD");
 call rate(6,3,1,"I hate these shoes");
+call rate(1,5,5,"BEST IN THE WORLD");
+
+select *  from surveys;
+
+
+DELIMITER $$
+create procedure customerHistory(
+in custID INT
+)
+BEGIN
+    select o.id as ORDER_ID , o.order_date as DATE, oli.quantity , sh.color ,
+           sh.shoes_number , b.name, oli.status from customer c
+        join orders o on o.FK_customer_id = c.id
+        join order_line_item oli on oli.FK_order_id = o.id
+        join shoes sh on sh.id = oli.FK_shoes_id
+        join brand b on b.id = sh.FK_brand_id
+    where c.id = custID and oli.status in(1,5)
+    order by DATE;
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+create procedure invoice(
+    in ordID INT
+)
+BEGIN
+    select o.id as ORDER_ID , o.order_date as DATE, b.name,  sh.color ,
+           sh.shoes_number , oli.quantity  , sh.price ,
+           oli.quantity * sh.price as total_price from customer c
+           join
+               orders o on o.FK_customer_id = c.id
+           join
+               order_line_item oli on oli.FK_order_id = o.id
+           join
+               shoes sh on sh.id = oli.FK_shoes_id
+           join
+               brand b on b.id = sh.FK_brand_id
+    where o.id = ordID and oli.status in(2)
+    order by DATE;
+END$$
+
+DELIMITER ;
