@@ -97,12 +97,12 @@ public class WebbshopPage {
 
         //Show in table-> brand, color, size,price,rating,category,quantity
         //TODO: implement rating and category to shoes.
-        c1.setCellValueFactory(new PropertyValueFactory("brand"));
+        c1.setCellValueFactory(new PropertyValueFactory("brandP"));
         c2.setCellValueFactory(new PropertyValueFactory("color"));
         c3.setCellValueFactory(new PropertyValueFactory("size"));
         c4.setCellValueFactory(new PropertyValueFactory("price"));
         //c5.setCellValueFactory(new PropertyValueFactory("rating"));
-        //c6.setCellValueFactory(new PropertyValueFactory("category"));
+        c6.setCellValueFactory(new PropertyValueFactory("categoriesP"));
         c7.setCellValueFactory(new PropertyValueFactory("quantity"));
         c1.setText("Brand");
         c2.setText("Color");
@@ -127,6 +127,8 @@ public class WebbshopPage {
             System.out.println("ERROR");
             e.printStackTrace();
         }
+        showCategories.valueProperty().addListener(((observableValue, o, t1) ->
+                shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         showBrands.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
 
@@ -195,7 +197,8 @@ public class WebbshopPage {
     //Now searches only color and brand
     private boolean isFound(Shoes shoesData, String searchText) {
         return (shoesData.getColor().toLowerCase().contains(searchText.toLowerCase())
-                || shoesData.getBrand().toLowerCase().contains(searchText.toLowerCase()));
+                || shoesData.getBrand().getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                shoesData.getCategoriesP().toLowerCase().contains(searchText.toLowerCase()));
     }
 
 

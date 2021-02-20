@@ -3,6 +3,9 @@ package modell;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-11
@@ -15,22 +18,54 @@ public class Shoes {
     private SimpleIntegerProperty id;
     private SimpleIntegerProperty size;
     private SimpleIntegerProperty shoes_number;
-    private SimpleStringProperty brand;
-    private int brandId;//TODO: tar FK_brand_id
-    private Brand brand1;
+    private SimpleStringProperty brandP;
+    private SimpleStringProperty categoriesP;
+    private Brand brand;
+    private List<Category> categories;
     private SimpleStringProperty color;
     private SimpleIntegerProperty price;
     private SimpleIntegerProperty quantity;
 
-    public Shoes(int id, int size, int shoes_number, String brand, String color, int price, int quantity) {
+    public Shoes(int id, int size, int shoes_number, Brand brand, List<Category>categories,String color, int price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
-        this.brand = new SimpleStringProperty(brand);
+        this.brandP = new SimpleStringProperty(brand.getName());
+        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+        this.brand=brand;
+        this.categories=categories;
         this.color = new SimpleStringProperty(color);
         this.price = new SimpleIntegerProperty(price);
         this.quantity = new SimpleIntegerProperty(quantity);
 
+    }
+
+    public String getCategoriesP() {
+        return categoriesP.get();
+    }
+
+    public SimpleStringProperty categoriesPProperty() {
+        return categoriesP;
+    }
+
+    public void setCategoriesP(String categoriesP) {
+        this.categoriesP.set(categoriesP);
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public int getId() {
@@ -69,16 +104,18 @@ public class Shoes {
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
     }
 
-    public String getBrand() {
-        return brand.get();
+    public String getBrandP() {
+        return brandP.get();
     }
+
+
 
     public SimpleStringProperty brandProperty() {
-        return brand;
+        return brandP;
     }
 
-    public void setBrand(String brand) {
-        this.brand = new SimpleStringProperty(brand);
+    public void setBrandP(String brand) {
+        this.brandP = new SimpleStringProperty(brand);
     }
 
     public String getColor() {
