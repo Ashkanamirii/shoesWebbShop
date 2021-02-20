@@ -151,11 +151,13 @@ public class WebbshopPage {
         confirmOrder.setOnAction(e->{
             shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,s.getId(),s.getQuantity(),2));
 
+            int orderId=QueryExec.getLastPayedOrderByStatus(shoppingCart.get(shoppingCart.size()-1).getId(),2);
+            System.out.println(orderId);
             //UserLogin.getCustomer().getOrders().add(shoppingCart.forEach(s->new OrderLineItem(s.getId(),s.getQuantity(),s.setStatus("PAYING"));
 
 
             //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
-/*
+
 
             Dialog<String>dialogTest=new Dialog();
             dialogTest.setHeaderText("Pay to confirm delivery");
@@ -166,7 +168,7 @@ public class WebbshopPage {
             dialogTest.showAndWait();
 
 
- */
+
 
         });
 

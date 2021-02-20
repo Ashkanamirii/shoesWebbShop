@@ -188,5 +188,23 @@ public class QueryExec {
 
 
     }
-
+    //for testing!!!!!! gets the last order id by status
+    public static int getLastPayedOrderByStatus(int shoesId,int statusEnum) {
+        int orderId= 0;
+        try {
+            Connection con = new ConnectionDB().getConnection();
+            String query="select max(FK_order_id) as orderId from order_line_item where FK_shoes_id=? and status=?;";
+            PreparedStatement stmt=con.prepareStatement(query);
+            stmt.setInt(1,shoesId);
+            stmt.setInt(2,statusEnum);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            orderId=rs.getInt("orderId");
+            con.close();
+        } catch (Exception e) {
+            System.out.println("didnt find any");
+            e.printStackTrace();
+        }
+        return orderId;
+    }
 }
