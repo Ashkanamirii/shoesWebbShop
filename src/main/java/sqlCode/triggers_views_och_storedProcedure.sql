@@ -1,12 +1,18 @@
+-- updates the stock based on status.
+delimiter //
+create trigger update_stock_on_status
 
--- update shoes quantity by order quantity
-create trigger update_stock
-    after insert
-    on order_line_item
+    after insert on order_line_item
     for each row
-    update shoes
-    set shoes.quantity = shoes.quantity - NEW.quantity
-    where shoes.id = NEW.FK_shoes_id;
+begin
+    case
+    when new.status='RETURNED'  or new.status='CANCEL' or new.status ='AUTO_CANCEL'
+		then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
+    when new.status='PAYING'
+		then update shoes set quantity=shoes.quantity-new.quantity where shoes.id=new.FK_shoes_id;
+end case;
+end//
+delimiter ;
 
 -- update table NoStock
 delimiter //
@@ -21,7 +27,7 @@ create trigger update_no_stock
 end if//
 delimiter ;
 
-
+--DOWN HERE EXPERIMENTS AND OLD DRAFTS
 
 -- view for color and size.alter
 /*
@@ -36,9 +42,6 @@ from shoes;
 -- need to insert an order id
 
 
-
-
-
 -- SP to get order id when we create a new one (should be simplified, no need of null.) and maybe transform to a function.
 DELIMITER //
 create procedure getNewOrderId(INOUT orderId int ,IN customerId int)
@@ -51,35 +54,7 @@ end if;
 end//
 DELIMITER ;
 
--- drop procedure getNewOrderId;
+ drop procedure getNewOrderId;
 
-3 Om beställningen finns och produkten redan finns i den ska vi lägga till ytterligare ett exemplar av produkten i beställningen.
 
--- Add to cart combined with getNewOrderId can create a new order. it can update an order, and can change the status if the product is returned
-DELIMITER //
-create procedure AddToCart (IN customerId int, IN orderId int, IN shoesId int, IN ordered_quantity int, IN returned boolean)
-BEGIN
 
-    if returned is true
-    then
-update order_line_item set status = 5 where FK_order_id=orderId AND FK_shoes_id=shoesId;
-else
-		if (select FK_shoes_id from order_line_item where FK_order_id=orderId) = shoesId then
-update order_line_item set FK_shoes_id=shoesId, quantity=ordered_quantity where FK_order_id=orderId AND FK_shoes_id=shoesId;
-else
-		insert into order_line_item (FK_order_id,FK_shoes_id,quantity) values (orderId,shoesId,ordered_quantity);
-end if;
-end if;
-end//
-DELIMITER ;
-
--- trigger for status can transform to case, if want to trigger something else with the different status
-delimiter //
-create trigger on_status_update
-    after update on order_line_item
-    for each row
-begin
-    if new.status<>old.status and new.status= 'RETURNED' then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
-end if;
-end//
-delimiter ;

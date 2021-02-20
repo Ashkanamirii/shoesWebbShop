@@ -1,6 +1,5 @@
 package modell;
 
-import connection.QueryExec;
 
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class Customer {
     private String country;
     private String email;
     private String pswd;
+    private List<Orders> orders;
+
 
     public Customer(int id,String name, String phoneNumber, String address, String country, String email, String pswd) {
         this.name = name;

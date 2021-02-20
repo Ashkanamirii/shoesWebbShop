@@ -149,16 +149,24 @@ public class WebbshopPage {
 
         //create new order and get its id, then call addtocart and send the values for each element
         confirmOrder.setOnAction(e->{
-            int orderId=QueryExec.getCreatedOrder(UserLogin.getCustomer().getId(),-1);
-            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),false));
+            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,s.getId(),s.getQuantity(),2));
+
+            //UserLogin.getCustomer().getOrders().add(shoppingCart.forEach(s->new OrderLineItem(s.getId(),s.getQuantity(),s.setStatus("PAYING"));
+
+
             //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
+/*
+
             Dialog<String>dialogTest=new Dialog();
             dialogTest.setHeaderText("Pay to confirm delivery");
-            dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress());
+            dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress()+"\n"+
+                    "ORDER ID"+ orderId);
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
             dialogTest.showAndWait();
 
+
+ */
 
         });
 
