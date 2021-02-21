@@ -1,4 +1,4 @@
-package modell;
+package modell.to;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class NoStock {
     private int id;
-    private List<Shoes> shoesId ;
+    private Shoes shoesId;
     private String endDate;
 
-    public NoStock(int id, List<Shoes> shoesId, String endDate) {
+    public NoStock(int id, Shoes shoesId, String endDate) {
         this.id = id;
         this.shoesId = shoesId;
         this.endDate = endDate;
@@ -28,11 +28,11 @@ public class NoStock {
         this.id = id;
     }
 
-    public List<Shoes> getShoesId() {
+    public Shoes getShoesId() {
         return shoesId;
     }
 
-    public void setShoesId(List<Shoes> shoesId) {
+    public void setShoesId(Shoes shoesId) {
         this.shoesId = shoesId;
     }
 

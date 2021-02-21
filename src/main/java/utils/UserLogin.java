@@ -1,12 +1,10 @@
 package utils;
 
-import connection.ConnectionDB;
 import connection.QueryExec;
-import modell.Customer;
+import modell.bl.CustomerManagerImpl;
+import modell.to.Customer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 /**
  * Created by Ashkan Amiri
@@ -21,11 +19,12 @@ public class UserLogin {
     private String password;
     private boolean isLogged;
     private Customer customer;
+    CustomerManagerImpl customerManager = new CustomerManagerImpl();
 
-    private UserLogin(String email, String password) {
+    private UserLogin(String email, String password){
         this.email = email;
         this.password = password;
-        this.isLogged = checkPassword();
+        this.isLogged = getIsLogged();
         //here we can run query
     }
 
@@ -37,11 +36,11 @@ public class UserLogin {
         return instance;
     }
 
-    private boolean checkPassword() {
-        return (QueryExec.validLogin(email,password));
+    private boolean checkPassword(){
+        return (customerManager.CheckValidCustomerByUserPswd(email,password));
     }
 
-    public static boolean getIsLogged() {
+    public static boolean getIsLogged(){
          instance.checkPassword();
         return instance.isLogged;
     }

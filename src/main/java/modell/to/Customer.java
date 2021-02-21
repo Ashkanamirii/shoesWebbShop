@@ -1,7 +1,5 @@
-package modell;
+package modell.to;
 
-
-import java.util.List;
 
 /**
  * Created by Ashkan Amiri
@@ -18,10 +16,11 @@ public class Customer {
     private String country;
     private String email;
     private String pswd;
-    private List<Orders> orders;
 
+    public Customer() {
+    }
 
-    public Customer(int id,String name, String phoneNumber, String address, String country, String email, String pswd) {
+    public Customer(int id, String name, String phoneNumber, String address, String country, String email, String pswd) {
         this.name = name;
         this.id = id;
         this.phoneNumber = phoneNumber;
@@ -30,6 +29,7 @@ public class Customer {
         this.email = email;
         this.pswd = pswd;
     }
+
     public Customer(String name, String phoneNumber, String address, String country, String email, String pswd) {
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -87,6 +87,11 @@ public class Customer {
         this.pswd = pswd;
     }
 
-    public int getId(){return id;}
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }

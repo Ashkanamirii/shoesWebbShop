@@ -5,13 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import modell.Shoes;
-import org.controlsfx.control.Rating;
+import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
 
@@ -137,7 +135,8 @@ public class WebbshopPage {
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
-                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()), shoppingCart, totalPriceL);
+                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().
+                                getSelectedItem()), shoppingCart, totalPriceL);
 
                 }
         );
@@ -146,12 +145,13 @@ public class WebbshopPage {
         });
 
 
-
         //create new order and get its id, then call addtocart and send the values for each element
-        confirmOrder.setOnAction(e->{
-            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,s.getId(),s.getQuantity(),2));
+        confirmOrder.setOnAction(e -> {
+            shoppingCart.forEach(s -> QueryExec.addToCart(UserLogin.getCustomer().getId()
+                    , -1, s.getId(), s.getQuantity(), 2));
 
-            int orderId=QueryExec.getLastPayedOrderByStatus(shoppingCart.get(shoppingCart.size()-1).getId(),2);
+            int orderId = QueryExec.getLastPayedOrderByStatus
+                    (shoppingCart.get(shoppingCart.size() - 1).getId(), 2);
             System.out.println(orderId);
             //UserLogin.getCustomer().getOrders().add(shoppingCart.forEach(s->new OrderLineItem(s.getId(),s.getQuantity(),s.setStatus("PAYING"));
 
@@ -159,15 +159,15 @@ public class WebbshopPage {
             //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
 
 
-            Dialog<String>dialogTest=new Dialog();
+            Dialog<String> dialogTest = new Dialog();
             dialogTest.setHeaderText("Pay to confirm delivery");
-            dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress()+"\n"+
-                    "ORDER ID"+ orderId);
+            dialogTest.setContentText(shoppingCart.toString() + "\n" +
+                    UserLogin.getCustomer().getName() +
+                    UserLogin.getCustomer().getAddress() + "\n" +
+                    "ORDER ID" + orderId);
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
             dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
             dialogTest.showAndWait();
-
-
 
 
         });

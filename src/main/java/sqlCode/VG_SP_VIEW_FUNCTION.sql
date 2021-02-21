@@ -28,7 +28,7 @@ create view product_average_rate as
 with rate as(
     SELECT
         sh.id as shoes_ID,
-        count(*) as count,
+        count(*) as Number_Of_Rating,
         b.name AS shoes_name,
         sh.shoes_number as shoesNumber,
         cast(avg(s.grade) as decimal(10,2)) AS Average_Rate
@@ -40,13 +40,13 @@ with rate as(
         brand b ON b.id = sh.FK_brand_id
     GROUP BY sh.shoes_number
 )
-select shoes_ID , count , shoes_name , shoesNumber , Average_Rate,
+select shoes_name , shoesNumber , Number_Of_Rating ,  Average_Rate,
        case when Average_Rate >= 4.70 then 'FANTASTIC'
             when Average_Rate >= 4 then 'VERY GOOD'
             when Average_Rate >= 3 then 'GOOD'
             when Average_Rate >= 2 then 'GOODISH'
             when Average_Rate >= 1 then 'BAD'
-           end as 'Avrage Rate'
+           end as 'Rate'
 from rate
 group by shoes_ID
 order by  average_rate DESC;
@@ -75,11 +75,11 @@ END$$
 
 DELIMITER ;
 
-call rate(1,9,3,"it's so so");
-call rate(1,3,1,"AWFUL");
-call rate(4,3,5,"BEST IN THE WORLD");
-call rate(6,3,1,"I hate these shoes");
-call rate(1,5,5,"BEST IN THE WORLD");
+call rate(1,9,3,'its so so');
+call rate(1,3,1,'AWFUL');
+call rate(4,3,5,'BEST IN THE WORLD');
+call rate(6,3,1,'I hate these shoes');
+call rate(1,5,5,'BEST IN THE WORLD');
 
 select *  from surveys;
 
@@ -89,8 +89,8 @@ create procedure customerHistory(
 in custID INT
 )
 BEGIN
-    select o.id as ORDER_ID , o.order_date as DATE, oli.quantity , sh.color ,
-           sh.shoes_number , b.name, oli.status from customer c
+    select o.id as ORDER_ID , o.order_date as DATE, oli.quantity ,sh.price, sh.color ,
+           sh.shoes_number , b.name, oli.status , sh.price * oli.quantity as total_price from customer c
         join orders o on o.FK_customer_id = c.id
         join order_line_item oli on oli.FK_order_id = o.id
         join shoes sh on sh.id = oli.FK_shoes_id

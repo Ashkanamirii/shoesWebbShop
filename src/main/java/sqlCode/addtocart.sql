@@ -12,14 +12,14 @@ create procedure AddToCart(
 BEGIN
     DECLARE
 getOrderID int;
-start transaction;
+
 -- första click
 if
 orderId=-1 then set orderId=null;
 end if;
     if (_status = 2 and orderId is null)
     then -- PAYING måste insertera i order line item
-        insert into orders(FK_customer_id, order_date) VALUES (1, current_date());
+        insert into orders(FK_customer_id, order_date) VALUES (customerId, current_date());
         set
 getOrderID = last_insert_id();
 insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
@@ -52,7 +52,6 @@ END IF;
 END IF;
 END IF;
 END IF;
-commit;
 end
 //
 DELIMITER ;

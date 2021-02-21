@@ -2,9 +2,9 @@ package connection;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import modell.Brand;
-import modell.Customer;
-import modell.Shoes;
+import modell.to.Brand;
+import modell.to.Customer;
+import modell.to.Shoes;
 import utils.UserLogin;
 
 import java.sql.*;

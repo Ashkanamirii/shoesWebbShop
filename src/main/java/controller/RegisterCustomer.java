@@ -1,15 +1,16 @@
 package controller;
 
-import connection.QueryExec;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import modell.Customer;
+import modell.bl.CustomerManagerImpl;
+import modell.to.Customer;
 import utils.Utils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by Miwa Guhrés
@@ -32,6 +33,7 @@ public class RegisterCustomer {
     public TextField phone;
     public TextField country;
     public Label regLabel;
+    private CustomerManagerImpl customerManager = new CustomerManagerImpl();
 
 
     public void initialize() {
@@ -64,9 +66,16 @@ public class RegisterCustomer {
     }
 
     private void registerNewCustomer() {
-        Customer c = new Customer(name.getText(), phone.getText(), address.getText(),
-                country.getText(), email.getText(), Utils.getMd5(pswd.getText()));
-        QueryExec.insertIntoCustomer(c);
+        try {
+            Customer c = new Customer(name.getText(), phone.getText(), address.getText(),
+                    country.getText(), email.getText(), Utils.getMd5(pswd.getText()));
+            customerManager.registerCustomer(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Register " + name.getText() + " has been faild \n" + e.getMessage());
+            e.getSQLState();
+            e.getErrorCode();
+        }
     }
 
     public boolean checkInput() {

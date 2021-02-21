@@ -1,4 +1,4 @@
-package modell;
+package modell.to;
 
 /**
  * Created by Ashkan Amiri
@@ -13,15 +13,18 @@ public class Surveys {
     private String grade;
     private String issueDate;
     private Shoes shoesId;
-    private Customer customer;
+    private Customer customerId;
 
-    public Surveys(int id, String comment, String grade, String issueDate, Shoes shoesId, Customer customer) {
+    public Surveys() {
+    }
+
+    public Surveys(int id, String comment, String grade, String issueDate, Shoes shoesId, Customer customerId) {
         this.id = id;
         this.comment = comment;
         this.grade = grade;
         this.issueDate = issueDate;
         this.shoesId = shoesId;
-        this.customer = customer;
+        this.customerId = customerId;
     }
 
     public int getId() {
@@ -64,11 +67,11 @@ public class Surveys {
         this.shoesId = shoesId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
     }
 }

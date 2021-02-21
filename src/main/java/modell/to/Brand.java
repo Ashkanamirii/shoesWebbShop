@@ -1,4 +1,4 @@
-package modell;
+package modell.to;
 
 /**
  * Created by Ashkan Amiri

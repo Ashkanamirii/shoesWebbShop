@@ -17,7 +17,9 @@
     opens connection;
     opens controller;
     opens main;
-    opens modell;
+    opens modell.bl;
+    opens modell.da;
+    opens modell.to;
     opens utils;
 
 

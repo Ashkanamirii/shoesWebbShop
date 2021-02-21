@@ -1,5 +1,6 @@
-package modell;
+package modell.to;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -19,18 +20,31 @@ public class Shoes {
     private int brandId;//TODO: tar FK_brand_id
     private Brand brand1;
     private SimpleStringProperty color;
-    private SimpleIntegerProperty price;
+    private SimpleDoubleProperty price;
     private SimpleIntegerProperty quantity;
 
-    public Shoes(int id, int size, int shoes_number, String brand, String color, int price, int quantity) {
+    public Shoes(int id, int size, int shoes_number, String brand, String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
         this.brand = new SimpleStringProperty(brand);
         this.color = new SimpleStringProperty(color);
-        this.price = new SimpleIntegerProperty(price);
+        this.price = new SimpleDoubleProperty(price);
         this.quantity = new SimpleIntegerProperty(quantity);
 
+    }
+    public Shoes(int id, int size, int shoes_number, Brand brand, String color, int price, int quantity) {
+        this.id = new SimpleIntegerProperty(id);
+        this.size = new SimpleIntegerProperty(size);
+        this.shoes_number = new SimpleIntegerProperty(shoes_number);
+        this.brand1 = brand;
+        this.color = new SimpleStringProperty(color);
+        this.price = new SimpleDoubleProperty(price);
+        this.quantity = new SimpleIntegerProperty(quantity);
+
+    }
+
+    public Shoes() {
     }
 
     public int getId() {
@@ -93,16 +107,16 @@ public class Shoes {
         this.color = new SimpleStringProperty(color);
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price.get();
     }
 
-    public SimpleIntegerProperty priceProperty() {
+    public SimpleDoubleProperty priceProperty() {
         return price;
     }
 
     public void setPrice(int price) {
-        this.price = new SimpleIntegerProperty(price);
+        this.price = new SimpleDoubleProperty(price);
     }
 
     public int getQuantity() {
