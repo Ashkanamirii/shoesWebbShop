@@ -277,7 +277,7 @@ public class QueryExec {
 
     }
     //for testing!!!!!! gets the last order id by status
-    public static int getLastPayedOrderByStatus(int shoesId,int statusEnum) {
+    public static int getLastOrderIdByStatus(int shoesId, int statusEnum) {
         int orderId= 0;
         try {
             Connection con = new ConnectionDB().getConnection();

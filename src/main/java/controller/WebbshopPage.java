@@ -5,13 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Orientation;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modell.Shoes;
-import org.controlsfx.control.Rating;
 import utils.UserLogin;
 import utils.Utils;
 
@@ -53,6 +55,8 @@ public class WebbshopPage {
     public Pane shoesDescriptionP;
     public Utils utils;
     public AnchorPane mainPage;
+    public Button removeCart;
+    public Button myPageB;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
 
@@ -72,7 +76,15 @@ public class WebbshopPage {
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         shoppingCartView.setItems(shoppingCart);
-
+        removeCart.setOnAction(e->{
+            shoppingCartView.getItems().clear();
+            totalPriceL.setText("");
+            shoppingCart.removeAll();});
+        shoppingCartView.setOnMouseClicked(e -> {
+                    if (e.getClickCount() == 2)
+                        shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
+            totalPriceL.setText("");
+        });
         // log in with the singleton
         toRegister.setOnAction(e -> {
             try {
@@ -96,7 +108,7 @@ public class WebbshopPage {
         });
 
         //Show in table-> brand, color, size,price,rating,category,quantity
-        //TODO: implement rating and category to shoes.
+        //TODO: implement rating to shoes.
         c1.setCellValueFactory(new PropertyValueFactory("brandP"));
         c2.setCellValueFactory(new PropertyValueFactory("color"));
         c3.setCellValueFactory(new PropertyValueFactory("size"));
@@ -151,35 +163,38 @@ public class WebbshopPage {
 
         //create new order and get its id, then call addtocart and send the values for each element
         confirmOrder.setOnAction(e->{
-            shoppingCart.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,s.getId(),s.getQuantity(),2));
+            QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
+            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
+            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
 
-            int orderId=QueryExec.getLastPayedOrderByStatus(shoppingCart.get(shoppingCart.size()-1).getId(),2);
+            //test to get orderId
+            try {
+                loadConfirmDialog(shoppingCart,orderId);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+            //to check if order is sent
             System.out.println(orderId);
-            //UserLogin.getCustomer().getOrders().add(shoppingCart.forEach(s->new OrderLineItem(s.getId(),s.getQuantity(),s.setStatus("PAYING"));
-
-
-            //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
-
-
-            Dialog<String>dialogTest=new Dialog();
-            dialogTest.setHeaderText("Pay to confirm delivery");
-            dialogTest.setContentText(shoppingCart.toString() + "\n"+UserLogin.getCustomer().getName()+UserLogin.getCustomer().getAddress()+"\n"+
-                    "ORDER ID"+ orderId);
-            dialogTest.setHeight(600);
-            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
-            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
-            dialogTest.showAndWait();
-
-
-
 
         });
 
 
     }
+    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
+        Parent parent = fxmlLoader.load();
+        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
+        dialogController.setData(shoppingCart,orderId);
 
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
     //adds the shoes description panel
-    public void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
+    private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();
         Pane newLoadedPane = null;
         FXMLLoader loader = new FXMLLoader();
