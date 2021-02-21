@@ -13,7 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import modell.Shoes;
+import modell.to.Shoes;
 import utils.UserLogin;
 
 import javax.security.auth.callback.Callback;
@@ -79,7 +79,7 @@ public class ConfirmShopping {
         this.shoesData=shoesData;
         orderNr.setText(orderId+"");
         initialize();
-        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum) + DELIVERYCOST +"");
+        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
        confirmB.setOnAction(e->{
                shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1));
                 closeStage(e);

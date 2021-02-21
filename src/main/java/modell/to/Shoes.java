@@ -1,7 +1,13 @@
-package modell;
+package modell.to;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import modell.to.Brand;
+import modell.to.Category;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Ashkan Amiri
@@ -23,7 +29,7 @@ public class Shoes {
     private SimpleDoubleProperty price;
     private SimpleIntegerProperty quantity;
 
-    public Shoes(int id, int size, int shoes_number, String brand, String color, int price, int quantity) {
+    public Shoes(int id, int size, int shoes_number, Brand brand, List<Category>categories,String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);

@@ -26,6 +26,7 @@ public class ShoesDAOImpl implements ShoesDAO {
 
     @Override
     public Shoes getShoesById(int shoesId) throws SQLException {
+       /*
         Shoes shoes = null;
         preparedStatement = connection.prepareStatement("SELECT * FROM shoes sh " +
                 "JOIN brand b on b.id = sh.FK_brand_id  WHERE sh.id = ?");
@@ -43,6 +44,9 @@ public class ShoesDAOImpl implements ShoesDAO {
         }
         close();
         return shoes;
+
+        */
+        return null;
     }
 
     public void close() throws SQLException {

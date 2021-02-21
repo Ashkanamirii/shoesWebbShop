@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+
 import modell.to.Shoes;
 import utils.UserLogin;
 
@@ -64,7 +66,7 @@ public class ShoesDescription {
 
             //update totalPrice
             totalPriceL.setText(shoppingCart.stream().
-                    map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
+                    map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s).toString());
         });
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));

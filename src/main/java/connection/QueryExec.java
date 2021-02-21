@@ -2,13 +2,14 @@ package connection;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import modell.to.Shoes;
 import modell.to.Brand;
 import modell.to.Customer;
 import modell.to.Shoes;
-import modell.Brand;
-import modell.Category;
-import modell.Customer;
-import modell.Shoes;
+
+import modell.to.Category;
+
+
 import utils.UserLogin;
 
 import java.sql.*;
@@ -66,7 +67,7 @@ public class QueryExec {
                         brand,
                         categories,
                         rs.getString("color"),
-                        rs.getInt("price"),
+                        rs.getDouble("price"),
                         rs.getInt("quantity"));
             }
     }

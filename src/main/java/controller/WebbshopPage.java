@@ -11,10 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import modell.to.Shoes;
+
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modell.Shoes;
+import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
 
@@ -56,6 +56,7 @@ public class WebbshopPage {
     public Pane shoesDescriptionP;
     public Utils utils;
     public AnchorPane mainPage;
+    public Button removeCart;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
 
@@ -184,8 +185,8 @@ public class WebbshopPage {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
         Parent parent = fxmlLoader.load();
         ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
-        dialogController.setData(shoppingCart,orderId);
-
+        dialogController.setData(shoppingCart, orderId);
+    }
     //adds the shoes description panel
     private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();
