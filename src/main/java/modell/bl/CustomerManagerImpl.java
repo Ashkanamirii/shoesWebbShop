@@ -31,9 +31,11 @@ public class CustomerManagerImpl implements CustomerManager{
     public boolean CheckValidCustomerByUserPswd(String email, String password)  {
         CustomerDAOImpl c = new CustomerDAOImpl();
         try {
-            UserLogin.setCustomer(c.getOneCustomerByInfo(email,password));
+            Customer customer = c.getOneCustomerByInfo(email, password);
+            UserLogin.setCustomer(customer);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("FALSSSSSS");
         }
         return true;
     }

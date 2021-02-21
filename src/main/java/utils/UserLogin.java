@@ -24,7 +24,7 @@ public class UserLogin {
     private UserLogin(String email, String password){
         this.email = email;
         this.password = password;
-        this.isLogged = getIsLogged();
+        //this.isLogged = getIsLogged();
         //here we can run query
     }
 
@@ -37,11 +37,13 @@ public class UserLogin {
     }
 
     private boolean checkPassword(){
-        return (customerManager.CheckValidCustomerByUserPswd(email,password));
+        customerManager.CheckValidCustomerByUserPswd(email,password);
+        return true;
     }
 
     public static boolean getIsLogged(){
-         instance.checkPassword();
+        if (instance.checkPassword())
+         return
         return instance.isLogged;
     }
 
