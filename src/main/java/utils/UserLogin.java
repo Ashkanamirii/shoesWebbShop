@@ -1,6 +1,7 @@
 package utils;
 
 import connection.QueryExec;
+import modell.bl.CustomerManager;
 import modell.bl.CustomerManagerImpl;
 import modell.to.Customer;
 
@@ -19,12 +20,13 @@ public class UserLogin {
     private String password;
     private boolean isLogged;
     private Customer customer;
-    CustomerManagerImpl customerManager = new CustomerManagerImpl();
+    CustomerManagerImpl customerManager ;
 
     private UserLogin(String email, String password){
+        this.customerManager = new CustomerManagerImpl();
         this.email = email;
         this.password = password;
-        //this.isLogged = getIsLogged();
+        this.isLogged = checkPassword();
         //here we can run query
     }
 
@@ -37,13 +39,11 @@ public class UserLogin {
     }
 
     private boolean checkPassword(){
-        customerManager.CheckValidCustomerByUserPswd(email,password);
-        return true;
+        return customerManager.CheckValidCustomerByUserPswd(email,password);
     }
 
     public static boolean getIsLogged(){
-        if (instance.checkPassword())
-         return
+        instance.checkPassword();
         return instance.isLogged;
     }
 
