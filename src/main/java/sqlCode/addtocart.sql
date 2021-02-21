@@ -25,6 +25,9 @@ getOrderID = last_insert_id();
 insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
 VALUES (shoesId, getOrderID, ordered_quantity, _status);
 -- update shoes set quantity = quantity - ordered_quantity where id = shoesId; -- (Det kan fixa med triggers) eller kanske det behöver inte
+else if (_status = 2)
+ then insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+            VALUES (shoesId, orderId, ordered_quantity, _status);
 
 else
         if (_status in (3, 4))
@@ -48,6 +51,7 @@ else
                     VALUES (shoesId, orderId, ordered_quantity, _status);
                 --    update shoes set quantity = quantity + ordered_quantity where id = shoesId;
 
+END IF;
 END IF;
 END IF;
 END IF;

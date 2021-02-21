@@ -30,10 +30,11 @@
     -fx-border-color: transparent;
     -fx-padding: 2 0 2 10px;
 }
-.table-row-cell:hover {
+.table-view .table-row-cell:hover {
     -fx-background-color: #b08646;
     -fx-text-background-color: #ececec;
 }
+
 .table-row-cell:odd{
     -fx-background-color: transparent;
     -fx-background-insets: 0, 0 0 1 0;

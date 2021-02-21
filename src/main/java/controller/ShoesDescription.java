@@ -2,9 +2,11 @@ package controller;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import modell.to.Shoes;
 import utils.UserLogin;
+
 
 /**
  * Created by Hodei Eceiza
@@ -28,13 +30,17 @@ public class ShoesDescription {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
-
+        switch(shoesData.getBrand().getName()){
+            case "Adidas"->shoesImage.setImage(new Image("src/main/resources/img/adibas.png"));
+            case "Reebok"->shoesImage.setImage(new Image("src/main/resources/img/reebok.jpg"));
+        }
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
 
 
-        brandL.setText(shoesData.getBrand());
+        brandL.setText(shoesData.getBrand().getName());
         colorL.setText(shoesData.getColor());
+        categoryL.setText(shoesData.getCategoriesP());
         priceL.setText(shoesData.getPrice() + "");
         sizeL.setText(shoesData.getSize() + "");
         onStockL.setText((shoesData.getQuantity() > 0) ? "ON STOCK" : "NO AVAILABLE");
@@ -42,7 +48,7 @@ public class ShoesDescription {
         addToCartB.setOnMouseClicked(e -> {
 
             selectedShoes=new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                    shoesData.getBrand(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
+                    shoesData.getBrand(),shoesData.getCategories(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
 
             if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
                 int index = shoppingCart.indexOf(shoppingCart.stream()
@@ -58,7 +64,7 @@ public class ShoesDescription {
 
             //update totalPrice
             totalPriceL.setText(shoppingCart.stream().
-                    map(s -> s.getPrice() * s.getQuantity()).reduce(0.00, Double::sum).toString());
+                    map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
         });
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));

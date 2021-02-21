@@ -5,11 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import modell.to.Shoes;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import modell.Shoes;
 import utils.UserLogin;
 import utils.Utils;
 
@@ -70,7 +75,15 @@ public class WebbshopPage {
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         shoppingCartView.setItems(shoppingCart);
-
+        removeCart.setOnAction(e->{
+            shoppingCartView.getItems().clear();
+            totalPriceL.setText("");
+            shoppingCart.removeAll();});
+        shoppingCartView.setOnMouseClicked(e -> {
+                    if (e.getClickCount() == 2)
+                        shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
+            totalPriceL.setText("");
+        });
         // log in with the singleton
         toRegister.setOnAction(e -> {
             try {
@@ -94,13 +107,13 @@ public class WebbshopPage {
         });
 
         //Show in table-> brand, color, size,price,rating,category,quantity
-        //TODO: implement rating and category to shoes.
-        c1.setCellValueFactory(new PropertyValueFactory("brand"));
+        //TODO: implement rating to shoes.
+        c1.setCellValueFactory(new PropertyValueFactory("brandP"));
         c2.setCellValueFactory(new PropertyValueFactory("color"));
         c3.setCellValueFactory(new PropertyValueFactory("size"));
         c4.setCellValueFactory(new PropertyValueFactory("price"));
         //c5.setCellValueFactory(new PropertyValueFactory("rating"));
-        //c6.setCellValueFactory(new PropertyValueFactory("category"));
+        c6.setCellValueFactory(new PropertyValueFactory("categoriesP"));
         c7.setCellValueFactory(new PropertyValueFactory("quantity"));
         c1.setText("Brand");
         c2.setText("Color");
@@ -125,6 +138,8 @@ public class WebbshopPage {
             System.out.println("ERROR");
             e.printStackTrace();
         }
+        showCategories.valueProperty().addListener(((observableValue, o, t1) ->
+                shoesTable.setItems(filteredList(shoesList, t1.toString()))));
         showBrands.valueProperty().addListener(((observableValue, o, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1.toString()))));
 
@@ -135,8 +150,7 @@ public class WebbshopPage {
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
-                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().
-                                getSelectedItem()), shoppingCart, totalPriceL);
+                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()), shoppingCart, totalPriceL);
 
                 }
         );
@@ -145,38 +159,35 @@ public class WebbshopPage {
         });
 
 
+
         //create new order and get its id, then call addtocart and send the values for each element
-        confirmOrder.setOnAction(e -> {
-            shoppingCart.forEach(s -> QueryExec.addToCart(UserLogin.getCustomer().getId()
-                    , -1, s.getId(), s.getQuantity(), 2));
+        confirmOrder.setOnAction(e->{
+            QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
+            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
+            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
 
-            int orderId = QueryExec.getLastPayedOrderByStatus
-                    (shoppingCart.get(shoppingCart.size() - 1).getId(), 2);
+            //test to get orderId
+            try {
+                loadConfirmDialog(shoppingCart,orderId);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+            //to check if order is sent
             System.out.println(orderId);
-            //UserLogin.getCustomer().getOrders().add(shoppingCart.forEach(s->new OrderLineItem(s.getId(),s.getQuantity(),s.setStatus("PAYING"));
-
-
-            //here call a dialog containing the cart, the order number, total price (+deliverY??) and customer data. asking to pay, or cancel.
-
-
-            Dialog<String> dialogTest = new Dialog();
-            dialogTest.setHeaderText("Pay to confirm delivery");
-            dialogTest.setContentText(shoppingCart.toString() + "\n" +
-                    UserLogin.getCustomer().getName() +
-                    UserLogin.getCustomer().getAddress() + "\n" +
-                    "ORDER ID" + orderId);
-            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("PAY", ButtonBar.ButtonData.OK_DONE));
-            dialogTest.getDialogPane().getButtonTypes().add(new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE));
-            dialogTest.showAndWait();
-
 
         });
 
 
     }
+    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
+        Parent parent = fxmlLoader.load();
+        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
+        dialogController.setData(shoppingCart,orderId);
 
     //adds the shoes description panel
-    public void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
+    private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();
         Pane newLoadedPane = null;
         FXMLLoader loader = new FXMLLoader();
@@ -195,7 +206,8 @@ public class WebbshopPage {
     //Now searches only color and brand
     private boolean isFound(Shoes shoesData, String searchText) {
         return (shoesData.getColor().toLowerCase().contains(searchText.toLowerCase())
-                || shoesData.getBrand().toLowerCase().contains(searchText.toLowerCase()));
+                || shoesData.getBrand().getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                shoesData.getCategoriesP().toLowerCase().contains(searchText.toLowerCase()));
     }
 
 

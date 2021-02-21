@@ -5,9 +5,16 @@ import javafx.collections.ObservableList;
 import modell.to.Brand;
 import modell.to.Customer;
 import modell.to.Shoes;
+import modell.Brand;
+import modell.Category;
+import modell.Customer;
+import modell.Shoes;
 import utils.UserLogin;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -18,7 +25,109 @@ import java.sql.*;
  * Copyright: MIT
  */
 public class QueryExec {
+//testing for object oriented
+    public static ObservableList<Shoes> getShoesList(){
+        List<Shoes> shoes = new ArrayList<>();
+        List<Integer> shoesIds = new ArrayList<>();
+        String query = "select id from shoes;";
 
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)){
+
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                shoesIds.add(rs.getInt("id"));
+            }
+            shoes = shoesIds.stream()
+                    .map(i -> getShoesById(i))
+                    .collect(Collectors.toList());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+       return FXCollections.observableArrayList(shoes);
+    }
+    public static Shoes getShoesById (int shoesId){
+        Brand brand=QueryExec.getBrandByShoesId(shoesId);
+        List<Category> categories=QueryExec.getCategoriesByShoesId(shoesId);
+        Shoes shoes=null;
+        String query = "select * from shoes where id=?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)){
+
+            stmt.setString(1, shoesId+"");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+               shoes=new Shoes(rs.getInt("id"),
+                        rs.getInt("size"),
+                        rs.getInt("shoes_number"),
+                        brand,
+                        categories,
+                        rs.getString("color"),
+                        rs.getInt("price"),
+                        rs.getInt("quantity"));
+            }
+    }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return shoes;
+    }
+
+    public static List<Category> getCategoriesByShoesId(int shoesId){
+        List<Category> categories=new ArrayList<>();
+
+        String query = "select FK_category_id as id, c.name as name" +
+                " from shoes_category " +
+                "join category c on c.id=FK_category_id" +
+                " where FK_shoes_id=?;";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)){
+
+            stmt.setString(1, shoesId+"");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                categories.add(new Category(
+                        rs.getInt("id"),rs.getString("name")));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return categories;
+
+    }
+    public static Brand getBrandByShoesId(int shoesID){
+        Brand brand = null;
+        ResultSet rs = null;
+        String query = "select b.id, b.name "
+                + "from brand b " +
+                "inner join shoes sh on sh.FK_brand_id = b.id "
+                + "where sh.id = ?";
+
+        try (Connection con = new ConnectionDB().getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)){
+
+            stmt.setString(1, shoesID+"");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                brand = new Brand(
+                        rs.getInt("id"),rs.getString("name"));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return brand;
+    }
+
+    //OLD STUFF
+/*
     public static ObservableList<Shoes> shoesListInfo(String query) {
         ObservableList<Shoes> list = FXCollections.observableArrayList();
         try {
@@ -42,6 +151,8 @@ public class QueryExec {
         }
         return list;
     }
+
+ */
 
     public static ObservableList<String> returnQueryToList(String query) {
         ObservableList<String> list = FXCollections.observableArrayList();
@@ -103,12 +214,15 @@ public class QueryExec {
             System.err.println(e.getMessage());
         }
     }
+    /*
     public static ObservableList<Shoes>getShoesList(){
        return QueryExec.shoesListInfo("SELECT shoes.id as id,size,shoes_number," +
                 "br.name as FK_brand_id,color,price,quantity\n" +
                 " FROM shoes\n" +
                 " join brand br on br.id =FK_brand_id;");
     }
+
+     */
     public static ObservableList<String> getColorsList(){
         return QueryExec.returnQueryToList("select distinct color from shoes;");
     }
@@ -144,30 +258,7 @@ public class QueryExec {
         return false;
     }
 
-    public Brand getBrandByShoesId(int shoesID){
-        Brand brand = null;
-        ResultSet rs = null;
-        String query = "select b.id, b.name "
-                + "from brand b " +
-                "inner join shoes sh on sh.FK_brand_id = b.id "
-                + "where sh.id = ?";
 
-        try (Connection con = new ConnectionDB().getConnection();
-             PreparedStatement stmt = con.prepareStatement(query)){
-
-            stmt.setString(1, shoesID+"");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                brand = new Brand(
-                        rs.getInt("id"),rs.getString("name"));
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return brand;
-    }
     public static void addToCart(int customerId, int orderId, int shoesId, int quantity, int status){
         Connection con = new ConnectionDB().getConnection();
         try {
@@ -189,7 +280,7 @@ public class QueryExec {
 
     }
     //for testing!!!!!! gets the last order id by status
-    public static int getLastPayedOrderByStatus(int shoesId,int statusEnum) {
+    public static int getLastOrderIdByStatus(int shoesId, int statusEnum) {
         int orderId= 0;
         try {
             Connection con = new ConnectionDB().getConnection();
