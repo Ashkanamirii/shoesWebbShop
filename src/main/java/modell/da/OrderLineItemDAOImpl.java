@@ -4,7 +4,10 @@ import connection.ConnectionDB;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Ashkan Amiri
@@ -33,7 +36,28 @@ public class OrderLineItemDAOImpl implements OrderLineItemDAO {
         callableStatement.close();
 
         connection.close();
-
-
     }
+
+    @Override
+    public List<String> invoice(int orderId) throws SQLException {
+        List<String> invoiceList = new ArrayList<>();
+        CallableStatement call = connection.prepareCall("call invoice(?)");
+        call.setInt(1, orderId);
+        ResultSet rs = call.executeQuery();
+        while (rs.next()){
+            invoiceList.add(String.valueOf(rs.getInt(1)));
+            invoiceList.add(rs.getString(2));
+            invoiceList.add(rs.getString(3));
+            invoiceList.add(rs.getString(4));
+            invoiceList.add(String.valueOf(rs.getInt(5)));
+            invoiceList.add(String.valueOf(rs.getInt(6)));
+            invoiceList.add(String.valueOf(rs.getDouble(7)));
+            invoiceList.add(String.valueOf(rs.getDouble(8)));
+        }
+        call.close();
+        connection.close();
+        return invoiceList;
+    }
+
+
 }
