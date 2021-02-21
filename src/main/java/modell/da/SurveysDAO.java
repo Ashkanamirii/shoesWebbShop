@@ -19,6 +19,7 @@ public interface SurveysDAO {
     void insert (Surveys surveys) throws SQLException;
     void SetRate(Shoes shoesId , Customer custId, int rate, String comment) throws SQLException;
     List<String> productAverageRateView() throws SQLException;
+    double getShoesAverageRate(int shoes) throws SQLException;
 
 
 }

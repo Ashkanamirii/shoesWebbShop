@@ -85,6 +85,18 @@ public class SurveysDAOImpl implements SurveysDAO {
         return shoesAverageRateView;
     }
 
+    @Override
+    public double getShoesAverageRate(int shoesId) throws SQLException {
+        double avg = 0;
+        CallableStatement call = connection.prepareCall("select getShoesAverageGrade(?)");
+        call.setInt(1,shoesId);
+        ResultSet rs = call.executeQuery();
+        while (rs.next()){
+           avg =  rs.getDouble(1);
+        }
+        return avg;
+    }
+
 
     public void close() throws SQLException {
         preparedStatement.close();
