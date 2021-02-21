@@ -53,10 +53,10 @@ public class SurveysDAOImpl implements SurveysDAO {
     }
 
     @Override
-    public void SetRate(Shoes shoesId, Customer custId, int rate, String comment) throws SQLException {
+    public void setRate(int shoesId, int custId, int rate, String comment) throws SQLException {
         CallableStatement callableStatement = connection.prepareCall("call rate(?,?,?,?)");
-        callableStatement.setInt(1, shoesId.getId());
-        callableStatement.setInt(2, custId.getId());
+        callableStatement.setInt(1, custId);
+        callableStatement.setInt(2, shoesId);
         callableStatement.setInt(3, rate);
         callableStatement.setString(4, comment);
 
