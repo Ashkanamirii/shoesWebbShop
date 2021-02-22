@@ -41,24 +41,30 @@ public class CategoryDAOImpl implements CategoryDAO {
         ResultSet rs=call.executeQuery();
         rs.next();
         categoryName=rs.getString(1);
-        close();
+        call.close();
+        //connection.close();
         return categoryName;
     }
 
+
+    @Override
+    public String getCategoryIdsByShoesId(int shoesId) throws SQLException {
+        String categoryName=null;
+
+        CallableStatement call=connection.prepareCall(" select getCategoryIdsByShoesId(?) as categoryIds;");
+        call.setInt(1,shoesId);
+
+        ResultSet rs=call.executeQuery();
+
+      while(rs.next()) {
+          categoryName = rs.getString(1);
+      }
+        call.close();
+      //connection.close();
+        return categoryName;
+    }
     public void close() throws SQLException {
         preparedStatement.close();
         connection.close();
     }
-    @Override
-    public String getCategoryIdsByShoesId(int shoesId) throws SQLException {
-        String categoryName="";
-        CallableStatement call=connection.prepareCall(" select getCategoryIdsByShoesId(?) as categoryIds;");
-        call.setInt(1,shoesId);
-        ResultSet rs=call.executeQuery();
-        rs.next();
-        categoryName=rs.getString(1);
-        close();
-        return categoryName;
-    }
-
 }

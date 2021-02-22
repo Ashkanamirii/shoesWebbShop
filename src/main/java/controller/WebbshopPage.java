@@ -20,6 +20,8 @@ import modell.bl.CategoryManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.bl.ShoesManagerImpl;
 import modell.da.ShoesDAOImpl;
+import modell.to.Brand;
+import modell.to.Category;
 import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WebbshopPage {
     @FXML
@@ -73,11 +76,14 @@ public class WebbshopPage {
 
     public void initialize() {
 
+
         try {
             shoesList=FXCollections.observableArrayList(shoesManager.getAllShoes());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
         utils = new Utils();
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
@@ -86,6 +92,7 @@ public class WebbshopPage {
             loginL.setText("you are logged as " + UserLogin.getCustomer().getName()); //we get here the customer name
         }
         //shoping cart
+
         shoppingCart = FXCollections.observableArrayList();
         //cartId.setCellValueFactory(new PropertyValueFactory("id"));
         cartPrice.setCellValueFactory(new PropertyValueFactory("price"));
@@ -141,8 +148,8 @@ public class WebbshopPage {
         c7.setText("On stock");
         try {
             showColors.itemsProperty().setValue(shoesManager.getColorList());
-            showCategories.itemsProperty().setValue(FXCollections.observableArrayList(categoryManager.getAllCategory()));
-            showBrands.itemsProperty().setValue(FXCollections.observableArrayList(brandManager.getAllBrand()));
+            showCategories.itemsProperty().setValue(FXCollections.observableArrayList(categoryManager.getAllCategory().stream().map(Category::getName).collect(Collectors.toList())));
+            showBrands.itemsProperty().setValue(FXCollections.observableArrayList(brandManager.getAllBrand().stream().map(Brand::getName).collect(Collectors.toList())));
 
             showColors.getSelectionModel().selectFirst();
             showCategories.getSelectionModel().selectFirst();
@@ -178,24 +185,21 @@ public class WebbshopPage {
 
 
         //create new order and get its id, then call addtocart and send the values for each element
-//        confirmOrder.setOnAction(e->{
-//            try {
-//                orderManager.getAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
-//            //54-- status
-//            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
-//            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
-//
-//            //test to get orderId
-//
-//                loadConfirmDialog(shoppingCart,orderId);
-//            } catch (IOException | SQLException ioException) {
-//                ioException.printStackTrace();
-//            }
-//
-//            //to check if order is sent
-//            System.out.println(orderId);
-//
-//        });
+        confirmOrder.setOnAction(e->{
+            try {
+                orderManager.getAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
+            //54-- status
+            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
+            shoppingCart.stream().skip(1).forEach(s->orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
+
+            //test to get orderId
+
+                loadConfirmDialog(shoppingCart,orderId);
+            } catch (IOException | SQLException ioException) {
+                ioException.printStackTrace();
+            }
+
+        });
 
 
     }

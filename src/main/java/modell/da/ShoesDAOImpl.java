@@ -156,21 +156,26 @@ public class ShoesDAOImpl implements ShoesDAO {
         ResultSet resultSet =preparedStatement.executeQuery();
         while(resultSet.next()){
             shoesResult.add(new Shoes(resultSet.getInt("id"),resultSet.getInt("size"),resultSet.getInt("shoes_number"),
-                    new Brand(resultSet.getInt("FK_brand_id"),resultSet.getString("br.name")), categoryList,
+                    new Brand(resultSet.getInt("FK_brand_id"),resultSet.getString("br.name")), categoryManager.getCategoryListByShoesId(resultSet.getInt("id"))
+                    .stream()
+                    .collect(Collectors.toList()),
                     resultSet.getString("color"),resultSet.getDouble("price"),resultSet.getInt("quantity")));
         }
 
+
+
+/*
 shoesResult.forEach(s-> {
     try {
-        s.setCategories(
-                new ArrayList(
-                        Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId())
+        s.setCategories(categoryManager.getCategoryListByShoesId(s.getId())
                                 .stream()
-                                .collect(Collectors.toList()))));
+                                .collect(Collectors.toList()));
     } catch (SQLException throwables) {
         throwables.printStackTrace();
     }
 });
+
+ */
 
         close();
 

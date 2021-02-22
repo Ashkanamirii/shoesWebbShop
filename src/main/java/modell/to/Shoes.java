@@ -3,11 +3,10 @@ package modell.to;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import modell.to.Brand;
-import modell.to.Category;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 /**
  * Created by Ashkan Amiri
@@ -28,42 +27,27 @@ public class Shoes {
     private SimpleStringProperty color;
     private SimpleDoubleProperty price;
     private SimpleIntegerProperty quantity;
-
+    private String categoriesS;
     public Shoes(int id, int size, int shoes_number, Brand brand, List<Category>categories,String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
         this.brandP = new SimpleStringProperty(brand.getName());
-        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
-        this.brand=brand;
         this.categories=categories;
-        this.color = new SimpleStringProperty(color);
-        this.price = new SimpleDoubleProperty(price);
-        this.quantity = new SimpleIntegerProperty(quantity);
 
-    }
+    //  this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+      this.categoriesP=new SimpleStringProperty(categories.toString().replace('[',' ').replace(']',' '));
 
- /*
-    public Shoes(int id, int size, int shoes_number, Brand brand, String categories,String color, double price, int quantity) {
-        this.id = new SimpleIntegerProperty(id);
-        this.size = new SimpleIntegerProperty(size);
-        this.shoes_number = new SimpleIntegerProperty(shoes_number);
-        this.brandP = new SimpleStringProperty(brand.getName());
-        /*
-        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
-
-        this.categoriesP=new SimpleStringProperty(categories);
         this.brand=brand;
-
-      //  this.categories=categories;
         this.color = new SimpleStringProperty(color);
         this.price = new SimpleDoubleProperty(price);
         this.quantity = new SimpleIntegerProperty(quantity);
 
     }
-    */
 
     public String getCategoriesP() {
+
+
         return categoriesP.get();
     }
 
