@@ -17,7 +17,6 @@ import modell.bl.ShoesManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class WebbshopPage {
     public TableColumn c5;
     public TableColumn c6;
     public TableColumn c7;
-
     public ComboBox showColors;
     public Button showTable;
     public TextField searchField;
@@ -40,9 +38,7 @@ public class WebbshopPage {
     public Label loginL;
     public PasswordField passF;
     public TextField email;
-
     public TableView shoppingCartView;
-    public TableColumn cartId;
     public TableColumn cartPrice;
     public TableColumn cartBrand;
     public TableColumn cartQuantity;
@@ -55,9 +51,9 @@ public class WebbshopPage {
     public Pane shoppinCartP;
     public Button confirmOrder;
     public Pane shoesDescriptionP;
-    public Utils utils;
     public AnchorPane mainPage;
     public Button removeCart;
+    public Utils utils;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
     private ShoesManagerImpl shoesManager = new ShoesManagerImpl();

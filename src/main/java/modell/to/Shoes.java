@@ -3,9 +3,6 @@ package modell.to;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import modell.to.Brand;
-import modell.to.Category;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,12 +26,14 @@ public class Shoes {
     private SimpleDoubleProperty price;
     private SimpleIntegerProperty quantity;
 
-    public Shoes(int id, int size, int shoes_number, Brand brand, List<Category>categories,String color, double price, int quantity) {
+    public Shoes(int id, int size, int shoes_number, Brand brand, List<Category> categories,String color,
+                 double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
         this.brandP = new SimpleStringProperty(brand.getName());
-        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).
+                collect(Collectors.joining(", ")));
         this.brand=brand;
         this.categories=categories;
         this.color = new SimpleStringProperty(color);
@@ -130,8 +129,6 @@ public class Shoes {
     public String getBrandP() {
         return brandP.get();
     }
-
-
 
     public SimpleStringProperty brandProperty() {
         return brandP;
