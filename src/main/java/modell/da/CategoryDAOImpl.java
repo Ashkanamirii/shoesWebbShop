@@ -23,13 +23,14 @@ public class CategoryDAOImpl implements CategoryDAO {
     public CategoryDAOImpl(){connection=new ConnectionDB().getConnection();}
     @Override
     public List<Category> select() throws SQLException {
+
         List<Category> categories =new ArrayList<>();
         preparedStatement=connection.prepareStatement("SELECT * FROM category;");
         ResultSet resultSet=preparedStatement.executeQuery();
 
         while(resultSet.next()){
             categories.add(new Category(resultSet.getInt("id"),
-                    resultSet.getString("name")));
+                    resultSet.getString("name"),select(resultSet.getString("name"))));
         }
         close();
         return categories;
@@ -84,30 +85,30 @@ public class CategoryDAOImpl implements CategoryDAO {
 
         return shoesList;
     }
-    public List<Category> selectCategoryAndShoes() throws SQLException {
-        CategoryDAOImpl categoryDAO = new CategoryDAOImpl();
-        List<Shoes> shoesList = new ArrayList<>();
-        List<Category> c = new ArrayList<>();
-        Category c2 = null;
-        preparedStatement = connection.prepareStatement(" select * from shoes sh \n" +
-                "                join brand b on b.id = sh.FK_brand_id\n" +
-                "                left join shoes_category shc on shc.FK_shoes_id = sh.id\n" +
-                "                join category c on c.id = shc.FK_category_id\n" +
-                "                ;");
-
-        ResultSet rs = preparedStatement.executeQuery();
-
-        while (rs.next()){
-
-//            shoesList.add(new Shoes(rs.getInt(1),rs.getInt(2),rs.getInt(3),
-//                    new Brand(rs.getInt(4),rs.getString(11)),rs.getString(5),
-//                    rs.getDouble(6),rs.getInt(10)));
-            c.add(new Category(rs.getInt(18),rs.getString(19),
-                    categoryDAO.select(rs.getString(19))));
-        }
-        close();
-        return c;
-    }
+//    public List<Category> selectCategoryAndShoes() throws SQLException {
+//        CategoryDAOImpl categoryDAO = new CategoryDAOImpl();
+//        List<Shoes> shoesList = new ArrayList<>();
+//        List<Category> c = new ArrayList<>();
+//        Category c2 = null;
+//        preparedStatement = connection.prepareStatement(" select * from shoes sh \n" +
+//                "                join brand b on b.id = sh.FK_brand_id\n" +
+//                "                left join shoes_category shc on shc.FK_shoes_id = sh.id\n" +
+//                "                join category c on c.id = shc.FK_category_id\n" +
+//                "                ;");
+//
+//        ResultSet rs = preparedStatement.executeQuery();
+//
+//        while (rs.next()){
+//
+////            shoesList.add(new Shoes(rs.getInt(1),rs.getInt(2),rs.getInt(3),
+////                    new Brand(rs.getInt(4),rs.getString(11)),rs.getString(5),
+////                    rs.getDouble(6),rs.getInt(10)));
+//            c.add(new Category(rs.getInt(18),rs.getString(19),
+//                    categoryDAO.select(rs.getString(19))));
+//        }
+//        close();
+//        return c;
+//    }
 
     public void close() throws SQLException {
         preparedStatement.close();
