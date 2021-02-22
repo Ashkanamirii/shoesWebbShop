@@ -57,7 +57,6 @@ public class WebbshopPage {
     public void initialize() {
 
         utils = new Utils();
-        UserLogin.UserLogin("a","a");
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
         else {

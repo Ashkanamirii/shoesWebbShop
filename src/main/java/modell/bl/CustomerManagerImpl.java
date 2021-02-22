@@ -28,18 +28,16 @@ public class CustomerManagerImpl implements CustomerManager{
     }
 
     @Override
-    public boolean CheckValidCustomerByUserPswd(String email, String password)  {
+    public Customer CheckValidCustomerByUserPswd(String email, String password)  {
         CustomerDAOImpl c = new CustomerDAOImpl();
+        Customer customer = null;
         try {
-            Customer customer = c.getOneCustomerByInfo(email, password);
-            if(customer == null)
-                return false;
-            else
-            UserLogin.setCustomer(customer);
+             customer = c.getOneCustomerByInfo(email, password);
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("FALSSSSSS");
         }
-        return true;
+        return customer;
     }
 }
