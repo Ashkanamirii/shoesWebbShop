@@ -1,25 +1,19 @@
 package controller;
 
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import modell.bl.BrandManagerImpl;
 import modell.bl.CategoryManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.bl.ShoesManagerImpl;
-import modell.da.ShoesDAOImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
@@ -66,15 +60,15 @@ public class WebbshopPage {
     public Button removeCart;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
-    private ShoesManagerImpl shoesManager=new ShoesManagerImpl();
-    private CategoryManagerImpl categoryManager=new CategoryManagerImpl();
-    private BrandManagerImpl brandManager=new BrandManagerImpl();
+    private ShoesManagerImpl shoesManager = new ShoesManagerImpl();
+    private CategoryManagerImpl categoryManager = new CategoryManagerImpl();
+    private BrandManagerImpl brandManager = new BrandManagerImpl();
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
 
     public void initialize() {
 
         try {
-            shoesList=FXCollections.observableArrayList(shoesManager.getAllShoes());
+            shoesList = FXCollections.observableArrayList(shoesManager.getAllShoes());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -92,13 +86,14 @@ public class WebbshopPage {
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         shoppingCartView.setItems(shoppingCart);
-        removeCart.setOnAction(e->{
+        removeCart.setOnAction(e -> {
             shoppingCartView.getItems().clear();
             totalPriceL.setText("");
-            shoppingCart.removeAll();});
+            shoppingCart.removeAll();
+        });
         shoppingCartView.setOnMouseClicked(e -> {
-                    if (e.getClickCount() == 2)
-                        shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
+            if (e.getClickCount() == 2)
+                shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
             totalPriceL.setText("");
         });
         // log in with the singleton
@@ -167,7 +162,8 @@ public class WebbshopPage {
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
-                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()), shoppingCart, totalPriceL);
+                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()),
+                                shoppingCart, totalPriceL);
 
                 }
         );
@@ -176,35 +172,45 @@ public class WebbshopPage {
         });
 
 
+        // create new order and get its id, then call addtocart and send the values for each element
+        confirmOrder.setOnAction(e -> {
+            try {
+                orderManager.getAddTOCart(
+                        UserLogin.getCustomer().getId(), -1, shoppingCart.get(0).getId(),
+                        shoppingCart.get(0).getQuantity(), 2);
+                //54-- status
+                int orderId = orderManager.getLastOrderIdByStatus(shoppingCart.get(0).getId(), 2);
+                shoppingCart.stream().skip(1).forEach(s -> {
+                    try {
+                        orderManager.getAddTOCart(UserLogin.getCustomer().getId(),
+                                orderId, s.getId(), s.getQuantity(), 2);
+                    } catch (SQLException sqlException) {
+                        sqlException.printStackTrace();
+                    }
+                });
 
-        //create new order and get its id, then call addtocart and send the values for each element
-//        confirmOrder.setOnAction(e->{
-//            try {
-//                orderManager.getAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
-//            //54-- status
-//            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
-//            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
-//
-//            //test to get orderId
-//
-//                loadConfirmDialog(shoppingCart,orderId);
-//            } catch (IOException | SQLException ioException) {
-//                ioException.printStackTrace();
-//            }
-//
-//            //to check if order is sent
-//            System.out.println(orderId);
-//
-//        });
+                //test to get orderId
+                System.out.println(orderId);
+                loadConfirmDialog(shoppingCart, orderId);
+            } catch (IOException | SQLException ioException) {
+                ioException.printStackTrace();
+            }
+
+            //to check if order is sent
+
+
+        });
 
 
     }
-//    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
-//        Parent parent = fxmlLoader.load();
-//        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
-//        dialogController.setData(shoppingCart, orderId);
-//    }
+
+    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart, int orderId) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
+        Parent parent = fxmlLoader.load();
+        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
+        dialogController.setData(shoppingCart, orderId);
+    }
+
     //adds the shoes description panel
     private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();

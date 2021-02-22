@@ -50,7 +50,8 @@ public class ShoesDescription {
         addToCartB.setOnMouseClicked(e -> {
 
             selectedShoes=new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                    shoesData.getBrand(),shoesData.getCategories(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
+                    shoesData.getBrand(),shoesData.getCategories(),
+                    shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
 
             if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
                 int index = shoppingCart.indexOf(shoppingCart.stream()

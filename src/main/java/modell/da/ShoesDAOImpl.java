@@ -164,9 +164,7 @@ shoesResult.forEach(s-> {
     try {
         s.setCategories(
                 new ArrayList(
-                        Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId())
-                                .stream()
-                                .collect(Collectors.toList()))));
+                        Collections.singletonList(new ArrayList<>(categoryManager.getCategoryListByShoesId(s.getId())))));
     } catch (SQLException throwables) {
         throwables.printStackTrace();
     }

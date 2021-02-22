@@ -2,10 +2,7 @@ package modell.da;
 
 import connection.ConnectionDB;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,21 @@ public class OrderLineItemDAOImpl implements OrderLineItemDAO {
 
     public OrderLineItemDAOImpl() {
         connection = new ConnectionDB().getConnection();
+    }
+
+    public int lastOrderIdByStatus(int shoesId, int statusEnum) throws SQLException {
+        int orderId= 0;
+
+            PreparedStatement stmt =connection.prepareStatement(
+                    "select max(FK_order_id) as orderId from order_line_item where FK_shoes_id=? and status=?;");
+            stmt.setInt(1,shoesId);
+            stmt.setInt(2,statusEnum);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            orderId=rs.getInt("orderId");
+            stmt.close();
+            connection.close();
+        return orderId;
     }
 
     @Override

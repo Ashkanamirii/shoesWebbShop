@@ -97,7 +97,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             System.out.println("ERROR-->UPDATE customer from database");
         close();
     }
-
+    @Override
     public Customer getOneCustomerByInfo(String email, String password) throws SQLException {
         Customer customer = null;
         preparedStatement = connection.prepareStatement

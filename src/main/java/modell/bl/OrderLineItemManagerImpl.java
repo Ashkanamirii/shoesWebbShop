@@ -24,4 +24,10 @@ public class OrderLineItemManagerImpl implements OrderLineItemManager{
         OrderLineItemDAOImpl orderLineItemDAO= new OrderLineItemDAOImpl();
        return orderLineItemDAO.invoice(orderId);
     }
+
+    @Override
+    public int getLastOrderIdByStatus(int shoesId, int statusEnum) throws SQLException {
+        OrderLineItemDAOImpl orderLineItemDAO= new OrderLineItemDAOImpl();
+        return orderLineItemDAO.lastOrderIdByStatus(shoesId,statusEnum);
+    }
 }
