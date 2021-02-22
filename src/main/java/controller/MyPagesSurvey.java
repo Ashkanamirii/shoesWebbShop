@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import utils.UserLogin;
 import utils.Utils;
@@ -12,12 +13,13 @@ import utils.Utils;
 import java.io.IOException;
 
 
-public class MyPagesHome {
+public class MyPagesSurvey {
     @FXML
-    public AnchorPane myPagesHomePane;
+    public AnchorPane myPagesSurveyPane;
     public Button logout;
     public Button goToShopping;
-    public Text cutomerName;
+    public Label loginL;
+    public Pane shoesDescription_surveyP;
     public Utils changeScene;
 
 
@@ -25,11 +27,11 @@ public class MyPagesHome {
         changeScene = new Utils();
 
 
-       cutomerName.setText( UserLogin.getCustomer().getName() );
+        loginL.setText("You login as " + UserLogin.getCustomer().getName() );
 
         logout.setOnAction(e -> {
             try {
-                changeScene.changeScene("/home.fxml", myPagesHomePane);
+                changeScene.changeScene("/home.fxml", myPagesSurveyPane);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -37,7 +39,7 @@ public class MyPagesHome {
 
         goToShopping.setOnAction(e -> {
             try {
-                changeScene.changeScene("/webbshopPage.fxml", myPagesHomePane);
+                changeScene.changeScene("/webbshopPage.fxml", myPagesSurveyPane);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
