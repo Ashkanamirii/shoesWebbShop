@@ -11,7 +11,6 @@ import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Created by Ashkan Amiri
@@ -41,7 +40,7 @@ public class UserProfile {
         login.setOnAction(e -> {
             try {
                 if (checkInput()) {
-                    UserLogin.getInstance(email.getText(), passField.getText());
+                    UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
                          //TODO ska skicka user info

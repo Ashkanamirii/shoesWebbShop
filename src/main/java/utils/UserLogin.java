@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * Copyright: MIT
  */
 public class UserLogin {
-    private static UserLogin instance = new UserLogin("default","default");
+    private static UserLogin instance = new UserLogin("a","a");
     private String email;
     private String password;
     private boolean isLogged;
@@ -26,13 +26,15 @@ public class UserLogin {
         this.customerManager = new CustomerManagerImpl();
         this.email = email;
         this.password = password;
-        this.isLogged = checkPassword();
+        //this.isLogged = checkPassword();
+
+
         //here we can run query
     }
 
-    public static UserLogin getInstance(String email, String password) {
+    public static UserLogin UserLogin(String email, String password) {
         //create an instance if there is no instance or is not logged in
-        if (!instance.isLogged) {
+        if (instance.email.equalsIgnoreCase("a")) {
             instance = new UserLogin(email, password);
         }
         return instance;
@@ -42,15 +44,14 @@ public class UserLogin {
         return customerManager.CheckValidCustomerByUserPswd(email,password);
     }
 
-    public static boolean getIsLogged(){
-        instance.checkPassword();
-        return instance.isLogged;
-    }
-
     public static Customer getCustomer() {
         return instance.customer;
     }
     public static void setCustomer(Customer customer) {
         instance.customer = customer;
+    }
+
+    public static boolean getIsLogged() {
+        return instance.isLogged;
     }
 }

@@ -32,6 +32,9 @@ public class CustomerManagerImpl implements CustomerManager{
         CustomerDAOImpl c = new CustomerDAOImpl();
         try {
             Customer customer = c.getOneCustomerByInfo(email, password);
+            if(customer == null)
+                return false;
+            else
             UserLogin.setCustomer(customer);
         } catch (SQLException e) {
             e.printStackTrace();

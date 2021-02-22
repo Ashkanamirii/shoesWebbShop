@@ -99,14 +99,14 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     public Customer getOneCustomerByInfo(String email, String password) throws SQLException {
-        Customer customer = null;
+
         preparedStatement = connection.prepareStatement
                 ("select * from customer where email =? and pswd = md5(?);");
         preparedStatement.setString(1, email);
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            customer = new Customer();
+        if (resultSet.next()) {
+            Customer customer = new Customer();
             customer.setId(resultSet.getInt("id"));
             customer.setName(resultSet.getString("name"));
             customer.setPhoneNumber(resultSet.getString("phone"));
@@ -114,8 +114,10 @@ public class CustomerDAOImpl implements CustomerDAO {
             customer.setCountry(resultSet.getString("country"));
             customer.setEmail(resultSet.getString("email"));
             customer.setPswd(resultSet.getString("pswd"));
+            return customer;
         }
-        return customer;
+        close();
+        return null;
     }
 
     @Override

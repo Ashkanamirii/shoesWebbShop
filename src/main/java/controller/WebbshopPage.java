@@ -57,6 +57,7 @@ public class WebbshopPage {
     public void initialize() {
 
         utils = new Utils();
+        UserLogin.UserLogin("a","a");
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
         else {
@@ -85,7 +86,7 @@ public class WebbshopPage {
 
         //testing the log in with the singleton
         startLogInB.setOnAction(e -> {
-            UserLogin.getInstance(email.getText(), passF.getText());
+            UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
                 loginL.setText("You are logged in!!!!");
                 loginPane.setVisible(false);
