@@ -146,7 +146,7 @@ public class ShoesDAOImpl implements ShoesDAO {
 
 shoesResult.forEach(s-> {
     try {
-        s.setCategories(new ArrayList<>((Collection<? extends Category>)Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId()))).collect(Collectors.toList()));
+        s.setCategories(new ArrayList<>((Collection<? extends Category>)Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId())).stream().collect(Collectors.toList())));
     } catch (SQLException throwables) {
         throwables.printStackTrace();
     }
