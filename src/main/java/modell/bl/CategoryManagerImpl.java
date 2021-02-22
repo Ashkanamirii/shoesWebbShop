@@ -2,7 +2,9 @@ package modell.bl;
 
 import modell.da.CategoryDAOImpl;
 import modell.to.Category;
+import modell.to.Shoes;
 
+import javax.xml.catalog.CatalogManager;
 import java.sql.SQLException;
 //import java.util.ArrayList;
 //import java.util.Arrays;
@@ -23,7 +25,6 @@ public class CategoryManagerImpl implements CategoryManager {
     @Override
     public List<Category> getAllCategory() throws SQLException {
         CategoryDAOImpl category=new CategoryDAOImpl();
-
         return category.select();
     }
 
@@ -54,5 +55,31 @@ public class CategoryManagerImpl implements CategoryManager {
 
 
         return categoryByShoes;
+    }
+
+    @Override
+    public List<Shoes> getAllShoesByCategoryName(String categoryName) throws SQLException {
+        CategoryDAOImpl categories=new CategoryDAOImpl();
+        return categories.select(categoryName);
+    }
+
+    public static void main(String[] args) {
+      CategoryManagerImpl c = new CategoryManagerImpl();
+        CategoryDAOImpl categories=new CategoryDAOImpl();
+        try {
+
+            List<Category> co = categories.selectCategoryAndShoes();
+            System.out.println(co.get(0).getShoesList().size());
+
+            for (Category b : co
+                 ) {
+                System.out.println(b.getName());
+                //System.out.println(b.getShoesList().stream().map(s-> s.getBrand().getName().));
+            }
+            System.out.println();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

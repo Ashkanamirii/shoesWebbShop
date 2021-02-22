@@ -1,5 +1,7 @@
 package modell.to;
 
+import java.util.List;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-19
@@ -12,6 +14,7 @@ public class Category {
     private String name;
     private String shoesCategories;
     private String categorieIds;
+    private List<Shoes> shoesList;
 
     public Category(int id, String name) {
         this.id = id;
@@ -21,6 +24,15 @@ public class Category {
     public Category(String shoesCategories, String categorieIds) {
         this.shoesCategories = shoesCategories;
         this.categorieIds = categorieIds;
+    }
+
+    public Category(int id, String name, List<Shoes> shoesList) {
+        this.id = id;
+        this.name = name;
+        this.shoesList = shoesList;
+    }
+
+    public Category() {
     }
 
     public int getId() {
@@ -45,5 +57,21 @@ public class Category {
 
     public void setShoesCategories(String shoesCategories) {
         this.shoesCategories = shoesCategories;
+    }
+
+    public String getCategorieIds() {
+        return categorieIds;
+    }
+
+    public void setCategorieIds(String categorieIds) {
+        this.categorieIds = categorieIds;
+    }
+
+    public List<Shoes> getShoesList() {
+        return shoesList;
+    }
+
+    public void setShoesList(List<Shoes> shoesList) {
+        this.shoesList = shoesList;
     }
 }

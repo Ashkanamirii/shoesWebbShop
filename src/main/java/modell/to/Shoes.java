@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  */
 public class Shoes {
 
+    private  Category category;
     private SimpleIntegerProperty id;
     private SimpleIntegerProperty size;
     private SimpleIntegerProperty shoes_number;
@@ -49,11 +50,26 @@ public class Shoes {
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
         this.brandP = new SimpleStringProperty(brand.getName());
         this.categoriesP =new SimpleStringProperty(category.getShoesCategories());
+        this.category = category;
         this.brand=brand;
         this.color = new SimpleStringProperty(color);
         this.price = new SimpleDoubleProperty(price);
         this.quantity = new SimpleIntegerProperty(quantity);
     }
+
+    public Shoes(int id, int size, int shoes_number, Brand brand,String color,
+                 double price, int quantity) {
+        this.id = new SimpleIntegerProperty(id);
+        this.size = new SimpleIntegerProperty(size);
+        this.shoes_number = new SimpleIntegerProperty(shoes_number);
+        this.brandP = new SimpleStringProperty(brand.getName());
+        this.brand = brand;
+        this.color = new SimpleStringProperty(color);
+        this.price = new SimpleDoubleProperty(price);
+        this.quantity = new SimpleIntegerProperty(quantity);
+    }
+
+
     /*
     public Shoes(int id, int size, int shoes_number, Brand brand, String categories,String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
@@ -186,4 +202,20 @@ public class Shoes {
         this.quantity = new SimpleIntegerProperty(quantity);
     }
 
+    @Override
+    public String toString() {
+        return "Shoes{" +
+                "category=" + category +
+                ", id=" + id +
+                ", size=" + size +
+                ", shoes_number=" + shoes_number +
+                ", brandP=" + brandP +
+                ", categoriesP=" + categoriesP +
+                ", brand=" + brand +
+                ", categories=" + categories +
+                ", color=" + color +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
