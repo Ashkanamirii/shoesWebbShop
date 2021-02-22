@@ -23,4 +23,11 @@ public class ShoesManagerImpl implements ShoesManager {
         ShoesDAO shoes=new ShoesDAOImpl();
         return shoes.select();
     }
+
+    @Override
+    public ObservableList<String> getColorList() throws SQLException {
+        ShoesDAO shoes=new ShoesDAOImpl();
+        return shoes.getColorList();
+    }
+
 }

@@ -67,6 +67,9 @@ public class WebbshopPage {
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
     private ShoesManagerImpl shoesManager=new ShoesManagerImpl();
+    private CategoryManagerImpl categoryManager=new CategoryManagerImpl();
+    private BrandManagerImpl brandManager=new BrandManagerImpl();
+    private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
 
     public void initialize() {
 
@@ -137,9 +140,9 @@ public class WebbshopPage {
         c6.setText("Category");
         c7.setText("On stock");
         try {
-            showColors.itemsProperty().setValue(QueryExec.getColorsList());
-            showCategories.itemsProperty().setValue(QueryExec.getCategoriesList());
-            showBrands.itemsProperty().setValue(QueryExec.getBrandList());
+            showColors.itemsProperty().setValue(shoesManager.getColorList());
+            showCategories.itemsProperty().setValue(FXCollections.observableArrayList(categoryManager.getAllCategory()));
+            showBrands.itemsProperty().setValue(FXCollections.observableArrayList(brandManager.getAllBrand()));
 
             showColors.getSelectionModel().selectFirst();
             showCategories.getSelectionModel().selectFirst();

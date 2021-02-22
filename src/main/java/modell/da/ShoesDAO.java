@@ -1,5 +1,6 @@
 package modell.da;
 
+import javafx.collections.ObservableList;
 import modell.to.Shoes;
 
 import java.sql.SQLException;
@@ -15,4 +16,5 @@ import java.util.List;
 public interface ShoesDAO {
     Shoes getShoesById(int id) throws SQLException;
     List<Shoes> select() throws SQLException;
+    ObservableList<String> getColorList() throws SQLException;
 }

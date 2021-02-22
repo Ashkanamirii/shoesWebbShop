@@ -1,6 +1,8 @@
 package modell.da;
 
 import connection.ConnectionDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import modell.bl.CategoryManager;
 import modell.bl.CategoryManagerImpl;
 import modell.to.Brand;
@@ -31,6 +33,20 @@ public class ShoesDAOImpl implements ShoesDAO {
     public ShoesDAOImpl() {
         connection = new ConnectionDB().getConnection();
     }
+    public ObservableList<String> getColorList() throws SQLException {
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+            preparedStatement = connection.prepareStatement("select distinct color from shoes;");
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                rs.getConcurrency();
+            }
+            close();
+        return list;
+        }
+
 
     @Override
     public Shoes getShoesById(int shoesId) throws SQLException {

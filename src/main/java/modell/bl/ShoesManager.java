@@ -1,5 +1,7 @@
 package modell.bl;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import modell.to.Shoes;
 
 import java.sql.SQLException;
@@ -14,4 +16,5 @@ import java.util.List;
  */
 public interface ShoesManager {
     List<Shoes> getAllShoes() throws SQLException;
+    ObservableList<String> getColorList() throws SQLException;
 }
