@@ -79,11 +79,13 @@ public class OrdersDAOImpl implements OrdersDAO{
     // När behöver vi? (Vi kan tillgång till databas.Man redigerar inte data i orders tabel)
     public void update(Orders o) throws SQLException {
         prsm = connection.prepareStatement("UPDATE orders set " +
-                "id = ?,FK_customer_id = ?, created = ?, order_date = ?;");
+                "id = ?,FK_customer_id = ?, created = ?, order_date = ? " +
+                "WHERE id = ?;");
         prsm.setInt(1, o.getId());
         prsm.setInt(2, o.getCustomerId().getId());
         prsm.setString(3, Utils.currentDate());
         prsm.setString(4, o.getOrderDate());
+        prsm.setInt(5, o.getId());
 
         int result = prsm.executeUpdate();
         if (result == 1)
