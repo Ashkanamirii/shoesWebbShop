@@ -15,5 +15,5 @@ import java.util.List;
 public interface CustomerManager {
    void registerCustomer(Customer customer) throws SQLException;
    List<Customer> getAllCustomer() throws SQLException;
-   boolean CheckValidCustomerByUserPswd(String email , String password);
+   Customer CheckValidCustomerByUserPswd(String email , String password);
 }

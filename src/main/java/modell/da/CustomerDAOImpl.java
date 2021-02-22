@@ -105,7 +105,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         preparedStatement.setString(1, email);
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
+        if (resultSet.next()) {
             customer = new Customer();
             customer.setId(resultSet.getInt("id"));
             customer.setName(resultSet.getString("name"));
@@ -114,7 +114,9 @@ public class CustomerDAOImpl implements CustomerDAO {
             customer.setCountry(resultSet.getString("country"));
             customer.setEmail(resultSet.getString("email"));
             customer.setPswd(resultSet.getString("pswd"));
+
         }
+        close();
         return customer;
     }
 
