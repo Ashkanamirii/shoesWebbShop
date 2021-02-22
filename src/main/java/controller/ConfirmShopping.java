@@ -1,6 +1,6 @@
 package controller;
 
-import connection.QueryExec;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,21 +75,21 @@ public class ConfirmShopping {
     }
 
 
-    public void setData(ObservableList<Shoes> shoesData,int orderId){
-        this.shoesData=shoesData;
-        orderNr.setText(orderId+"");
-        initialize();
-        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
-       confirmB.setOnAction(e->{
-               shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1));
-                closeStage(e);
-       });
-        cancelB.setOnAction(e->{
-            shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),3));
-            closeStage(e);
-        });
-        // shoesData.forEach(System.out::println);
-    }
+//    public void setData(ObservableList<Shoes> shoesData,int orderId){
+//        this.shoesData=shoesData;
+//        orderNr.setText(orderId+"");
+//        initialize();
+//        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
+//       confirmB.setOnAction(e->{
+//               shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1));
+//                closeStage(e);
+//       });
+//        cancelB.setOnAction(e->{
+//            shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),3));
+//            closeStage(e);
+//        });
+//        // shoesData.forEach(System.out::println);
+//    }
 
     private void closeStage(Event e) {
         Node source = (Node)  e.getSource();

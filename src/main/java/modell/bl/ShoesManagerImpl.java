@@ -1,9 +1,11 @@
 package modell.bl;
 
+import javafx.collections.ObservableList;
 import modell.da.ShoesDAO;
 import modell.da.ShoesDAOImpl;
 import modell.to.Shoes;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 

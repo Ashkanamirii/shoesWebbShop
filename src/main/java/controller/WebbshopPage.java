@@ -1,6 +1,7 @@
 package controller;
 
-import connection.QueryExec;
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +15,9 @@ import javafx.scene.layout.Pane;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modell.bl.BrandManagerImpl;
+import modell.bl.CategoryManagerImpl;
+import modell.bl.OrderLineItemManagerImpl;
 import modell.bl.ShoesManagerImpl;
 import modell.da.ShoesDAOImpl;
 import modell.to.Shoes;
@@ -171,31 +175,33 @@ public class WebbshopPage {
 
 
         //create new order and get its id, then call addtocart and send the values for each element
-        confirmOrder.setOnAction(e->{
-            QueryExec.addToCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
-            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
-            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
-
-            //test to get orderId
-            try {
-                loadConfirmDialog(shoppingCart,orderId);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-
-            //to check if order is sent
-            System.out.println(orderId);
-
-        });
+//        confirmOrder.setOnAction(e->{
+//            try {
+//                orderManager.getAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
+//            //54-- status
+//            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
+//            shoppingCart.stream().skip(1).forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
+//
+//            //test to get orderId
+//
+//                loadConfirmDialog(shoppingCart,orderId);
+//            } catch (IOException | SQLException ioException) {
+//                ioException.printStackTrace();
+//            }
+//
+//            //to check if order is sent
+//            System.out.println(orderId);
+//
+//        });
 
 
     }
-    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
-        Parent parent = fxmlLoader.load();
-        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
-        dialogController.setData(shoppingCart, orderId);
-    }
+//    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
+//        Parent parent = fxmlLoader.load();
+//        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
+//        dialogController.setData(shoppingCart, orderId);
+//    }
     //adds the shoes description panel
     private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();

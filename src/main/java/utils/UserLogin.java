@@ -1,6 +1,6 @@
 package utils;
 
-import connection.QueryExec;
+
 import modell.bl.CustomerManager;
 import modell.bl.CustomerManagerImpl;
 import modell.to.Customer;
