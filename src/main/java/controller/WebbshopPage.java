@@ -14,11 +14,14 @@ import javafx.scene.layout.Pane;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modell.bl.ShoesManagerImpl;
+import modell.da.ShoesDAOImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,9 +62,15 @@ public class WebbshopPage {
     public Button removeCart;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
+    private ShoesManagerImpl shoesManager=new ShoesManagerImpl();
 
     public void initialize() {
 
+        try {
+            shoesList=FXCollections.observableArrayList(shoesManager.getAllShoes());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         utils = new Utils();
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
@@ -133,7 +142,7 @@ public class WebbshopPage {
             showBrands.getSelectionModel().selectFirst();
             //using obs list
 
-            shoesList = QueryExec.getShoesList();
+            //shoesList = QueryExec.getShoesList();
             shoesTable.setItems(shoesList);
         } catch (Exception e) {
             System.out.println("ERROR");

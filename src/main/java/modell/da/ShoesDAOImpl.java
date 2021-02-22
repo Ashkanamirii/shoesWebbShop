@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -146,7 +146,11 @@ public class ShoesDAOImpl implements ShoesDAO {
 
 shoesResult.forEach(s-> {
     try {
-        s.setCategories(new ArrayList<>((Collection<? extends Category>)Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId())).stream().collect(Collectors.toList())));
+        s.setCategories(
+                new ArrayList(
+                        Arrays.asList(categoryManager.getCategoryListByShoesId(s.getId())
+                                .stream()
+                                .collect(Collectors.toList()))));
     } catch (SQLException throwables) {
         throwables.printStackTrace();
     }
