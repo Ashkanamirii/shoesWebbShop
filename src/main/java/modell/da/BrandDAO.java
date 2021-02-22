@@ -1,5 +1,11 @@
 package modell.da;
 
+import modell.to.Brand;
+import modell.to.Customer;
+
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-21
@@ -8,4 +14,5 @@ package modell.da;
  * Copyright: MIT
  */
 public interface BrandDAO {
+    List<Brand> select() throws SQLException;
 }

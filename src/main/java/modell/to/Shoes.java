@@ -43,6 +43,26 @@ public class Shoes {
 
     }
 
+ /*
+    public Shoes(int id, int size, int shoes_number, Brand brand, String categories,String color, double price, int quantity) {
+        this.id = new SimpleIntegerProperty(id);
+        this.size = new SimpleIntegerProperty(size);
+        this.shoes_number = new SimpleIntegerProperty(shoes_number);
+        this.brandP = new SimpleStringProperty(brand.getName());
+        /*
+        this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+
+        this.categoriesP=new SimpleStringProperty(categories);
+        this.brand=brand;
+
+      //  this.categories=categories;
+        this.color = new SimpleStringProperty(color);
+        this.price = new SimpleDoubleProperty(price);
+        this.quantity = new SimpleIntegerProperty(quantity);
+
+    }
+    */
+
     public String getCategoriesP() {
         return categoriesP.get();
     }
