@@ -144,8 +144,8 @@ public class ShoesDAOImpl implements ShoesDAO {
         List<List<Integer>> categoryIdsList=new ArrayList<>();
         List<Category>categoryList=new ArrayList<>();
         List<Shoes>shoesResult =new ArrayList<>();
-        preparedStatement=connection.prepareStatement("with categories as(select FK_shoes_id,group_concat" +
-                "(c.name separator ', ') as category,group_concat(c.id separator ', ') as categoryIds\n" +
+        preparedStatement=connection.prepareStatement("with categories as(select FK_shoes_id," +
+                "group_concat(c.name separator ', ') as category,group_concat(c.id separator ', ') as categoryIds\n" +
                 "    from shoes_category\n" +
                 "    join category c on c.id=FK_category_id\n" +
                 "    group by FK_shoes_id)\n" +
@@ -159,19 +159,19 @@ public class ShoesDAOImpl implements ShoesDAO {
             shoesResult.add(new Shoes(resultSet.getInt("id"),
                     resultSet.getInt("size"),resultSet.getInt("shoes_number"),
                     new Brand(resultSet.getInt("FK_brand_id"),resultSet.getString("br.name")),
-                    categoryList, resultSet.getString("color"),
+                    new Category(resultSet.getString(6),resultSet.getString(7)), resultSet.getString("color"),
                     resultSet.getDouble("price"),resultSet.getInt("quantity")));
         }
 
-shoesResult.forEach(s-> {
-    try {
-        s.setCategories(
-                new ArrayList(
-                        Collections.singletonList(new ArrayList<>(categoryManager.getCategoryListByShoesId(s.getId())))));
-    } catch (SQLException throwables) {
-        throwables.printStackTrace();
-    }
-});
+//shoesResult.forEach(s-> {
+//    try {
+//        s.setCategories(
+//                new ArrayList(
+//                        Collections.singletonList(new ArrayList<>(categoryManager.getCategoryListByShoesId(s.getId())))));
+//    } catch (SQLException throwables) {
+//        throwables.printStackTrace();
+//    }
+//});
 
         close();
 

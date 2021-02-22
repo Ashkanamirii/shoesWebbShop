@@ -57,7 +57,8 @@ public class CategoryDAOImpl implements CategoryDAO {
         ResultSet rs=call.executeQuery();
         rs.next();
         categoryName=rs.getString(1);
-        close();
+        call.close();
+        connection.close();
         return categoryName;
     }
 

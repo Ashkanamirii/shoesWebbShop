@@ -42,7 +42,19 @@ public class Shoes {
 
     }
 
- /*
+    public Shoes(int id, int size, int shoes_number, Brand brand, Category category,String color,
+                 double price, int quantity) {
+        this.id = new SimpleIntegerProperty(id);
+        this.size = new SimpleIntegerProperty(size);
+        this.shoes_number = new SimpleIntegerProperty(shoes_number);
+        this.brandP = new SimpleStringProperty(brand.getName());
+        this.categoriesP =new SimpleStringProperty(category.getShoesCategories());
+        this.brand=brand;
+        this.color = new SimpleStringProperty(color);
+        this.price = new SimpleDoubleProperty(price);
+        this.quantity = new SimpleIntegerProperty(quantity);
+    }
+    /*
     public Shoes(int id, int size, int shoes_number, Brand brand, String categories,String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
