@@ -17,7 +17,8 @@ import java.util.List;
 public interface SurveysDAO {
     List<Surveys> select() throws SQLException;
     void insert (Surveys surveys) throws SQLException;
-    void SetRate(Shoes shoesId , Customer custId, int rate, String comment) throws SQLException;
+    void setRate(int shoesId, int custId, int rate, String comment) throws SQLException;
+
     List<String> productAverageRateView() throws SQLException;
     double getShoesAverageRate(int shoes) throws SQLException;
 
