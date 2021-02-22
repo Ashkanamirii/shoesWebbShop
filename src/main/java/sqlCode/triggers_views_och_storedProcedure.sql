@@ -1,4 +1,6 @@
 -- updates the stock based on status.
+
+drop trigger if exists update_stock_on_status;
 delimiter //
 create trigger update_stock_on_status
 
@@ -15,6 +17,9 @@ begin
 end//
 delimiter ;
 
+
+
+drop trigger if exists update_no_stock;
 -- update table NoStock
 delimiter //
 create trigger update_no_stock
@@ -42,7 +47,21 @@ from shoes;
 */
 -- need to insert an order id
 
+drop function if exists  getCategoryNameById;
 
+DELIMITER //
+create function getCategoryNameById (categoryId int)
+    returns varchar(50)
+    reads sql data
+begin
+declare categoryName varchar(50);
+select name into categoryName from category where id=categoryId;
+return categoryName;
+end//
+ DELIMITER ;
+
+
+drop procedure if exists getNewOrderId;
 -- SP to get order id when we create a new one (should be simplified, no need of null.) and maybe transform to a function.
 DELIMITER //
 create procedure getNewOrderId(INOUT orderId int, IN customerId int)
@@ -57,7 +76,28 @@ BEGIN
 end//
 DELIMITER ;
 
-drop procedure getNewOrderId;
+
+
+DELIMITER //
+create function getCategoryIdsByShoesId(shoesId int)
+    returns varchar(255)
+    reads sql data
+begin
+declare categoryIds varchar(50);
+with categories as(select FK_shoes_id,group_concat(c.name separator ', ') as category,group_concat(c.id separator ', ') as _categoryIds
+    from shoes_category
+    join category c on c.id=FK_category_id
+group by FK_shoes_id)
+select _categoryIds into categoryIds
+from shoes
+         join brand br on br.id=shoes.FK_brand_id
+         left join categories cs on cs.FK_shoes_id=shoes.id
+where shoes.id=shoesId;
+return categoryIds;
+end//
+DELIMITER ;
+
+
 
 
 

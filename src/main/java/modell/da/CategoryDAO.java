@@ -1,5 +1,10 @@
 package modell.da;
 
+import modell.to.Category;
+
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-21
@@ -8,4 +13,7 @@ package modell.da;
  * Copyright: MIT
  */
 public interface CategoryDAO {
+    List<Category> select() throws SQLException;
+    String getCategoryNameById(int id) throws SQLException;
+    String getCategoryIdsByShoesId(int shoesId) throws SQLException;
 }
