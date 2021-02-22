@@ -2,10 +2,7 @@ package modell.da;
 
 import connection.ConnectionDB;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +21,23 @@ public class OrderLineItemDAOImpl implements OrderLineItemDAO {
     }
 
     @Override
-    public void addTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException {
-        CallableStatement callableStatement = connection.prepareCall("{call AddToCart(?,?,?,?,?)}");
+    public int addTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException {
+
+        CallableStatement callableStatement = connection.prepareCall("{call AddToCart(?,?,?,?,?,?)}");
         callableStatement.setInt(1, customerId);
         callableStatement.setInt(2, orderId);
         callableStatement.setInt(3, shoesId);
         callableStatement.setInt(4, quantity);
         callableStatement.setInt(5, status);
-
+        callableStatement.registerOutParameter(6, Types.INTEGER);
         callableStatement.execute();
+
+        int createdOrderId = callableStatement.getInt(6);
+
         callableStatement.close();
 
         connection.close();
+        return createdOrderId;
     }
 
     @Override

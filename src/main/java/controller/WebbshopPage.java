@@ -187,12 +187,15 @@ public class WebbshopPage {
         //create new order and get its id, then call addtocart and send the values for each element
         confirmOrder.setOnAction(e->{
             try {
-                orderManager.getAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
-            //54-- status
-            int orderId=QueryExec.getLastOrderIdByStatus(shoppingCart.get(0).getId(),2);
-            shoppingCart.stream().skip(1).forEach(s->orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2));
+                int orderId=orderManager.getOrderIdFromAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
 
-            //test to get orderId
+            shoppingCart.stream().skip(1).forEach(s-> {
+                try {
+                    orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
 
                 loadConfirmDialog(shoppingCart,orderId);
             } catch (IOException | SQLException ioException) {
@@ -203,12 +206,24 @@ public class WebbshopPage {
 
 
     }
-//    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
-//        Parent parent = fxmlLoader.load();
-//        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
-//        dialogController.setData(shoppingCart, orderId);
-//    }
+    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
+        System.out.println("here!!!!");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
+        Parent parent = fxmlLoader.load();
+        ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();
+        dialogController.setData(shoppingCart, orderId);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+
+
+
+
+
+    }
     //adds the shoes description panel
     private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();

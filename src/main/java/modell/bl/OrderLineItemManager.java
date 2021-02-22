@@ -12,5 +12,6 @@ import java.util.List;
  */
 public interface OrderLineItemManager {
     void getAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException;
+    int getOrderIdFromAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException;
     List<String> getInvoice(int orderId) throws SQLException;
 }

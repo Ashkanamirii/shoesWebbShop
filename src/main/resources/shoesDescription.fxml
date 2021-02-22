@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="shoesDescrptionPane" prefHeight="200.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShoesDescription">
+<AnchorPane fx:id="shoesDescrptionPane" prefHeight="200.0" prefWidth="530.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShoesDescription">
    <children>
       <ImageView fx:id="shoesImage" fitHeight="154.0" fitWidth="200.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true">
          <image>
@@ -64,7 +64,7 @@
             <Label fx:id="onStockL" text="Label" />
          </children>
       </VBox>
-      <Button fx:id="addToCartB" layoutX="440.0" layoutY="151.0" mnemonicParsing="false" text="Add to cart" />
+      <Button fx:id="addToCartB" layoutX="440.0" layoutY="151.0" mnemonicParsing="false" stylesheets="@css/style.css" text="Add to cart" />
       <Spinner fx:id="quantityS" layoutX="445.0" layoutY="78.0" prefHeight="26.0" prefWidth="66.0" />
       <Label layoutX="450.0" layoutY="47.0" text="Quantity" />
    </children>

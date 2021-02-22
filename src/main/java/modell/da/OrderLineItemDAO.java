@@ -11,7 +11,7 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface OrderLineItemDAO {
-    void addTOCart( int customerId, int orderId , int shoesId ,int ordered_quantity ,
+    int addTOCart( int customerId, int orderId , int shoesId ,int ordered_quantity ,
                     int status) throws SQLException;
     List<String> invoice (int orderId) throws SQLException;
 }

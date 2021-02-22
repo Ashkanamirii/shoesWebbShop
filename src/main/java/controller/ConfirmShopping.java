@@ -7,16 +7,15 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
 
 import javax.security.auth.callback.Callback;
+import java.sql.SQLException;
 
 /**
  * Created by Hodei Eceiza
@@ -60,6 +59,7 @@ public class ConfirmShopping {
 
     private ObservableList<Shoes> shoesData;
     private final static int DELIVERYCOST=225;
+    private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
     public void initialize(){
         System.out.println(shoesData);
         confirmBrand.setCellValueFactory(new PropertyValueFactory("brand"));
@@ -75,21 +75,42 @@ public class ConfirmShopping {
     }
 
 
-//    public void setData(ObservableList<Shoes> shoesData,int orderId){
-//        this.shoesData=shoesData;
-//        orderNr.setText(orderId+"");
-//        initialize();
-//        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
-//       confirmB.setOnAction(e->{
-//               shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1));
-//                closeStage(e);
-//       });
-//        cancelB.setOnAction(e->{
-//            shoesData.forEach(s->QueryExec.addToCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),3));
-//            closeStage(e);
-//        });
-//        // shoesData.forEach(System.out::println);
-//    }
+    public void setData(ObservableList<Shoes> shoesData,int orderId){
+        this.shoesData=shoesData;
+        orderNr.setText(orderId+"");
+        initialize();
+        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
+       confirmB.setOnAction(e->{
+               shoesData.forEach(s-> {
+                   try {
+                       orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1);
+                   } catch (SQLException throwables) {
+                       throwables.printStackTrace();
+                   }
+               });
+           Alert a=new Alert(Alert.AlertType.INFORMATION);
+           try {
+               a.setContentText(orderManager.getInvoice(orderId).toString());
+           } catch (SQLException throwables) {
+               throwables.printStackTrace();
+           }
+           a.setHeaderText("SHOPPING CONFIRMED!");
+           a.showAndWait();
+                closeStage(e);
+
+       });
+        cancelB.setOnAction(e->{
+            shoesData.forEach(s-> {
+                try {
+                    orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),3);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            });
+            closeStage(e);
+        });
+        // shoesData.forEach(System.out::println);
+    }
 
     private void closeStage(Event e) {
         Node source = (Node)  e.getSource();

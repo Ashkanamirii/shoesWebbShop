@@ -20,6 +20,12 @@ public class OrderLineItemManagerImpl implements OrderLineItemManager{
     }
 
     @Override
+    public int getOrderIdFromAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException {
+        OrderLineItemDAOImpl orderLineItemDAO = new OrderLineItemDAOImpl();
+       return orderLineItemDAO.addTOCart(customerId,orderId,shoesId,quantity,status);
+    }
+
+    @Override
     public List<String> getInvoice(int orderId) throws SQLException {
         OrderLineItemDAOImpl orderLineItemDAO= new OrderLineItemDAOImpl();
        return orderLineItemDAO.invoice(orderId);
