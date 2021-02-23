@@ -1,6 +1,7 @@
 package modell.da;
 
 import connection.ConnectionDB;
+import utils.Invoice;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,25 +42,23 @@ public class OrderLineItemDAOImpl implements OrderLineItemDAO {
     }
 
     @Override
-    public List<String> invoice(int orderId) throws SQLException {
-        List<String> invoiceList = new ArrayList<>();
+    public List<Invoice> invoice(int orderId) throws SQLException {
+        List<Invoice> invoiceList = new ArrayList<>();
         CallableStatement call = connection.prepareCall("call invoice(?)");
         call.setInt(1, orderId);
         ResultSet rs = call.executeQuery();
         while (rs.next()){
-            invoiceList.add(String.valueOf(rs.getInt(1)));
-            invoiceList.add(rs.getString(2));
-            invoiceList.add(rs.getString(3));
-            invoiceList.add(rs.getString(4));
-            invoiceList.add(String.valueOf(rs.getInt(5)));
-            invoiceList.add(String.valueOf(rs.getInt(6)));
-            invoiceList.add(String.valueOf(rs.getDouble(7)));
-            invoiceList.add(String.valueOf(rs.getDouble(8)));
+            invoiceList.add(new Invoice(rs.getInt(1)
+            ,rs.getString(2)
+            ,rs.getString(3)
+            ,rs.getString(4)
+            ,rs.getInt(5)
+            ,rs.getInt(6)
+            ,rs.getDouble(7)
+            ,rs.getDouble(8)));
         }
         call.close();
         connection.close();
         return invoiceList;
     }
-
-
 }
