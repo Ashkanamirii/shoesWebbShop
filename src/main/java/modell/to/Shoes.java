@@ -35,8 +35,7 @@ public class Shoes {
         this.brandP = new SimpleStringProperty(brand.getName());
         this.categories=categories;
 
-    //  this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
-      this.categoriesP=new SimpleStringProperty(categories.toString().replace('[',' ').replace(']',' '));
+     this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
 
         this.brand=brand;
         this.color = new SimpleStringProperty(color);

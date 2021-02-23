@@ -4,11 +4,6 @@ import modell.da.CategoryDAOImpl;
 import modell.to.Category;
 
 import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Collection;
-//import java.util.List;
-//import java.util.stream.Collectors;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,19 +33,19 @@ public class CategoryManagerImpl implements CategoryManager {
     public List<Category> getCategoryListByShoesId(int shoesId) throws SQLException {
         CategoryDAOImpl categories=new CategoryDAOImpl();
 
-        List<Category>categoryByShoes=new ArrayList<>();
+        List<Category>categoryByShoes;
         String categoryIdS=categories.getCategoryIdsByShoesId(shoesId);
 
         List<Integer>categoryIds= (Arrays.asList(categoryIdS.split(", "))).stream().map(Integer::parseInt).collect(Collectors.toList());
 
-        categoryByShoes=new ArrayList(Arrays.asList(categoryIds.stream().map(id-> {
+        categoryByShoes=categoryIds.stream().map(id-> {
             try {
                 return new Category(id,categories.getCategoryNameById(id));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
             return null;
-        }).collect(Collectors.toList())));
+        }).collect(Collectors.toList());
 
 
         return categoryByShoes;
