@@ -17,6 +17,8 @@ public class MyPagesHome {
     public AnchorPane myPagesHomePane;
     public Button logout;
     public Button goToShopping;
+    //public Button ordersBtn;
+    //public Button surveyBtn;
     public Text cutomerName;
     public Utils changeScene;
 
@@ -42,6 +44,26 @@ public class MyPagesHome {
                 ioException.printStackTrace();
             }
         });
+
+/*
+        ordersBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesOrders.fxml", myPagesHomePane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        surveyBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesSurvey.fxml", myPagesHomePane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+
+ */
 
     }
 }

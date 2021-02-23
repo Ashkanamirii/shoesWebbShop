@@ -18,8 +18,10 @@ public class MyPagesSurvey {
     public AnchorPane myPagesSurveyPane;
     public Button logout;
     public Button goToShopping;
+    public Button myPagesBtn;
+    public Button ordersBtn;
     public Label loginL;
-    public Pane shoesDescription_surveyP;
+    //public Pane shoesDescription_surveyP;
     public Utils changeScene;
 
 
@@ -27,7 +29,7 @@ public class MyPagesSurvey {
         changeScene = new Utils();
 
 
-        loginL.setText("You login as " + UserLogin.getCustomer().getName() );
+        loginL.setText("You login as " + UserLogin.getCustomer().getName());
 
         logout.setOnAction(e -> {
             try {
@@ -45,6 +47,22 @@ public class MyPagesSurvey {
             }
         });
 
+        myPagesBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesHome.fxml", myPagesSurveyPane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        ordersBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesOrders.fxml", myPagesSurveyPane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+        });
     }
 }
 

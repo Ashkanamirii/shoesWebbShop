@@ -18,8 +18,10 @@ public class MyPagesOrders {
     public AnchorPane myPagesOrdersPane;
     public Button logout;
     public Button goToShopping;
+    public Button myPagesBtn;
+    public Button surveyBtn;
     public Label loginL;
-    public Pane shoesDescription_returnsP;
+    //public Pane shoesDescription_returnsP;
     public Utils changeScene;
 
 
@@ -44,6 +46,23 @@ public class MyPagesOrders {
                 ioException.printStackTrace();
             }
         });
+
+        myPagesBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesHome.fxml", myPagesOrdersPane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
+        surveyBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("/myPagesSurvey.fxml", myPagesOrdersPane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+
 
     }
 }
