@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="myPagesSurveyPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MyPagesSurvey">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="1000.0">
+         <top>
+            <Pane prefHeight="57.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="GOLDENROD" layoutX="23.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AHM Shoes Webshop">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Text>
+                  <ButtonBar layoutX="625.0" layoutY="9.0" prefHeight="40.0" prefWidth="330.0">
+                    <buttons>
+                        <Button fx:id="goToShopping" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Go to shopping" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                      <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="800.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField layoutX="127.0" layoutY="28.0" prefHeight="25.0" prefWidth="467.0" />
+                  <Button fx:id="searchBtn" layoutX="636.0" layoutY="28.0" mnemonicParsing="false" text="Search" />
+                  <TableView layoutX="127.0" layoutY="186.0" prefHeight="160.0" prefWidth="467.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn prefWidth="75.0" text="C3" />
+                        <TableColumn prefWidth="75.0" text="C4" />
+                        <TableColumn prefWidth="75.0" text="C5" />
+                    </columns>
+                  </TableView>
+                  <TableView layoutX="128.0" layoutY="61.0" prefHeight="86.0" prefWidth="465.0">
+                    <columns>
+                      <TableColumn prefWidth="222.0" text="Order ID" />
+                      <TableColumn prefWidth="242.0" text="Order Date" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="89.0" layoutY="156.0" prefHeight="17.0" prefWidth="113.0" text="Order line items" />
+                  <Label layoutX="185.0" layoutY="156.0" prefHeight="17.0" prefWidth="31.0" text="ID:" />
+                  <Label fx:id="idNumber" layoutX="208.0" layoutY="156.0" prefHeight="17.0" prefWidth="71.0" />
+                  <Pane fx:id="shoesDescription_surveyP" layoutX="131.0" layoutY="353.0" prefHeight="160.0" prefWidth="460.0" />
+               </children>
+            </Pane>
+         </center>
+         <bottom>
+            <Pane prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
+               <children>
+                  <Text layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2021 AHM Shoes Webshop" />
+               </children>
+            </Pane>
+         </bottom>
+         <left>
+            <VBox fx:id="surveyBtn" prefHeight="513.0" prefWidth="214.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="myPagesBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0e0e6;" stylesheets="@css/style.css" text="MyPages">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="ordersBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" stylesheets="@css/style.css" text="Orders  History/Returns">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="30.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="surveyBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" styleClass="active" stylesheets="@css/style.css" text="Servey">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="loginL" prefHeight="26.0" prefWidth="186.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="300.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>
