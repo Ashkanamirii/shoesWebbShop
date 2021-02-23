@@ -11,11 +11,32 @@ create procedure AddToCart(
     OUT created_order_id int)
 
 BEGIN
-    DECLARE
-getOrderID int;
+    DECLARE getOrderID int;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+        BEGIN
+            ROLLBACK;
+            -- select ('SQLEXCEPTION occurred, rollback done');
+            RESIGNAL SET MESSAGE_TEXT = 'SQLEXCEPTION occurred, rollback done';
+        END;
+
+    DECLARE EXIT HANDLER FOR SQLWARNING
+        BEGIN
+            ROLLBACK;
+            -- select ('SQLWARNING occurred, rollback done');
+            RESIGNAL SET MESSAGE_TEXT = 'SQLWARNING occurred, rollback done';
+        END;
+
+    DECLARE EXIT HANDLER FOR 1062
+        begin
+            ROLLBACK;
+            -- select ('unique constraint broken, rollback done') as error;
+            RESIGNAL SET MESSAGE_TEXT = 'unique constraint broken, rollback done';
+        END;
 
 
 -- första click
+
+    start transaction;
 if
 orderId=-1 then set orderId=null;
 end if;
@@ -45,9 +66,9 @@ else
             if (_status = 1)
             then -- CONFIRMED måste insertera i order line item
 
-                insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-                VALUES (shoesId, orderId, ordered_quantity, _status);
-              --  update shoes set quantity = quantity - ordered_quantity where id = shoesId;
+              --  insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+                -- VALUES (shoesId, orderId, ordered_quantity, _status);
+                update order_line_item set status = 1 where FK_order_id = orderId;
 
 else
                 if (_status = 5)
@@ -61,6 +82,7 @@ END IF;
 END IF;
 END IF;
 END IF;
-
+    -- select ('') as error;
+commit;
 end//
 DELIMITER ;
