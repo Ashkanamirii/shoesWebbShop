@@ -1,6 +1,7 @@
 package modell.bl;
 
 import modell.to.Customer;
+import utils.History;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,4 +17,5 @@ public interface CustomerManager {
    void registerCustomer(Customer customer) throws SQLException;
    List<Customer> getAllCustomer() throws SQLException;
    Customer CheckValidCustomerByUserPswd(String email , String password);
+   List<History> customerHistory(int custId) throws SQLException;
 }

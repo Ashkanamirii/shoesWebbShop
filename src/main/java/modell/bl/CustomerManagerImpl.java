@@ -2,6 +2,7 @@ package modell.bl;
 
 import modell.da.CustomerDAOImpl;
 import modell.to.Customer;
+import utils.History;
 import utils.UserLogin;
 
 import java.sql.SQLException;
@@ -39,5 +40,11 @@ public class CustomerManagerImpl implements CustomerManager{
             System.out.println("FALSSSSSS");
         }
         return customer;
+    }
+
+    @Override
+    public List<History> customerHistory(int custId) throws SQLException {
+        CustomerDAOImpl c = new CustomerDAOImpl();
+        return c.customerHistory(custId);
     }
 }

@@ -1,6 +1,7 @@
 package modell.da;
 
 import modell.to.Customer;
+import utils.History;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,6 +19,6 @@ public interface CustomerDAO {
     void delete (int id) throws SQLException;
     void update (Customer OldCustomer) throws SQLException;
     Customer getOneCustomerByInfo(String email, String password) throws SQLException;
-    List<String> customerHistory(int custId) throws SQLException;
+    List<History> customerHistory(int custId) throws SQLException;
 
 }
