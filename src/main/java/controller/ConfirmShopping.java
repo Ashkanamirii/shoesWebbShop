@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
+import utils.Invoice;
 import utils.UserLogin;
 
 import javax.security.auth.callback.Callback;
@@ -93,9 +94,13 @@ public class ConfirmShopping {
                });
            Alert a=new Alert(Alert.AlertType.INFORMATION);
 
-               a.setContentText(invoiceFormatted(orderId)); //TODO:Show the invoice
+               a.setContentText("Your order with id: " + orderId +
+                       " is on the way\n"+
+                       "here a small resume\n" +
+                       invoiceFormatted(orderId) + "\nYou can go to your page and UPDATE your order if you want"); //TODO:Show the invoice
 
            a.setHeaderText("SHOPPING CONFIRMED!");
+           a.setHeight(250);
            a.showAndWait();
                 closeStage(e);
 
@@ -121,14 +126,14 @@ public class ConfirmShopping {
 
     }
     private String invoiceFormatted(int orderId){
-        List<String> invoiceS=new ArrayList<>();
+        List<Invoice> invoiceS = null;
         try {
 
             invoiceS= orderManager.getInvoice(orderId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-      return  invoiceS.stream().collect(Collectors.joining(" "));
+      return  invoiceS.stream().map(Invoice::toString).collect(Collectors.joining("\n"));
     }
 
 }

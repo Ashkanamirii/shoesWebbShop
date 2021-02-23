@@ -133,4 +133,16 @@ public class Invoice {
     public void setTotal_price(double total_price) {
         this.total_price.set(total_price);
     }
+
+    @Override
+    public String toString() {
+        return getOrderId() +
+                " " + getOrderDate() +
+                " " + getShoesBrandName() +
+                " " + getShoesColor() +
+                " " + getShoesNumber() +
+                " " + getQuantity() +
+                " " + getPrice() +
+                " " + getTotal_price();
+    }
 }
