@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import modell.to.Shoes;
 import utils.UserLogin;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 
 /**
  * Created by Hodei Eceiza
@@ -32,9 +35,19 @@ public class ShoesDescription {
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
+        File file = new File("src/main/resources/img/reebok.jpg");
+        File file1 = new File("src/main/resources/img/adibas.png");
+        String imagepath = null;
+        String imagepath1 = null;
+        try {
+             imagepath = file.toURI().toURL().toString();
+             imagepath1 = file1.toURI().toURL().toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         switch(shoesData.getBrand().getName()){
-            case "Adidas"->shoesImage.setImage(new Image("src/main/resources/img/adibas.png"));
-            case "Reebok"->shoesImage.setImage(new Image("src/main/resources/img/reebok.jpg"));
+            case "Adidas"->shoesImage.setImage(new Image(imagepath1));
+            case "Reebok"->shoesImage.setImage(new Image(imagepath));
         }
         if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
@@ -50,7 +63,8 @@ public class ShoesDescription {
         addToCartB.setOnMouseClicked(e -> {
 
             selectedShoes=new Shoes(shoesData.getId(), shoesData.getSize(), shoesData.getShoes_number(),
-                    shoesData.getBrand(),shoesData.getCategories(), shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
+                    shoesData.getBrand(),shoesData.getCategories(),
+                    shoesData.getColor(), shoesData.getPrice(), quantityS.getValue());
 
             if (shoppingCart.stream().anyMatch(s -> s.getId() == shoesData.getId())) {
                 int index = shoppingCart.indexOf(shoppingCart.stream()

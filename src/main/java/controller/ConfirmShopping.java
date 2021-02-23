@@ -79,11 +79,13 @@ public class ConfirmShopping {
         this.shoesData=shoesData;
         orderNr.setText(orderId+"");
         initialize();
-        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
+        totalPrice.setText(shoesData.stream().map(
+                s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
        confirmB.setOnAction(e->{
                shoesData.forEach(s-> {
                    try {
-                       orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1);
+                       orderManager.getAddTOCart(
+                               UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1);
                    } catch (SQLException throwables) {
                        throwables.printStackTrace();
                    }
@@ -116,7 +118,5 @@ public class ConfirmShopping {
         Node source = (Node)  e.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
-
-
     }
 }

@@ -130,8 +130,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         ResultSet resultSet = callableStatement.executeQuery();
         
         while (resultSet.next()){
-            cHistory.add(new History(callableStatement.getInt(1)
-            ,String.valueOf(callableStatement.getDate(2))
+            cHistory.add(new History(resultSet.getInt(1)
+            ,String.valueOf(resultSet.getDate(2))
             ,resultSet.getInt(3)
             ,resultSet.getDouble(4)
             ,resultSet.getString(5)
