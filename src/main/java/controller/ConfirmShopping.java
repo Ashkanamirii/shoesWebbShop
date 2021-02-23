@@ -90,7 +90,7 @@ public class ConfirmShopping {
                });
            Alert a=new Alert(Alert.AlertType.INFORMATION);
            try {
-               a.setContentText(orderManager.getInvoice(orderId).toString());
+               a.setContentText(orderManager.getInvoice(orderId).toString()); //TODO:Show the invoice
            } catch (SQLException throwables) {
                throwables.printStackTrace();
            }

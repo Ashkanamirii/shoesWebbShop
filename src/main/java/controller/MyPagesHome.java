@@ -3,8 +3,8 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import utils.UserLogin;
 import utils.Utils;
@@ -17,10 +17,11 @@ public class MyPagesHome {
     public AnchorPane myPagesHomePane;
     public Button logout;
     public Button goToShopping;
-    //public Button ordersBtn;
-    //public Button surveyBtn;
+    public Button ordersBtn;
+    public Button surveyBtn;
     public Text cutomerName;
     public Utils changeScene;
+    public VBox surveyBtnBox;
 
 
     public void initialize() {
@@ -45,7 +46,7 @@ public class MyPagesHome {
             }
         });
 
-/*
+
         ordersBtn.setOnAction(e -> {
             try {
                 changeScene.changeScene("/myPagesOrders.fxml", myPagesHomePane);
@@ -63,7 +64,7 @@ public class MyPagesHome {
         });
 
 
- */
+
 
     }
 }

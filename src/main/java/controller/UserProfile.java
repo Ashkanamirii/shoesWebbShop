@@ -91,7 +91,7 @@ public class UserProfile {
         myPages.setOnAction(e -> {
             try {
                 if (checkInput()) {
-                    UserLogin.getInstance(email.getText(), passField.getText());
+                    UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/myPagesHome.fxml", mainPane);
                         //TODO ska skicka user info

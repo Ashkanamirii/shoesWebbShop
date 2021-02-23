@@ -5,8 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.VBox;
 import utils.UserLogin;
 import utils.Utils;
 
@@ -23,7 +22,7 @@ public class MyPagesOrders {
     public Label loginL;
     //public Pane shoesDescription_returnsP;
     public Utils changeScene;
-
+    public VBox surveyBtnBox;
 
 
     public void initialize() {
@@ -93,7 +92,7 @@ public class MyPagesOrders {
             }
         }
 
-/*
+
         public void goToRegi (ActionEvent e)  {
             try {
                 changeScene.changeScene("/XXXXX.fxml", mainPane);
@@ -102,7 +101,6 @@ public class MyPagesOrders {
             }
         }
 
- */
-
+*/
 
 

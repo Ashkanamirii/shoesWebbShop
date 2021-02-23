@@ -67,6 +67,7 @@ public class WebbshopPage {
     public Utils utils;
     public AnchorPane mainPage;
     public Button removeCart;
+    public Button myPageB;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
     private ShoesManagerImpl shoesManager=new ShoesManagerImpl();
@@ -75,6 +76,14 @@ public class WebbshopPage {
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
 
     public void initialize() {
+
+            myPageB.setOnAction(e->{
+                try {
+                    utils.changeScene("/myPagesHome.fxml", mainPage);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            });
 
 
         try {

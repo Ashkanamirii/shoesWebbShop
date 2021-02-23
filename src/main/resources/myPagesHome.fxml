@@ -67,7 +67,7 @@
             </Pane>
          </bottom>
          <left>
-            <VBox fx:id="surveyBtn" prefHeight="513.0" prefWidth="214.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
+            <VBox fx:id="surveyBtnBox" prefHeight="513.0" prefWidth="214.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="myPagesBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0e0e6;" styleClass="active" stylesheets="@css/style.css" text="MyPages">
                      <VBox.margin>
