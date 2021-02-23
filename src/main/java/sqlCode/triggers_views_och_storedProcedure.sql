@@ -16,6 +16,19 @@ end case;
 end//
 delimiter ;
 
+delimiter //
+create trigger on_status_update_autoCancel
+    after update
+    on order_line_item
+    for each row
+begin
+    case
+        when new.status ='AUTO_CANCEL'
+            then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
+        end case;
+end //
+delimiter ;
+
 
 drop trigger if exists update_stock_on_status;
 /*
