@@ -124,7 +124,7 @@ public class WebbshopPage {
         startLogInB.setOnAction(e -> {
             UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
-                loginL.setText("You are logged in!!!!");
+                loginL.setText("You are logged in as "+UserLogin.getCustomer().getName());
                 loginPane.setVisible(false);
                 shoppinCartP.setVisible(true);
             }
