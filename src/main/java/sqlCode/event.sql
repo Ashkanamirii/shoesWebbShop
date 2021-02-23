@@ -1,4 +1,6 @@
 DROP EVENT  auto_cancel;
+SET GLOBAL event_scheduler = ON;
+
 delimiter //
 create event auto_cancel ON SCHEDULE EVERY 1 MINUTE
     STARTS CURRENT_TIMESTAMP
