@@ -1,7 +1,24 @@
 -- updates the stock based on status.
+delimiter //
+create trigger on_status_update
+    after insert
+    on order_line_item
+    for each row
+begin
+case
+    when new.status='RETURNED' or new.status='CANCEL' or new.status ='AUTO_CANCEL'
+		then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
+when new.status='PAYING'
+		then update shoes set quantity=shoes.quantity-new.quantity where shoes.id=new.FK_shoes_id;
+else update shoes set quantity=shoes.quantity where shoes.id=new.FK_shoes_id;
+end case;
+-- end if;
+end//
+delimiter ;
+
 
 drop trigger if exists update_stock_on_status;
-delimiter //
+/*
 create trigger update_stock_on_status
 
     after insert
@@ -16,6 +33,8 @@ begin
         end case;
 end//
 delimiter ;
+
+ */
 
 
 
