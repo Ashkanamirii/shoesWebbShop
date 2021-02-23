@@ -23,6 +23,7 @@ public class Invoice {
     private SimpleDoubleProperty price;
     private SimpleDoubleProperty total_price;
     private SimpleIntegerProperty shoesId;
+    private int baseQuantity;
 
     public Invoice(int orderId, String orderDate, String shoesBrandName, String shoesColor,
                    int shoesNumber, int quantity, double price, double total_price,int shoesId) {
@@ -35,8 +36,11 @@ public class Invoice {
         this.price = new SimpleDoubleProperty(price);
         this.total_price = new SimpleDoubleProperty(total_price);
         this.shoesId = new SimpleIntegerProperty(shoesId);
+        this.baseQuantity=getQuantity();
     }
-
+    public int quantityToReturn(){
+        return baseQuantity-getQuantity();
+    }
     public int getShoesId() {
         return shoesId.get();
     }

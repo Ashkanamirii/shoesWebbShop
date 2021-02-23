@@ -45,10 +45,14 @@ public class MyPagesOrders {
     public TableView<History> ordersTable;
     public TableColumn<History,Integer> orderId;
     public TableColumn <History,String>orderDate;
+    public Button updateOrderLine;
+    public Label orderIdLabel;
     private ObservableList<Invoice> invoice;
     private ObservableList<History> userHistory;
 
     public void initialize() {
+
+        //TODO: implement searching (there is already a method in webbshoppage)
         //get the order
 
         try {
@@ -66,6 +70,21 @@ public class MyPagesOrders {
         orderDate.setCellValueFactory(new PropertyValueFactory("orderDate"));
 
         //on order select show invoice
+        ordersTable.setOnMouseClicked(e->{
+            if(e.getClickCount()==2) {
+                int orderId=ordersTable.getSelectionModel().getSelectedItem().getOrderId();
+
+                orderIdLabel.setText(orderId+"");
+                try {
+                    invoice = FXCollections.observableArrayList(orderManager.getInvoice
+                            (orderId));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                invoiceTable.setItems(invoice);
+                invoiceTable.refresh();
+            }
+        });
 
 
 
@@ -107,9 +126,20 @@ public class MyPagesOrders {
             (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
 
             invoiceTable.refresh();
+        });
 
-            //for testing
-            System.out.println(invoice.toString());
+
+        //send to be returned
+        updateOrderLine.setOnAction(e->{
+            invoice.forEach(i->{
+                if(i.quantityToReturn()!=0){
+                try {
+                orderManager.getAddTOCart(
+                        UserLogin.getCustomer().getId(), i.getOrderId(), i.getShoesId(),i.quantityToReturn(),5);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }}});
+
         });
 
 

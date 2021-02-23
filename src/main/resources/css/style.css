@@ -74,6 +74,10 @@
     -fx-padding: 3 6 6 6;
     -fx-background-color: #865c34;
 }
+.button:pressed{
+    -fx-background-color: #583d1f;
+    -fx-border-color: rgb(138, 108, 98);
+}
 .combo-box{
     -fx-text-fill: rgb(255, 255, 255);
     -fx-border-color: rgb(60, 32, 8);
