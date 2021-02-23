@@ -16,6 +16,9 @@ import utils.UserLogin;
 
 import javax.security.auth.callback.Callback;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Hodei Eceiza
@@ -89,11 +92,9 @@ public class ConfirmShopping {
                    }
                });
            Alert a=new Alert(Alert.AlertType.INFORMATION);
-           try {
-               a.setContentText(orderManager.getInvoice(orderId).toString()); //TODO:Show the invoice
-           } catch (SQLException throwables) {
-               throwables.printStackTrace();
-           }
+
+               a.setContentText(invoiceFormatted(orderId)); //TODO:Show the invoice
+
            a.setHeaderText("SHOPPING CONFIRMED!");
            a.showAndWait();
                 closeStage(e);
@@ -119,4 +120,15 @@ public class ConfirmShopping {
 
 
     }
+    private String invoiceFormatted(int orderId){
+        List<String> invoiceS=new ArrayList<>();
+        try {
+
+            invoiceS= orderManager.getInvoice(orderId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+      return  invoiceS.stream().collect(Collectors.joining(" "));
+    }
+
 }
