@@ -33,25 +33,29 @@ public class MyPagesOrders {
     public VBox surveyBtnBox;
     public Button searchBtn;
     public TableView<Invoice> invoiceTable;
-    public TableColumn shoesNumberC;
-    public TableColumn brandC;
-    public TableColumn colorC;
-    public TableColumn priceC;
-    public TableColumn <Invoice,Integer> quantityC;
+    public TableColumn<Invoice, Integer> shoesNumberC;
+    public TableColumn<Invoice, String> brandC;
+    public TableColumn<Invoice, String> colorC;
+    public TableColumn<Invoice, Double> priceC;
+    public TableColumn<Invoice, Integer> quantityC;
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
     private ObservableList<Invoice> invoice;
+
     public void initialize() {
+        //get the order
+
+
+        //get the invoice
         try {
-            invoice= FXCollections.observableArrayList(orderManager.getInvoice(99));
+            invoice = FXCollections.observableArrayList(orderManager.getInvoice(99));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-invoiceTable.setEditable(true);
+        invoiceTable.setEditable(true);
 
 
-        invoiceTable.setOnKeyPressed(e-> {
-            TablePosition<Invoice,?> focus=invoiceTable
-                    .focusModelProperty().get().focusedCellProperty().get();
+        invoiceTable.setOnKeyPressed(e -> {
+            TablePosition focus = invoiceTable.focusModelProperty().get().focusedCellProperty().get();
             invoiceTable.edit(focus.getRow(), focus.getTableColumn());
             System.out.println(invoice.toString());
         });
@@ -63,27 +67,32 @@ invoiceTable.setEditable(true);
         shoesNumberC.setCellValueFactory(new PropertyValueFactory("shoesNumber"));
 
         quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
+
         invoiceTable.setItems(invoice);
 
         quantityC.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         invoiceTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
 
-        quantityC.setOnEditCommit(e -> { final Integer value = e.getNewValue() != null ? e.getNewValue() : e.getOldValue();
-        (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
+        quantityC.setOnEditCommit(e -> {
+            if(e.getNewValue()>e.getOldValue()){
+                Alert dialog=new Alert(Alert.AlertType.WARNING);
+                dialog.setContentText("you can't buy more shoes with this order\nBut you can always go back to the shop and buy more :)");
+                dialog.showAndWait();
+            }
+            final Integer value = e.getNewValue() != null ? e.getNewValue() : e.getOldValue();
+            (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
 
-        invoiceTable.refresh();
+            invoiceTable.refresh();
+
+            //for testing
             System.out.println(invoice.toString());
-    });
-
-
-
-
+        });
 
 
         changeScene = new Utils();
 
-        loginL.setText("You login as " + UserLogin.getCustomer().getName() );
+        loginL.setText("You login as " + UserLogin.getCustomer().getName());
 
         logout.setOnAction(e -> {
             try {

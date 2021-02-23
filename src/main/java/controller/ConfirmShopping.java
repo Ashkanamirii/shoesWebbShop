@@ -82,7 +82,7 @@ public class ConfirmShopping {
         this.shoesData=shoesData;
         orderNr.setText(orderId+"");
         initialize();
-        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
+        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, Double::sum) + DELIVERYCOST +"");
        confirmB.setOnAction(e->{
                shoesData.forEach(s-> {
                    try {
