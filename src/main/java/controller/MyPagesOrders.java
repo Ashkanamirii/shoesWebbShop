@@ -4,13 +4,13 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
+import javafx.util.converter.IntegerStringConverter;
 import modell.bl.OrderLineItemManagerImpl;
 import utils.Invoice;
 import utils.UserLogin;
@@ -32,12 +32,12 @@ public class MyPagesOrders {
     public Utils changeScene;
     public VBox surveyBtnBox;
     public Button searchBtn;
-    public TableView invoiceTable;
+    public TableView<Invoice> invoiceTable;
     public TableColumn shoesNumberC;
     public TableColumn brandC;
     public TableColumn colorC;
     public TableColumn priceC;
-    public TableColumn quantityC;
+    public TableColumn <Invoice,Integer> quantityC;
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
     private ObservableList<Invoice> invoice;
     public void initialize() {
@@ -46,6 +46,16 @@ public class MyPagesOrders {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+invoiceTable.setEditable(true);
+
+
+        invoiceTable.setOnKeyPressed(e-> {
+            TablePosition<Invoice,?> focus=invoiceTable
+                    .focusModelProperty().get().focusedCellProperty().get();
+            invoiceTable.edit(focus.getRow(), focus.getTableColumn());
+            System.out.println(invoice.toString());
+        });
+
 
         brandC.setCellValueFactory(new PropertyValueFactory("shoesBrandName"));
         colorC.setCellValueFactory(new PropertyValueFactory("shoesColor"));
@@ -55,8 +65,16 @@ public class MyPagesOrders {
         quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
         invoiceTable.setItems(invoice);
 
+        quantityC.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        invoiceTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
 
+        quantityC.setOnEditCommit(e -> { final Integer value = e.getNewValue() != null ? e.getNewValue() : e.getOldValue();
+        (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
+
+        invoiceTable.refresh();
+            System.out.println(invoice.toString());
+    });
 
 
 
@@ -103,41 +121,5 @@ public class MyPagesOrders {
     }
 }
 
-
-//Måste fixa fel Om vi har tid (On Action)
-// On Action fungerade inte
-// Jag testade att första view ska vara home.fxml
-// Main class -->
-// Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-// Om ma klicka t.ex LoginBtn kommer det massor med fel
-
-/*
-        public void goToLogin (ActionEvent e){
-            try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-
-        public void goToWS (ActionEvent e){
-            try {
-                changeScene.changeScene("/webbshopPage.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-
-        public void goToRegi (ActionEvent e)  {
-            try {
-                changeScene.changeScene("/XXXXX.fxml", mainPane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-*/
 
 
