@@ -72,16 +72,17 @@ public class SurveysDAOImpl implements SurveysDAO {
     public ObservableList<String> getCommentByShoesId(int shoesNr) throws SQLException {
         // kanske du behöver ändra observable till något annat !!!!!!!!!!!!!
         ObservableList<String> listOfComment = (ObservableList<String>) new ArrayList<String>();
-        preparedStatement = connection.prepareStatement(
+        PreparedStatement pStmt = connection.prepareStatement(
                 "SELECT c.name as customer_name, comment from surveys s " +
                         "join customer c on c.id = s.FK_customer_id JOIN shoes sh on s.FK_shoes_id = sh.id " +
                         "where sh.shoes_number = ?");
-        preparedStatement.setInt(1, shoesNr);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        pStmt.setInt(1, shoesNr);
+        ResultSet resultSet = pStmt.executeQuery();
         while (resultSet.next()) {
             listOfComment.add(resultSet.getString(1));
             listOfComment.add(resultSet.getString(2));
         }
+        pStmt.close();
         return listOfComment;
     }
 
