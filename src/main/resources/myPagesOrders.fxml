@@ -47,13 +47,13 @@
                <children>
                   <TextField layoutX="127.0" layoutY="28.0" prefHeight="25.0" prefWidth="467.0" />
                   <Button fx:id="searchBtn" layoutX="636.0" layoutY="28.0" mnemonicParsing="false" text="Search" />
-                  <TableView layoutX="127.0" layoutY="186.0" prefHeight="160.0" prefWidth="467.0">
+                  <TableView fx:id="invoiceTable" layoutX="127.0" layoutY="186.0" prefHeight="160.0" prefWidth="467.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                        <TableColumn prefWidth="75.0" text="C3" />
-                        <TableColumn prefWidth="75.0" text="C4" />
-                        <TableColumn prefWidth="75.0" text="C5" />
+                      <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref. Nr." />
+                      <TableColumn fx:id="brandC" prefWidth="75.0" text="Brand" />
+                        <TableColumn fx:id="colorC" prefWidth="75.0" text="Color" />
+                        <TableColumn fx:id="priceC" prefWidth="75.0" text="Price" />
+                        <TableColumn fx:id="quantityC" prefWidth="75.0" text="Quantity" />
                     </columns>
                   </TableView>
                   <TableView layoutX="128.0" layoutY="61.0" prefHeight="86.0" prefWidth="465.0">

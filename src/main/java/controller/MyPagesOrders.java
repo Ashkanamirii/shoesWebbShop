@@ -1,15 +1,23 @@
 package controller;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import modell.bl.OrderLineItemManagerImpl;
+import utils.Invoice;
 import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class MyPagesOrders {
@@ -23,9 +31,38 @@ public class MyPagesOrders {
     //public Pane shoesDescription_returnsP;
     public Utils changeScene;
     public VBox surveyBtnBox;
-
-
+    public Button searchBtn;
+    public TableView invoiceTable;
+    public TableColumn shoesNumberC;
+    public TableColumn brandC;
+    public TableColumn colorC;
+    public TableColumn priceC;
+    public TableColumn quantityC;
+    private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private ObservableList<Invoice> invoice;
     public void initialize() {
+        try {
+            invoice= FXCollections.observableArrayList(orderManager.getInvoice(99));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        brandC.setCellValueFactory(new PropertyValueFactory("shoesBrandName"));
+        colorC.setCellValueFactory(new PropertyValueFactory("shoesColor"));
+        priceC.setCellValueFactory(new PropertyValueFactory("price"));
+        shoesNumberC.setCellValueFactory(new PropertyValueFactory("shoesNumber"));
+
+        quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
+        invoiceTable.setItems(invoice);
+
+
+
+
+
+
+
+
+
         changeScene = new Utils();
 
         loginL.setText("You login as " + UserLogin.getCustomer().getName() );
