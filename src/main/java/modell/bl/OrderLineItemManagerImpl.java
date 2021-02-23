@@ -1,6 +1,7 @@
 package modell.bl;
 
 import modell.da.OrderLineItemDAOImpl;
+import utils.Invoice;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,7 +27,7 @@ public class OrderLineItemManagerImpl implements OrderLineItemManager{
     }
 
     @Override
-    public List<String> getInvoice(int orderId) throws SQLException {
+    public List<Invoice> getInvoice(int orderId) throws SQLException {
         OrderLineItemDAOImpl orderLineItemDAO= new OrderLineItemDAOImpl();
        return orderLineItemDAO.invoice(orderId);
     }

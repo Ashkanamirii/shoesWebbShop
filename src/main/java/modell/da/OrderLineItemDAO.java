@@ -1,5 +1,7 @@
 package modell.da;
 
+import utils.Invoice;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,5 +15,5 @@ import java.util.List;
 public interface OrderLineItemDAO {
     int addTOCart( int customerId, int orderId , int shoesId ,int ordered_quantity ,
                     int status) throws SQLException;
-    List<String> invoice (int orderId) throws SQLException;
+    List<Invoice> invoice (int orderId) throws SQLException;
 }
