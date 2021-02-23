@@ -1,7 +1,6 @@
 package controller;
 
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,14 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modell.bl.BrandManagerImpl;
 import modell.bl.CategoryManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.bl.ShoesManagerImpl;
-import modell.da.ShoesDAOImpl;
 import modell.to.Brand;
 import modell.to.Category;
 import modell.to.Shoes;
@@ -41,7 +38,6 @@ public class WebbshopPage {
     public TableColumn c5;
     public TableColumn c6;
     public TableColumn c7;
-
     public ComboBox showColors;
     public Button showTable;
     public TextField searchField;
@@ -49,9 +45,7 @@ public class WebbshopPage {
     public Label loginL;
     public PasswordField passF;
     public TextField email;
-
     public TableView shoppingCartView;
-    public TableColumn cartId;
     public TableColumn cartPrice;
     public TableColumn cartBrand;
     public TableColumn cartQuantity;
@@ -70,24 +64,24 @@ public class WebbshopPage {
     public Button myPageB;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
-    private ShoesManagerImpl shoesManager=new ShoesManagerImpl();
-    private CategoryManagerImpl categoryManager=new CategoryManagerImpl();
-    private BrandManagerImpl brandManager=new BrandManagerImpl();
+    private ShoesManagerImpl shoesManager = new ShoesManagerImpl();
+    private CategoryManagerImpl categoryManager = new CategoryManagerImpl();
+    private BrandManagerImpl brandManager = new BrandManagerImpl();
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
 
     public void initialize() {
 
-            myPageB.setOnAction(e->{
-                try {
-                    utils.changeScene("/myPagesHome.fxml", mainPage);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            });
+        myPageB.setOnAction(e -> {
+            try {
+                utils.changeScene("/myPagesHome.fxml", mainPage);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
 
         try {
-            shoesList=FXCollections.observableArrayList(shoesManager.getAllShoes());
+            shoesList = FXCollections.observableArrayList(shoesManager.getAllShoes());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -108,13 +102,14 @@ public class WebbshopPage {
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         shoppingCartView.setItems(shoppingCart);
-        removeCart.setOnAction(e->{
+        removeCart.setOnAction(e -> {
             shoppingCartView.getItems().clear();
             totalPriceL.setText("");
-            shoppingCart.removeAll();});
+            shoppingCart.removeAll();
+        });
         shoppingCartView.setOnMouseClicked(e -> {
-                    if (e.getClickCount() == 2)
-                        shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
+            if (e.getClickCount() == 2)
+                shoppingCartView.getItems().remove(shoppingCartView.getSelectionModel().getSelectedItem());
             totalPriceL.setText("");
         });
         // log in with the singleton
@@ -133,7 +128,7 @@ public class WebbshopPage {
         startLogInB.setOnAction(e -> {
             UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
-                loginL.setText("You are logged in as "+UserLogin.getCustomer().getName());
+                loginL.setText("You are logged in as " + UserLogin.getCustomer().getName());
                 loginPane.setVisible(false);
                 shoppinCartP.setVisible(true);
             }
@@ -157,8 +152,11 @@ public class WebbshopPage {
         c7.setText("On stock");
         try {
             showColors.itemsProperty().setValue(shoesManager.getColorList());
-            showCategories.itemsProperty().setValue(FXCollections.observableArrayList(categoryManager.getAllCategory().stream().map(Category::getName).collect(Collectors.toList())));
-            showBrands.itemsProperty().setValue(FXCollections.observableArrayList(brandManager.getAllBrand().stream().map(Brand::getName).collect(Collectors.toList())));
+            showCategories.itemsProperty().setValue(FXCollections.observableArrayList(
+                    categoryManager.getAllCategory().stream().map(Category::getName).collect(Collectors.toList())));
+            showBrands.itemsProperty().setValue(
+                    FXCollections.observableArrayList(brandManager.getAllBrand().stream().
+                            map(Brand::getName).collect(Collectors.toList())));
 
             showColors.getSelectionModel().selectFirst();
             showCategories.getSelectionModel().selectFirst();
@@ -183,7 +181,8 @@ public class WebbshopPage {
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
-                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()), shoppingCart, totalPriceL);
+                        loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()),
+                                shoppingCart, totalPriceL);
 
                 }
         );
@@ -192,21 +191,21 @@ public class WebbshopPage {
         });
 
 
-
         //create new order and get its id, then call addtocart and send the values for each element
-        confirmOrder.setOnAction(e->{
+        confirmOrder.setOnAction(e -> {
             try {
-                int orderId=orderManager.getOrderIdFromAddTOCart(UserLogin.getCustomer().getId(),-1,shoppingCart.get(0).getId(),shoppingCart.get(0).getQuantity(),2);
+                int orderId = orderManager.getOrderIdFromAddTOCart(UserLogin.getCustomer().getId(), -1,
+                        shoppingCart.get(0).getId(), shoppingCart.get(0).getQuantity(), 2);
 
-            shoppingCart.stream().skip(1).forEach(s-> {
-                try {
-                    orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),2);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            });
+                shoppingCart.stream().skip(1).forEach(s -> {
+                    try {
+                        orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 2);
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                });
 
-                loadConfirmDialog(shoppingCart,orderId);
+                loadConfirmDialog(shoppingCart, orderId);
             } catch (IOException | SQLException ioException) {
                 ioException.printStackTrace();
             }
@@ -215,7 +214,8 @@ public class WebbshopPage {
 
 
     }
-    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart,int orderId) throws IOException {
+
+    private void loadConfirmDialog(ObservableList<Shoes> shoppingCart, int orderId) throws IOException {
         System.out.println("here!!!!");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
         Parent parent = fxmlLoader.load();
@@ -228,11 +228,8 @@ public class WebbshopPage {
         stage.setScene(scene);
         stage.showAndWait();
 
-
-
-
-
     }
+
     //adds the shoes description panel
     private void loadShoesDesc(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPrice) {
         shoesDescriptionP.getChildren().clear();

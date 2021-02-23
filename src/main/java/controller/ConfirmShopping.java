@@ -12,13 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
-import utils.Invoice;
 import utils.UserLogin;
 
+import javax.security.auth.callback.Callback;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Hodei Eceiza
@@ -82,24 +79,24 @@ public class ConfirmShopping {
         this.shoesData=shoesData;
         orderNr.setText(orderId+"");
         initialize();
-        totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, Double::sum) + DELIVERYCOST +"");
+        totalPrice.setText(shoesData.stream().map(
+                s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
        confirmB.setOnAction(e->{
                shoesData.forEach(s-> {
                    try {
-                       orderManager.getAddTOCart(UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1);
+                       orderManager.getAddTOCart(
+                               UserLogin.getCustomer().getId(),orderId,s.getId(),s.getQuantity(),1);
                    } catch (SQLException throwables) {
                        throwables.printStackTrace();
                    }
                });
            Alert a=new Alert(Alert.AlertType.INFORMATION);
-
-               a.setContentText("Your order with id: " + orderId +
-                       " is on the way\n"+
-                       "here a small resume\n" +
-                       invoiceFormatted(orderId) + "\nYou can go to your page and UPDATE your order if you want"); //TODO:Show the invoice
-
+           try {
+               a.setContentText(orderManager.getInvoice(orderId).toString()); //TODO:Show the invoice
+           } catch (SQLException throwables) {
+               throwables.printStackTrace();
+           }
            a.setHeaderText("SHOPPING CONFIRMED!");
-           a.setHeight(250);
            a.showAndWait();
                 closeStage(e);
 
@@ -121,18 +118,5 @@ public class ConfirmShopping {
         Node source = (Node)  e.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
-
-
     }
-    private String invoiceFormatted(int orderId){
-        List<Invoice> invoiceS = null;
-        try {
-
-            invoiceS= orderManager.getInvoice(orderId);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-      return  invoiceS.stream().map(Invoice::toString).collect(Collectors.joining("\n"));
-    }
-
 }
