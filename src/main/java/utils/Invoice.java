@@ -13,9 +13,6 @@ import javafx.beans.property.SimpleStringProperty;
  * Copyright: MIT
  */
 public class Invoice {
-//    select o.id as ORDER_ID , o.order_date as DATE, b.name,  sh.color ,
-//    sh.shoes_number , oli.quantity  , sh.price ,
-//    oli.quantity * sh.price as total_price from customer c
 
     private SimpleIntegerProperty orderId;
     private SimpleStringProperty orderDate;
@@ -25,9 +22,10 @@ public class Invoice {
     private SimpleIntegerProperty quantity;
     private SimpleDoubleProperty price;
     private SimpleDoubleProperty total_price;
+    private SimpleIntegerProperty shoesId;
 
     public Invoice(int orderId, String orderDate, String shoesBrandName, String shoesColor,
-                   int shoesNumber, int quantity, double price, double total_price) {
+                   int shoesNumber, int quantity, double price, double total_price,int shoesId) {
         this.orderId = new SimpleIntegerProperty(orderId);
         this.orderDate = new SimpleStringProperty (orderDate);
         this.shoesBrandName = new SimpleStringProperty (shoesBrandName);
@@ -36,6 +34,19 @@ public class Invoice {
         this.quantity = new SimpleIntegerProperty(quantity);
         this.price = new SimpleDoubleProperty(price);
         this.total_price = new SimpleDoubleProperty(total_price);
+        this.shoesId = new SimpleIntegerProperty(shoesId);
+    }
+
+    public int getShoesId() {
+        return shoesId.get();
+    }
+
+    public SimpleIntegerProperty shoesIdProperty() {
+        return shoesId;
+    }
+
+    public void setShoesId(int shoesId) {
+        this.shoesId.set(shoesId);
     }
 
     public int getOrderId() {

@@ -44,6 +44,10 @@ public class Shoes {
 
     }
 
+    public Shoes() {
+
+    }
+
     public String getCategoriesP() {
 
 

@@ -55,7 +55,8 @@ public class OrderLineItemDAOImpl implements OrderLineItemDAO {
             ,rs.getInt(5)
             ,rs.getInt(6)
             ,rs.getDouble(7)
-            ,rs.getDouble(8)));
+            ,rs.getDouble(8)
+            , rs.getInt(9)));
         }
         call.close();
         connection.close();

@@ -14,7 +14,7 @@ BEGIN
     DECLARE avrageGrade DECIMAL(10,2);
     select avg(grade) into avrageGrade from surveys where FK_shoes_id = shoesId;
     RETURN avrageGrade;
-END$$
+END $$
 
 DELIMITER ;
 
@@ -71,7 +71,7 @@ BEGIN
     INSERT INTO surveys(comment,grade, FK_shoes_id, FK_customer_id)
     VALUES
     (surveysComment, rate, shoesId, customerId);
-END$$
+END $$
 
 DELIMITER ;
 
@@ -90,14 +90,15 @@ in custID INT
 )
 BEGIN
     select o.id as ORDER_ID , o.order_date as DATE, oli.quantity ,sh.price, sh.color ,
-           sh.shoes_number , b.name, oli.status , sh.price * oli.quantity as total_price from customer c
+           sh.shoes_number , b.name, oli.status , sh.price * oli.quantity as total_price,sh.id as shoes_ID
+    from customer c
         join orders o on o.FK_customer_id = c.id
         join order_line_item oli on oli.FK_order_id = o.id
         join shoes sh on sh.id = oli.FK_shoes_id
         join brand b on b.id = sh.FK_brand_id
     where c.id = custID and oli.status in(1,5)
     order by DATE;
-END$$
+END $$
 
 DELIMITER ;
 
@@ -110,7 +111,7 @@ create procedure invoice(
 BEGIN
     select o.id as ORDER_ID , o.order_date as DATE, b.name,  sh.color ,
            sh.shoes_number , oli.quantity  , sh.price ,
-           oli.quantity * sh.price as total_price from customer c
+           oli.quantity * sh.price as total_price ,sh.id as shoes_id from customer c
            join
                orders o on o.FK_customer_id = c.id
            join
@@ -119,11 +120,13 @@ BEGIN
                shoes sh on sh.id = oli.FK_shoes_id
            join
                brand b on b.id = sh.FK_brand_id
-    where o.id = ordID and oli.status in(2)
+    where o.id = ordID and oli.status in(1)
     order by DATE;
-END$$
+END $$
 
 DELIMITER ;
+
+
 
 DELIMITER $$
 create procedure shoesObjekt()
@@ -134,8 +137,5 @@ SELECT *from shoes sh
     join category c on shc.FK_category_id = c.id
     join brand b on b.id = sh.FK_brand_id
     ;
-
-
-
 END $$
 DELIMITER ;

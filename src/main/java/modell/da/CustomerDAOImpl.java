@@ -2,6 +2,7 @@ package modell.da;
 
 import connection.ConnectionDB;
 import modell.to.Customer;
+import utils.History;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -121,24 +122,24 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<String> customerHistory(int custId) throws SQLException {
-        List<String> cHistory = null;
+    public List<History> customerHistory(int custId) throws SQLException {
+        List<History> cHistory = new ArrayList<>();
         CallableStatement callableStatement = connection.prepareCall("call customerHistory(?)");
         callableStatement.setInt(1, custId);
 
         ResultSet resultSet = callableStatement.executeQuery();
         
         while (resultSet.next()){
-            cHistory = new ArrayList<>();
-            cHistory.add(String.valueOf(callableStatement.getInt(1)));
-            cHistory.add(String.valueOf(callableStatement.getDate(2)));
-            cHistory.add(String.valueOf(callableStatement.getInt(3)));
-            cHistory.add(String.valueOf(callableStatement.getDouble(4)));
-            cHistory.add(callableStatement.getString(5));
-            cHistory.add(String.valueOf(callableStatement.getInt(6)));
-            cHistory.add(callableStatement.getString(7));
-            cHistory.add(callableStatement.getString(8));
-            cHistory.add(String.valueOf(callableStatement.getDouble(9)));
+            cHistory.add(new History(callableStatement.getInt(1)
+            ,String.valueOf(callableStatement.getDate(2))
+            ,resultSet.getInt(3)
+            ,resultSet.getDouble(4)
+            ,resultSet.getString(5)
+            ,resultSet.getInt(6)
+            ,resultSet.getString(7)
+            ,resultSet.getString(8)
+            ,resultSet.getDouble(9)
+            ,resultSet.getInt(10)));
         }
 
         callableStatement.close();

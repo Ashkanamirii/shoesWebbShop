@@ -1,9 +1,9 @@
 package modell.da;
 
 import connection.ConnectionDB;
-import modell.to.Customer;
-import modell.to.Shoes;
+import javafx.collections.ObservableList;
 import modell.to.Surveys;
+import utils.ShoesAverageGrade;
 import utils.Utils;
 
 import java.sql.*;
@@ -68,18 +68,37 @@ public class SurveysDAOImpl implements SurveysDAO {
         callableStatement.close();
         connection.close();
     }
+    @Override
+    public ObservableList<String> getCommentByShoesId(int shoesNr) throws SQLException {
+        // kanske du behöver ändra observable till något annat !!!!!!!!!!!!!
+        ObservableList<String> listOfComment = (ObservableList<String>) new ArrayList<String>();
+        preparedStatement = connection.prepareStatement(
+                "SELECT c.name as customer_name, comment from surveys s " +
+                        "join customer c on c.id = s.FK_customer_id JOIN shoes sh on s.FK_shoes_id = sh.id " +
+                        "where sh.shoes_number = ?");
+        preparedStatement.setInt(1, shoesNr);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            listOfComment.add(resultSet.getString(1));
+            listOfComment.add(resultSet.getString(2));
+        }
+        return listOfComment;
+    }
 
     @Override
-    public List<String> productAverageRateView() throws SQLException {
-        List<String> shoesAverageRateView = new ArrayList<>();
+    public List<ShoesAverageGrade> shoesAverageGrade() throws SQLException {
+        SurveysDAOImpl s = new SurveysDAOImpl();
+        List<ShoesAverageGrade> shoesAverageRateView = new ArrayList<>();
         preparedStatement = connection.prepareStatement("SELECT * from product_average_rate");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            shoesAverageRateView.add(resultSet.getString("shoes_name"));
-            shoesAverageRateView.add(String.valueOf(resultSet.getInt("shoesNumber")));
-            shoesAverageRateView.add(String.valueOf(resultSet.getLong("Number_Of_Rating")));
-            shoesAverageRateView.add(String.valueOf(resultSet.getDouble("Average_Rate")));
-            shoesAverageRateView.add(resultSet.getString("Rate"));
+            shoesAverageRateView.add(new ShoesAverageGrade(resultSet.getString("shoes_name")
+            ,resultSet.getInt("shoesNumber")
+            ,resultSet.getLong("Number_Of_Rating")
+            ,resultSet.getDouble("Average_Rate")
+            ,resultSet.getString("Rate")
+                    // här sätter jag alla comment för en shoes Det sparas som observableList(Hoppas funkar)
+            ,s.getCommentByShoesId(resultSet.getInt("shoesNumber"))));
         }
         close();
         return shoesAverageRateView;
@@ -89,10 +108,10 @@ public class SurveysDAOImpl implements SurveysDAO {
     public double getShoesAverageRate(int shoesId) throws SQLException {
         double avg = 0;
         CallableStatement call = connection.prepareCall("select getShoesAverageGrade(?)");
-        call.setInt(1,shoesId);
+        call.setInt(1, shoesId);
         ResultSet rs = call.executeQuery();
-        while (rs.next()){
-           avg =  rs.getDouble(1);
+        while (rs.next()) {
+            avg = rs.getDouble(1);
         }
         return avg;
     }
