@@ -33,7 +33,7 @@ public class NoStockDAOImpl implements NoStockDAO{
 
     @Override
     public List<NoStock> select() throws SQLException {
-        /*
+
         List<NoStock> noStocks = new ArrayList<>();
         ResultSet rs =null;
         preparedStatement = connection.prepareStatement("SELECT * FROM no_stock");
@@ -44,14 +44,8 @@ public class NoStockDAOImpl implements NoStockDAO{
             shoes.setId(rs.getInt(2));
             noStocks.add(new NoStock(rs.getInt(1),shoes,rs.getString(3)));
         }
-
-
-
             close();
             return noStocks;
-
-         */
-        return null;
     }
     public void close() throws SQLException {
         preparedStatement.close();

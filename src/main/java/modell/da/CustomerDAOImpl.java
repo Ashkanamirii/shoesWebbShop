@@ -132,13 +132,14 @@ public class CustomerDAOImpl implements CustomerDAO {
         while (resultSet.next()){
             cHistory.add(new History(callableStatement.getInt(1)
             ,String.valueOf(callableStatement.getDate(2))
-            ,callableStatement.getInt(3)
-            ,callableStatement.getDouble(4)
-            ,callableStatement.getString(5)
-            ,callableStatement.getInt(6)
-            ,callableStatement.getString(7)
-            ,callableStatement.getString(8)
-            ,callableStatement.getDouble(9)));
+            ,resultSet.getInt(3)
+            ,resultSet.getDouble(4)
+            ,resultSet.getString(5)
+            ,resultSet.getInt(6)
+            ,resultSet.getString(7)
+            ,resultSet.getString(8)
+            ,resultSet.getDouble(9)
+            ,resultSet.getInt(10)));
         }
 
         callableStatement.close();

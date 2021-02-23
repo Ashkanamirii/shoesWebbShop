@@ -21,9 +21,10 @@ public class History {
     private SimpleStringProperty shoesBrandName;
     private SimpleStringProperty status;
     private SimpleDoubleProperty total_price;
+    private SimpleIntegerProperty shoesId;
 
     public History(int orderId, String orderDate, int quantity, double price,
-                   String shoesColor, int shoesNumber, String shoesBrandName, String status, double total_price) {
+                   String shoesColor, int shoesNumber, String shoesBrandName, String status, double total_price,int shoesId) {
         this.orderId = new SimpleIntegerProperty(orderId);
         this.orderDate = new SimpleStringProperty (orderDate);
         this.shoesBrandName = new SimpleStringProperty (shoesBrandName);
@@ -33,6 +34,19 @@ public class History {
         this.price = new SimpleDoubleProperty(price);
         this.status = new SimpleStringProperty (status);
         this.total_price = new SimpleDoubleProperty(total_price);
+        this.shoesId = new SimpleIntegerProperty(shoesId);
+    }
+
+    public int getShoesId() {
+        return shoesId.get();
+    }
+
+    public SimpleIntegerProperty shoesIdProperty() {
+        return shoesId;
+    }
+
+    public void setShoesId(int shoesId) {
+        this.shoesId.set(shoesId);
     }
 
     public int getOrderId() {
