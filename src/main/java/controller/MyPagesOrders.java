@@ -11,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
+import modell.bl.CustomerManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
+import utils.History;
 import utils.Invoice;
 import utils.UserLogin;
 import utils.Utils;
@@ -38,11 +40,33 @@ public class MyPagesOrders {
     public TableColumn<Invoice, String> colorC;
     public TableColumn<Invoice, Double> priceC;
     public TableColumn<Invoice, Integer> quantityC;
-    private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private final OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private final CustomerManagerImpl customerManager =new CustomerManagerImpl();
+    public TableView<History> ordersTable;
+    public TableColumn<History,Integer> orderId;
+    public TableColumn <History,String>orderDate;
     private ObservableList<Invoice> invoice;
+    private ObservableList<History> userHistory;
 
     public void initialize() {
         //get the order
+
+        try {
+           userHistory=FXCollections.observableArrayList(customerManager.customerHistory(UserLogin.getCustomer().getId()));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+//set the orders
+        ordersTable.setItems(userHistory);
+
+        System.out.println(UserLogin.getCustomer().getId());
+        //set the orders
+        orderId.setCellValueFactory(new PropertyValueFactory("orderId"));
+        orderDate.setCellValueFactory(new PropertyValueFactory("orderDate"));
+
+        //on order select show invoice
+
 
 
         //get the invoice
@@ -51,16 +75,7 @@ public class MyPagesOrders {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        invoiceTable.setEditable(true);
-
-
-        invoiceTable.setOnKeyPressed(e -> {
-            TablePosition focus = invoiceTable.focusModelProperty().get().focusedCellProperty().get();
-            invoiceTable.edit(focus.getRow(), focus.getTableColumn());
-            System.out.println(invoice.toString());
-        });
-
-
+        //set the invoice
         brandC.setCellValueFactory(new PropertyValueFactory("shoesBrandName"));
         colorC.setCellValueFactory(new PropertyValueFactory("shoesColor"));
         priceC.setCellValueFactory(new PropertyValueFactory("price"));
@@ -69,6 +84,14 @@ public class MyPagesOrders {
         quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
 
         invoiceTable.setItems(invoice);
+        invoiceTable.setEditable(true);
+//edit the invoice
+
+        invoiceTable.setOnKeyPressed(e -> {
+            TablePosition focus = invoiceTable.focusModelProperty().get().focusedCellProperty().get();
+            invoiceTable.edit(focus.getRow(), focus.getTableColumn());
+            System.out.println(invoice.toString());
+        });
 
         quantityC.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         invoiceTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
