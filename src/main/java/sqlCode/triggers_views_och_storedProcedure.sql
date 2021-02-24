@@ -132,4 +132,9 @@ DELIMITER ;
 
 
 
-
+DELIMITER //
+create procedure getOrderIDForInvoice(OUT orderId int, IN customerId int)
+BEGIN
+    select max(id)  into orderId from orders o where customerId= o.FK_customer_id;
+end//
+DELIMITER ;

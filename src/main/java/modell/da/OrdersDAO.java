@@ -1,5 +1,7 @@
 package modell.da;
 
+import java.sql.SQLException;
+
 /**
  * Created by Ashkan Amiri
  * Date:  2021-02-21
@@ -8,4 +10,5 @@ package modell.da;
  * Copyright: MIT
  */
 public interface OrdersDAO {
+    int selectLastOrderId(int custId) throws SQLException;
 }
