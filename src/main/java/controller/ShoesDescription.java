@@ -6,11 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+import javafx.scene.layout.AnchorPane;
+import modell.bl.SurveysBLImpl;
 import modell.to.Shoes;
+import org.controlsfx.control.Rating;
 import utils.UserLogin;
+import utils.Utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 
 
 /**
@@ -30,8 +36,15 @@ public class ShoesDescription {
     public Label priceL;
     public Button addToCartB;
     public Spinner<Integer> quantityS;
+    public Rating averageRating;
+    public Button goToSurveys;
+    public AnchorPane shoesDescrptionPane;
     private Shoes selectedShoes;
+    private SurveysBLImpl surveysManager=new SurveysBLImpl();
+    private double ratingValue;
     public void initialize() {
+
+
     }
 
     public void setData(Shoes shoesData, ObservableList<Shoes> shoppingCart, Label totalPriceL) {
@@ -49,9 +62,23 @@ public class ShoesDescription {
             case "Adidas"->shoesImage.setImage(new Image(imagepath1));
             case "Reebok"->shoesImage.setImage(new Image(imagepath));
         }
-        if (!UserLogin.getIsLogged())
-            addToCartB.setVisible(false);
 
+
+        if (!UserLogin.getIsLogged()) {
+            addToCartB.setVisible(false);
+            goToSurveys.setVisible(false);
+        }
+
+//the rating
+        try {
+            ratingValue=surveysManager.getAvgForOneShoes(shoesData.getId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        averageRating.setRating(ratingValue);
+        averageRating.setOnMouseClicked(e->averageRating.setRating(ratingValue));
+
+        //the labels and descriptions
 
         brandL.setText(shoesData.getBrand().getName());
         colorL.setText(shoesData.getColor());
@@ -85,6 +112,13 @@ public class ShoesDescription {
 
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));
 
-
+        goToSurveys.setOnAction(e->{
+        Utils utils=new Utils();
+        try {
+            utils.changeScene("/myPagesSurvey.fxml", shoesDescrptionPane);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+});
     }
 }
