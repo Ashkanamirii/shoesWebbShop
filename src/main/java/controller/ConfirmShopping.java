@@ -64,7 +64,7 @@ public AnchorPane mainPage;
     private final static int DELIVERYCOST=225;
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
     public void initialize(){
-        System.out.println(shoesData);
+        //System.out.println(shoesData);
         confirmBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         confirmQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         confirmPrice.setCellValueFactory(new PropertyValueFactory("price"));
