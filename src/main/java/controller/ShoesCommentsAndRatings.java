@@ -33,14 +33,17 @@ public class ShoesCommentsAndRatings {
     public Label averageRateL;
     public Label rateNameL;
     private int shoesId;
+    private double ratingValue;
     private SurveysBLImpl surveys=new SurveysBLImpl();
     public void initialize(){
-
+//set stars rating
         try {
-            surveys.getAvgForOneShoes(shoesId);
+            ratingValue=surveys.getAvgForOneShoes(shoesId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        ratingStars.setRating(ratingValue);
+        ratingStars.setOnMouseClicked(e->ratingStars.setRating(ratingValue));
     }
     public void setData(int shoesId){
         this.shoesId=shoesId;

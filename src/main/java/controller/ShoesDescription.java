@@ -69,10 +69,10 @@ public class ShoesDescription {
         }
 
 
-        if (!UserLogin.getIsLogged()) {
+        if (!UserLogin.getIsLogged())
             addToCartB.setVisible(false);
-            goToSurveys.setVisible(false);
-        }
+
+
 
 //the rating
         try {
