@@ -1,6 +1,7 @@
 package utils;
 
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -19,17 +20,17 @@ public class ShoesAverageGrade {
     private SimpleLongProperty numberOfRating;
     private SimpleDoubleProperty averageRate;
     private SimpleStringProperty rate;
-    private SimpleListProperty<String> ListOfComment;
+    private ObservableList<Comments> ListOfComment;
 
     public ShoesAverageGrade(String shoesName,
                              int shoesNumber, Long numberOfRating, double averageRate, String rate ,
-                             ObservableList<String> ListOfComment) {
+                             List<Comments> listOfComment) {
         this.shoesName = new SimpleStringProperty (shoesName);
         this.shoesNumber = new SimpleIntegerProperty(shoesNumber);
         this.numberOfRating = new SimpleLongProperty(numberOfRating);
         this.averageRate = new SimpleDoubleProperty(averageRate);
         this.rate = new SimpleStringProperty (rate);
-        this.ListOfComment = new SimpleListProperty<>(ListOfComment);
+        this.ListOfComment = FXCollections.observableArrayList(listOfComment);
     }
 
     public String getShoesName() {
@@ -92,15 +93,11 @@ public class ShoesAverageGrade {
         this.rate.set(rate);
     }
 
-    public ObservableList<String> getListOfComment() {
-        return ListOfComment.get();
-    }
-
-    public SimpleListProperty<String> listOfCommentProperty() {
+    public ObservableList<Comments> getListOfComment() {
         return ListOfComment;
     }
 
-    public void setListOfComment(ObservableList<String> listOfComment) {
-        this.ListOfComment.set(listOfComment);
+    public void setListOfComment(ObservableList<Comments> listOfComment) {
+        ListOfComment = listOfComment;
     }
 }

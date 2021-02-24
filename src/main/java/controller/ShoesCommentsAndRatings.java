@@ -44,6 +44,8 @@ public class ShoesCommentsAndRatings {
         }
         ratingStars.setRating(ratingValue);
         ratingStars.setOnMouseClicked(e->ratingStars.setRating(ratingValue));
+
+
     }
     public void setData(int shoesId){
         this.shoesId=shoesId;

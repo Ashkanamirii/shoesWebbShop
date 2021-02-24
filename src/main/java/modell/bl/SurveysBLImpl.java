@@ -2,6 +2,7 @@ package modell.bl;
 
 import modell.da.SurveysDAOImpl;
 import modell.to.Surveys;
+import utils.Comments;
 import utils.ShoesAverageGrade;
 
 import java.sql.SQLException;
@@ -38,6 +39,12 @@ public class SurveysBLImpl implements SurveysBL {
     public double getAvgForOneShoes(int shoesId) throws SQLException {
         SurveysDAOImpl surveys = new SurveysDAOImpl();
         return surveys.getShoesAverageRate(shoesId);
+    }
+
+    @Override
+    public List<Comments> getCommentsByShoesId(int shoesId) throws SQLException {
+        SurveysDAOImpl surveys = new SurveysDAOImpl();
+        return surveys.getCommentByShoesId(shoesId);
     }
 
 }

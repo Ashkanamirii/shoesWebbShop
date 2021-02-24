@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import modell.to.Customer;
 import modell.to.Shoes;
 import modell.to.Surveys;
+import utils.Comments;
 import utils.ShoesAverageGrade;
 
 import java.sql.SQLException;
@@ -22,5 +23,5 @@ public interface SurveysDAO {
     void setRate(int shoesId, int custId, int rate, String comment) throws SQLException;
     List<ShoesAverageGrade> shoesAverageGrade ()throws SQLException;
     double getShoesAverageRate(int shoes) throws SQLException;
-    ObservableList<String> getCommentByShoesId(int shoesNr) throws SQLException;
+    List<Comments> getCommentByShoesId(int shoesNr) throws SQLException;
 }

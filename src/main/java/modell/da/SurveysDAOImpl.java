@@ -3,6 +3,7 @@ package modell.da;
 import connection.ConnectionDB;
 import javafx.collections.ObservableList;
 import modell.to.Surveys;
+import utils.Comments;
 import utils.ShoesAverageGrade;
 import utils.Utils;
 
@@ -69,9 +70,8 @@ public class SurveysDAOImpl implements SurveysDAO {
         connection.close();
     }//List<Comments> name,comment SImpleStringPorpert
     @Override
-    public ObservableList<String> getCommentByShoesId(int shoesNr) throws SQLException {
-        // kanske du behöver ändra observable till något annat !!!!!!!!!!!!!
-        ObservableList<String> listOfComment = (ObservableList<String>) new ArrayList<String>();
+    public List<Comments> getCommentByShoesId(int shoesNr) throws SQLException {
+        List<Comments> listOfComment =new ArrayList<>();
         PreparedStatement pStmt = connection.prepareStatement(
                 "SELECT c.name as customer_name, comment from surveys s " +
                         "join customer c on c.id = s.FK_customer_id JOIN shoes sh on s.FK_shoes_id = sh.id " +
@@ -79,8 +79,7 @@ public class SurveysDAOImpl implements SurveysDAO {
         pStmt.setInt(1, shoesNr);
         ResultSet resultSet = pStmt.executeQuery();
         while (resultSet.next()) {
-            listOfComment.add(resultSet.getString(1));
-            listOfComment.add(resultSet.getString(2));
+            listOfComment.add(new Comments((resultSet.getString(1)),resultSet.getString(2)));
         }
         pStmt.close();
         return listOfComment;
