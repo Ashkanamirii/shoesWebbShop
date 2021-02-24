@@ -67,7 +67,7 @@ public class SurveysDAOImpl implements SurveysDAO {
             System.out.println("ERROR-->Insert rate into database");
         callableStatement.close();
         connection.close();
-    }
+    }//List<Comments> name,comment SImpleStringPorpert
     @Override
     public ObservableList<String> getCommentByShoesId(int shoesNr) throws SQLException {
         // kanske du behöver ändra observable till något annat !!!!!!!!!!!!!

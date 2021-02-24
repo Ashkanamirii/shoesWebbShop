@@ -1,12 +1,17 @@
 package controller;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import modell.bl.SurveysBLImpl;
 import modell.to.Shoes;
 import org.controlsfx.control.Rating;
@@ -113,12 +118,34 @@ public class ShoesDescription {
         quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, shoesData.getQuantity()));
 
         goToSurveys.setOnAction(e->{
-        Utils utils=new Utils();
+            try {
+                loadConfirmDialog(shoesData.getId());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            /*
+            Utils utils=new Utils();
         try {
             utils.changeScene("/myPagesSurvey.fxml", shoesDescrptionPane);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+
+             */
 });
+    }
+    private void loadConfirmDialog(int shoesId) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/shoesCommentsAndRatings.fxml"));
+        Parent parent = fxmlLoader.load();
+        ShoesCommentsAndRatings dialogController = fxmlLoader.<ShoesCommentsAndRatings>getController();
+        dialogController.setData(shoesId);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+
     }
 }
