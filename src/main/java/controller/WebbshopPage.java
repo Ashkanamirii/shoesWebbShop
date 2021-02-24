@@ -93,7 +93,7 @@ public class WebbshopPage {
 
         else {
             loginPane.setVisible(false);
-            loginL.setText("Welcome\n" + UserLogin.getCustomer().getName()); //we get here the customer name
+            loginL.setText("Welcome " + UserLogin.getCustomer().getName()); //we get here the customer name
         }
         //shoping cart
 
@@ -129,7 +129,7 @@ public class WebbshopPage {
         startLogInB.setOnAction(e -> {
             UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
-                loginL.setText("Welcome\n" + UserLogin.getCustomer().getName());
+                loginL.setText("Welcome " + UserLogin.getCustomer().getName());
                 loginPane.setVisible(false);
                 shoppinCartP.setVisible(true);
             }
