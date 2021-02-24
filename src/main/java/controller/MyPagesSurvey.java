@@ -80,11 +80,6 @@ public class MyPagesSurvey {
 
 
 
-
-
-
-
-
         changeScene = new Utils();
 
 

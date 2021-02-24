@@ -180,6 +180,8 @@ public class WebbshopPage {
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1))));
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
+
+
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
                         loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()),
@@ -212,7 +214,7 @@ public class WebbshopPage {
             }
             Utils utils=new Utils();
             try {
-                utils.changeScene("/myPagesSurvey.fxml",mainPage); //TODO: go to invoice ratings---
+                utils.changeScene("/myPagesSurvey.fxml",mainPage);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -253,7 +255,7 @@ public class WebbshopPage {
         shoesDescriptionP.getChildren().add(newLoadedPane);
     }
 
-    //Now searches only color and brand
+
     private boolean isFound(Shoes shoesData, String searchText) {
         return (shoesData.getColor().toLowerCase().contains(searchText.toLowerCase())
                 || shoesData.getBrand().getName().toLowerCase().contains(searchText.toLowerCase()) ||

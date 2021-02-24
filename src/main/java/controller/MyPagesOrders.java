@@ -13,6 +13,7 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import modell.bl.CustomerManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
+import modell.to.Shoes;
 import utils.History;
 import utils.Invoice;
 import utils.UserLogin;
@@ -54,12 +55,15 @@ public class MyPagesOrders {
     public TableColumn <History,String>orderDate;
     public Button updateOrderLine;
     public Label orderIdLabel;
+    public TextField searchField;
     private ObservableList<Invoice> invoice;
     private ObservableList<History> userHistory;
 
     public void initialize() {
 
         //TODO: implement searching (there is already a method in webshoppage)
+        searchField.textProperty().addListener(((observableValue, s, t1) ->
+                ordersTable.setItems(filteredList(userHistory, t1))));
         //get the order
 
         try {
@@ -204,7 +208,21 @@ ArrayList<Integer> quantityChangeLog=new ArrayList<>();
             }
         });
 
+    }
+    private boolean isFound(History history, String searchText) {
+        return (history.getShoesBrandName().toLowerCase().contains(searchText.toLowerCase())
+                || history.getOrderDate().toLowerCase().contains(searchText.toLowerCase())||
+                history.getShoesColor().toLowerCase().contains(searchText.toLowerCase()));
+    }
 
+
+    //method to search in observable list and update
+    private ObservableList<History> filteredList(ObservableList<History> list, String searchText) {
+        List<History> filteredList = new ArrayList();
+        for (History history : list) {
+            if (isFound(history, searchText)) filteredList.add(history);
+        }
+        return FXCollections.observableArrayList(filteredList);
     }
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
