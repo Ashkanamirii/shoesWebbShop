@@ -158,6 +158,6 @@ public class Invoice {
                 " " + getShoesNumber() +
                 " " + getQuantity() +
                 " " + getPrice() +
-                " " + getTotal_price();
+                " " + getTotal_price()+"\n";
     }
 }

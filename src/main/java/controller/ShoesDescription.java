@@ -110,7 +110,7 @@ public class ShoesDescription {
                     map(s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s).toString());
         });
 
-        quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, shoesData.getQuantity()));
+        quantityS.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, shoesData.getQuantity()));
 
         goToSurveys.setOnAction(e->{
         Utils utils=new Utils();

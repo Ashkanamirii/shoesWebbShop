@@ -216,7 +216,7 @@ public class WebbshopPage {
     }
 
     private void loadConfirmDialog(ObservableList<Shoes> shoppingCart, int orderId) throws IOException {
-        System.out.println("here!!!!");
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/confirmShopping.fxml"));
         Parent parent = fxmlLoader.load();
         ConfirmShopping dialogController = fxmlLoader.<ConfirmShopping>getController();

@@ -91,8 +91,13 @@ public class ConfirmShopping {
                    }
                });
            Alert a=new Alert(Alert.AlertType.INFORMATION);
+           a.setHeight(300);
            try {
-               a.setContentText(orderManager.getInvoice(orderId).toString()); //TODO:Show the invoice
+               a.setContentText(
+                       "Your order is on the way, here an invoice:\n"+
+                       orderManager.getInvoice(orderId).toString()
+                               .replace('[',' ').replace(']',' ').replace(',',' ') +
+                       "\nif you want to change your order or update go to mypage. "); //TODO:Show the invoice
            } catch (SQLException throwables) {
                throwables.printStackTrace();
            }
