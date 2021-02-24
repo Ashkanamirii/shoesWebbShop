@@ -82,6 +82,7 @@ public class ConfirmShopping {
         totalPrice.setText(shoesData.stream().map(
                 s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f,s)->f+s) + DELIVERYCOST +"");
        confirmB.setOnAction(e->{
+
                shoesData.forEach(s-> {
                    try {
                        orderManager.getAddTOCart(
