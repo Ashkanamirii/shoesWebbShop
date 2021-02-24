@@ -136,7 +136,7 @@ public class WebbshopPage {
         });
 
         //Show in table-> brand, color, size,price,rating,category,quantity
-        //TODO: implement rating to shoes.
+        //TODO: implement rating to shoes. ta bort det
         c1.setCellValueFactory(new PropertyValueFactory("brandP"));
         c2.setCellValueFactory(new PropertyValueFactory("color"));
         c3.setCellValueFactory(new PropertyValueFactory("size"));

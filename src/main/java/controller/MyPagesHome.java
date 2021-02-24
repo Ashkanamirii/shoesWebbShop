@@ -62,49 +62,9 @@ public class MyPagesHome {
                 ioException.printStackTrace();
             }
         });
-
-
-
-
     }
 }
 
-
-//Måste fixa fel Om vi har tid (On Action)
-// On Action fungerade inte
-// Jag testade att första view ska vara home.fxml
-// Main class -->
-// Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-// Om ma klicka t.ex LoginBtn kommer det massor med fel
-
-/*
-        public void goToLogin (ActionEvent e){
-            try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-
-        public void goToWS (ActionEvent e){
-            try {
-                changeScene.changeScene("/webbshopPage.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-/*
-        public void goToRegi (ActionEvent e)  {
-            try {
-                changeScene.changeScene("/XXXXX.fxml", mainPane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
- */
 
 
 

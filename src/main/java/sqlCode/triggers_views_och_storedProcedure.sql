@@ -24,7 +24,7 @@ create trigger on_status_update_autoCancel
 begin
     case
         when new.status ='AUTO_CANCEL'
-            then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
+            then update shoes set quantity = shoes.quantity + new.quantity where shoes.id=new.FK_shoes_id;
         end case;
 end //
 delimiter ;
@@ -93,20 +93,20 @@ end//
  DELIMITER ;
 
 
-drop procedure if exists getNewOrderId;
--- SP to get order id when we create a new one (should be simplified, no need of null.) and maybe transform to a function.
-DELIMITER //
-create procedure getNewOrderId(INOUT orderId int, IN customerId int)
-BEGIN
-    if orderId = -1 then
-        set orderId = null;
-    end if;
-    if orderId is null then
-        insert into orders (FK_customer_id, order_date) values (customerId, curdate());
-        set orderId := last_insert_id();
-    end if;
-end//
-DELIMITER ;
+# drop procedure if exists getNewOrderId;
+# -- SP to get order id when we create a new one (should be simplified, no need of null.) and maybe transform to a function.
+# DELIMITER //
+# create procedure getNewOrderId(INOUT orderId int, IN customerId int)
+# BEGIN
+#     if orderId = -1 then
+#         set orderId = null;
+#     end if;
+#     if orderId is null then
+#         insert into orders (FK_customer_id, order_date) values (customerId, curdate());
+#         set orderId := last_insert_id();
+#     end if;
+# end//
+# DELIMITER ;
 
 
 

@@ -1,12 +1,10 @@
 package modell.da;
 
 import connection.ConnectionDB;
-import javafx.collections.ObservableList;
 import modell.to.Surveys;
 import utils.Comments;
-import utils.ShoesAverageGrade;
+//import utils.ShoesAverageGrade;
 import utils.Utils;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,24 +83,24 @@ public class SurveysDAOImpl implements SurveysDAO {
         return listOfComment;
     }
 
-    @Override
-    public List<ShoesAverageGrade> shoesAverageGrade() throws SQLException {
-        SurveysDAOImpl s = new SurveysDAOImpl();
-        List<ShoesAverageGrade> shoesAverageRateView = new ArrayList<>();
-        preparedStatement = connection.prepareStatement("SELECT * from product_average_rate");
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            shoesAverageRateView.add(new ShoesAverageGrade(resultSet.getString("shoes_name")
-            ,resultSet.getInt("shoesNumber")
-            ,resultSet.getLong("Number_Of_Rating")
-            ,resultSet.getDouble("Average_Rate")
-            ,resultSet.getString("Rate")
-                    // här sätter jag alla comment för en shoes Det sparas som observableList(Hoppas funkar)
-            ,s.getCommentByShoesId(resultSet.getInt("shoesNumber"))));
-        }
-        close();
-        return shoesAverageRateView;
-    }
+//    @Override
+//    public List<ShoesAverageGrade> shoesAverageGrade() throws SQLException {
+//        SurveysDAOImpl s = new SurveysDAOImpl();
+//        List<ShoesAverageGrade> shoesAverageRateView = new ArrayList<>();
+//        preparedStatement = connection.prepareStatement("SELECT * from product_average_rate");
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//        while (resultSet.next()) {
+//            shoesAverageRateView.add(new ShoesAverageGrade(resultSet.getString("shoes_name")
+//            ,resultSet.getInt("shoesNumber")
+//            ,resultSet.getLong("Number_Of_Rating")
+//            ,resultSet.getDouble("Average_Rate")
+//            ,resultSet.getString("Rate")
+//                    // här sätter jag alla comment för en shoes Det sparas som observableList(Hoppas funkar)
+//            ,s.getCommentByShoesId(resultSet.getInt("shoesNumber"))));
+//        }
+//        close();
+//        return shoesAverageRateView;
+//    }
 
     @Override
     public double getShoesAverageRate(int shoesId) throws SQLException {

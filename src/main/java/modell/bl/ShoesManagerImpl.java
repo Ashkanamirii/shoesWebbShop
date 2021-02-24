@@ -30,4 +30,19 @@ public class ShoesManagerImpl implements ShoesManager {
         return shoes.getColorList();
     }
 
+
+    public List<Shoes> getAllShoes2(){
+        ShoesDAO shoesDAO = new ShoesDAOImpl();
+        CategoryManager categoryManager= new CategoryManagerImpl();
+
+        List<Shoes> shoesList=shoesDAO.select();//just get shoes
+
+        for (Shoes s : shoesList){
+
+            s.setCategories(categoryManager.getShoesCategory(s.getId()));
+
+        }
+
+    }
+
 }

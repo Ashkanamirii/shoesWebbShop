@@ -102,4 +102,7 @@ public class ShoesDAOImpl implements ShoesDAO {
         preparedStatement.close();
         connection.close();
     }
+
+
+
 }

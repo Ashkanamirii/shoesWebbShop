@@ -60,7 +60,7 @@ public class CategoryDAOImpl implements CategoryDAO {
           categoryName = rs.getString(1);
       }
         call.close();
-      //connection.close();
+        //connection.close(); // todo HAr öppnat det
         return categoryName;
     }
     public void close() throws SQLException {

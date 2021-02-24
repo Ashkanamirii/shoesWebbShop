@@ -30,8 +30,6 @@ public class UserProfile {
     public Button myPages;
     public Label regLabel;
     private Utils util;
-    //public Label loginMessageLabel;
-    //public Button cancelButton;
 
     public void initialize() throws IOException {
         util = new Utils();
@@ -53,7 +51,6 @@ public class UserProfile {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
-                        //TODO ska skicka user info
                     } else {
                         regLabel.setText("You must be register first");
                         login.setText("Register");
@@ -94,7 +91,6 @@ public class UserProfile {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/myPagesHome.fxml", mainPane);
-                        //TODO ska skicka user info
                     } else {
                         regLabel.setText("You must be register first");
                         login.setText("Register");

@@ -22,16 +22,17 @@ public class ConnectionDB {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            con= DriverManager.getConnection(p.getProperty("address"),p.getProperty("name"),p.getProperty("password"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        try {
-            con= DriverManager.getConnection(p.getProperty("address"),p.getProperty("name"),p.getProperty("password"));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
+
     }
     public Connection getConnection(){
         return con;

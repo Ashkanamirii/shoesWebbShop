@@ -22,7 +22,9 @@ public class BrandDAOImpl implements BrandDAO{
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public BrandDAOImpl(){connection=new ConnectionDB().getConnection();}
+    public BrandDAOImpl(){
+        connection=new ConnectionDB().getConnection();
+    }
     @Override
     public List<Brand> select() throws SQLException {
         List<Brand>brandResult=new ArrayList<>();
