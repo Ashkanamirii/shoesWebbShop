@@ -88,11 +88,12 @@ public class ShoesDescription {
 
 //the rating
         try {
-            ratingValue=surveysManager.getAvgForOneShoes(shoesData.getId());
+            ratingValue = surveysManager.getAvgForOneShoes(shoesData.getId());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         averageRating.setRating(ratingValue);
+        averageRating.setPartialRating(true);
         averageRating.setOnMouseClicked(e->averageRating.setRating(ratingValue));
 
         //the labels and descriptions

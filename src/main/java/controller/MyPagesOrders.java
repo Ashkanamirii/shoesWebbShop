@@ -20,6 +20,7 @@ import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class MyPagesOrders {
@@ -56,6 +57,8 @@ public class MyPagesOrders {
         //get the order
 
         try {
+//            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId());
+//            historyList.stream().map(h -> h.getOrderId() ).filter((f,s)-> f == s) // TODO fix it
            userHistory=FXCollections.observableArrayList(customerManager.customerHistory(UserLogin.getCustomer().getId()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -63,7 +66,6 @@ public class MyPagesOrders {
 
 //set the orders
         ordersTable.setItems(userHistory);
-
         System.out.println(UserLogin.getCustomer().getId());
         //set the orders
         orderId.setCellValueFactory(new PropertyValueFactory("orderId"));

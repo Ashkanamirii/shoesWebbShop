@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import modell.bl.OrderLineItemManagerImpl;
+import modell.bl.OrderManagerImpl;
 import modell.bl.ShoesManagerImpl;
 import modell.to.Shoes;
 import utils.Invoice;
@@ -49,16 +50,18 @@ public class MyPagesSurvey {
     public VBox surveyBtnBox;
     public Button surveyBtn;
     private ObservableList<Invoice> invoice;
-    private final OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private final OrderLineItemManagerImpl orderLineItemManager = new OrderLineItemManagerImpl();
     private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
     private List<Shoes> shoesList;
+    private OrderManagerImpl orderManager = new OrderManagerImpl();
 
     public void initialize() {
 
 
 
         try {
-            invoice = FXCollections.observableArrayList(orderManager.getInvoice(99)); //have to fix
+            invoice = FXCollections.observableArrayList(orderLineItemManager.getInvoice(orderManager.getLastOrderId(
+                    UserLogin.getCustomer().getId()))); //have to fix
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
