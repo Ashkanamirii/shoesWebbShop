@@ -20,7 +20,13 @@ import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class MyPagesOrders {
@@ -57,9 +63,14 @@ public class MyPagesOrders {
         //get the order
 
         try {
-//            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId());
-//            historyList.stream().map(h -> h.getOrderId() ).filter((f,s)-> f == s) // TODO fix it
-           userHistory=FXCollections.observableArrayList(customerManager.customerHistory(UserLogin.getCustomer().getId()));
+            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId())
+                    .stream()
+                    .filter(distinctByKey(History::getOrderId))
+                    .collect(Collectors.toList());
+
+           userHistory=FXCollections.observableArrayList(historyList);
+
+                //   customerManager.customerHistory(UserLogin.getCustomer().getId()));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -183,6 +194,10 @@ public class MyPagesOrders {
         });
 
 
+    }
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 }
 

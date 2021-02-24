@@ -51,17 +51,15 @@ public class MyPagesSurvey {
     public Button surveyBtn;
     private ObservableList<Invoice> invoice;
     private final OrderLineItemManagerImpl orderLineItemManager = new OrderLineItemManagerImpl();
-    private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
-    private List<Shoes> shoesList;
+
     private OrderManagerImpl orderManager = new OrderManagerImpl();
 
     public void initialize() {
 
 
-
         try {
             invoice = FXCollections.observableArrayList(orderLineItemManager.getInvoice(orderManager.getLastOrderId(
-                    UserLogin.getCustomer().getId()))); //have to fix
+                    UserLogin.getCustomer().getId())));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
