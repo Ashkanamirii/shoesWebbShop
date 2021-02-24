@@ -90,9 +90,10 @@ public class WebbshopPage {
         utils = new Utils();
         if (!UserLogin.getIsLogged())
             shoppinCartP.setVisible(false);
+
         else {
             loginPane.setVisible(false);
-            loginL.setText("you are logged as " + UserLogin.getCustomer().getName()); //we get here the customer name
+            loginL.setText("Welcome\n" + UserLogin.getCustomer().getName()); //we get here the customer name
         }
         //shoping cart
 
@@ -128,7 +129,7 @@ public class WebbshopPage {
         startLogInB.setOnAction(e -> {
             UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
-                loginL.setText("You are logged in as " + UserLogin.getCustomer().getName());
+                loginL.setText("Welcome\n" + UserLogin.getCustomer().getName());
                 loginPane.setVisible(false);
                 shoppinCartP.setVisible(true);
             }

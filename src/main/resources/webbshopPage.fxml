@@ -13,6 +13,11 @@
 
 <AnchorPane fx:id="mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #708090;" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WebbshopPage">
     <children>
+        <Label fx:id="loginL" alignment="CENTER" layoutX="900.0" layoutY="100.0" prefHeight="18.0" prefWidth="258.0" text="Log In" textAlignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
         <Pane id="mainPane" layoutY="5.0" prefHeight="370.0" prefWidth="626.0">
             <children>
                 <TableView fx:id="shoesTable" layoutX="14.0" layoutY="60.0" prefHeight="215.0" prefWidth="591.0" stylesheets="@css/style.css">
@@ -37,11 +42,6 @@
             <Label layoutX="99.0" layoutY="27.0" text="Search" />
             </children>
         </Pane>
-        <Label fx:id="loginL" alignment="CENTER" prefHeight="18.0" prefWidth="258.0" text="Log in" textAlignment="CENTER">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
         <Pane fx:id="loginPane" layoutX="892.0" layoutY="23.0" prefHeight="134.0" prefWidth="272.0" style="-fx-background-color: rgb(164, 130, 42);">
             <children>
                 <Button fx:id="startLogInB" layoutX="138.0" layoutY="97.0" mnemonicParsing="false" text="Log in" />
