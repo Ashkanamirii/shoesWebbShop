@@ -9,12 +9,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
+import utils.Utils;
 
 import javax.security.auth.callback.Callback;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -56,7 +59,7 @@ public class ConfirmShopping {
     @FXML
     public Label customerCountry;
     public Label orderNr;
-
+public AnchorPane mainPage;
     private ObservableList<Shoes> shoesData;
     private final static int DELIVERYCOST=225;
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
@@ -91,6 +94,8 @@ public class ConfirmShopping {
                        throwables.printStackTrace();
                    }
                });
+
+               /*
            Alert a=new Alert(Alert.AlertType.INFORMATION);
            a.setHeight(300);
            try {
@@ -104,6 +109,8 @@ public class ConfirmShopping {
            }
            a.setHeaderText("SHOPPING CONFIRMED!");
            a.showAndWait();
+
+                */
                 closeStage(e);
 
        });

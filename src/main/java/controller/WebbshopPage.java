@@ -210,7 +210,12 @@ public class WebbshopPage {
             } catch (IOException | SQLException ioException) {
                 ioException.printStackTrace();
             }
-
+            Utils utils=new Utils();
+            try {
+                utils.changeScene("/myPagesSurvey.fxml",mainPage); //TODO: go to invoice ratings---
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         });
 
 
