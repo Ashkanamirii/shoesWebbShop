@@ -50,6 +50,7 @@ public class ShoesDescription {
     public TableView <Comments>commentsTable;
     public TableColumn <Comments,String>userNameC;
     public TableColumn <Comments,String>userCommentC;
+
     private Shoes selectedShoes;
     private SurveysBLImpl surveysManager=new SurveysBLImpl();
     private double ratingValue;

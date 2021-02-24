@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -45,27 +44,20 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="800.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <TextField layoutX="127.0" layoutY="28.0" prefHeight="25.0" prefWidth="467.0" />
-                  <Button fx:id="searchBtn" layoutX="636.0" layoutY="28.0" mnemonicParsing="false" text="Search" />
-                  <TableView layoutX="127.0" layoutY="186.0" prefHeight="160.0" prefWidth="467.0">
+                  <TableView fx:id="invoiceTable" layoutX="131.0" layoutY="68.0" prefHeight="160.0" prefWidth="553.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                        <TableColumn prefWidth="75.0" text="C3" />
-                        <TableColumn prefWidth="75.0" text="C4" />
-                        <TableColumn prefWidth="75.0" text="C5" />
+                      <TableColumn fx:id="orderDateC" prefWidth="75.0" text="orderDate" />
+                        <TableColumn fx:id="brandC" prefWidth="75.0" text="Brand" />
+                        <TableColumn fx:id="colorC" prefWidth="75.0" text="Color" />
+                        <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref.Nr." />
+                        <TableColumn fx:id="quantityC" prefWidth="75.0" text="Quantity" />
+                        <TableColumn fx:id="priceC" prefWidth="75.0" text="Price" />
+                        <TableColumn fx:id="totalPriceC" prefWidth="75.0" text="TotalPrice" />
                     </columns>
                   </TableView>
-                  <TableView layoutX="128.0" layoutY="61.0" prefHeight="86.0" prefWidth="465.0">
-                    <columns>
-                      <TableColumn prefWidth="222.0" text="Order ID" />
-                      <TableColumn prefWidth="242.0" text="Order Date" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="89.0" layoutY="156.0" prefHeight="17.0" prefWidth="113.0" text="Order line items" />
-                  <Label layoutX="185.0" layoutY="156.0" prefHeight="17.0" prefWidth="31.0" text="ID:" />
+                  <Label layoutX="343.0" layoutY="14.0" prefHeight="17.0" prefWidth="113.0" text="Invoice" />
                   <Label fx:id="idNumber" layoutX="208.0" layoutY="156.0" prefHeight="17.0" prefWidth="71.0" />
-                  <Pane fx:id="shoesDescription_surveyP" layoutX="131.0" layoutY="353.0" prefHeight="160.0" prefWidth="460.0" />
+                  <Pane fx:id="shoesDescription_surveyP" layoutX="125.0" layoutY="268.0" prefHeight="197.0" prefWidth="565.0" />
                </children>
             </Pane>
          </center>

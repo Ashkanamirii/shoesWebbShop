@@ -52,7 +52,7 @@ public class MyPagesOrders {
 
     public void initialize() {
 
-        //TODO: implement searching (there is already a method in webbshoppage)
+        //TODO: implement searching (there is already a method in webshoppage)
         //get the order
 
         try {
@@ -90,7 +90,8 @@ public class MyPagesOrders {
 
         //get the invoice
         try {
-            invoice = FXCollections.observableArrayList(orderManager.getInvoice(99));
+            if(userHistory.size()>=0){
+            invoice = FXCollections.observableArrayList(orderManager.getInvoice(userHistory.get(0).getOrderId()));}
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

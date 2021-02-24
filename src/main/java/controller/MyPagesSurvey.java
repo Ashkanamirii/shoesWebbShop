@@ -1,16 +1,29 @@
 package controller;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import modell.bl.OrderLineItemManagerImpl;
+import modell.bl.ShoesManagerImpl;
+import modell.to.Shoes;
+import utils.Invoice;
 import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class MyPagesSurvey {
@@ -23,9 +36,47 @@ public class MyPagesSurvey {
     public Label loginL;
     //public Pane shoesDescription_surveyP;
     public Utils changeScene;
-
+    public TableView <Invoice>invoiceTable;
+    public TableColumn<Invoice,String> orderDateC;
+    public TableColumn <Invoice,String> brandC;
+    public TableColumn <Invoice,String> colorC;
+    public TableColumn <Invoice,Integer>shoesNumberC;
+    public TableColumn <Invoice,Integer>quantityC;
+    public TableColumn <Invoice,Double>priceC;
+    public TableColumn <Invoice,Integer>totalPriceC;
+    public Label idNumber;
+    public Pane shoesDescription_surveyP;
+    public VBox surveyBtnBox;
+    public Button surveyBtn;
+    private ObservableList<Invoice> invoice;
+    private final OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
+    private List<Shoes> shoesList;
 
     public void initialize() {
+
+
+
+        try {
+            invoice = FXCollections.observableArrayList(orderManager.getInvoice(99)); //have to fix
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        //set the invoice
+        brandC.setCellValueFactory(new PropertyValueFactory("shoesBrandName"));
+        colorC.setCellValueFactory(new PropertyValueFactory("shoesColor"));
+        priceC.setCellValueFactory(new PropertyValueFactory("price"));
+        totalPriceC.setCellValueFactory(new PropertyValueFactory("total_price"));
+        shoesNumberC.setCellValueFactory(new PropertyValueFactory("shoesNumber"));
+        quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
+        orderDateC.setCellValueFactory(new PropertyValueFactory("orderDate"));
+
+    invoiceTable.setItems(invoice);
+
+    invoiceTable.setOnMouseClicked(e->{ if (e.getClickCount() == 2)
+        loadShoesDesc( invoiceTable.getSelectionModel().getSelectedItem().getShoesId());});
+
+
         changeScene = new Utils();
 
 
@@ -64,44 +115,24 @@ public class MyPagesSurvey {
 
         });
     }
+    private void loadShoesDesc(int shoesData) {
+        shoesDescription_surveyP.getChildren().clear();
+        Pane newLoadedPane = null;
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            loader.setLocation(getClass().getResource("/shoesDescription_Survey.fxml"));
+            newLoadedPane = loader.load();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ShoesDescriptionSurvey controller = loader.getController();
+        controller.setData(shoesData);
+        shoesDescription_surveyP.getChildren().add(newLoadedPane);
+    }
 }
 
 
-//Måste fixa fel Om vi har tid (On Action)
-// On Action fungerade inte
-// Jag testade att första view ska vara home.fxml
-// Main class -->
-// Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
-// Om ma klicka t.ex LoginBtn kommer det massor med fel
-
-/*
-        public void goToLogin (ActionEvent e){
-            try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-
-        public void goToWS (ActionEvent e){
-            try {
-                changeScene.changeScene("/webbshopPage.fxml", homePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
-/*
-        public void goToRegi (ActionEvent e)  {
-            try {
-                changeScene.changeScene("/XXXXX.fxml", mainPane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }
-
- */
 
 
 
