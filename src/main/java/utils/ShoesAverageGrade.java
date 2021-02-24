@@ -19,17 +19,17 @@ public class ShoesAverageGrade {
     private SimpleLongProperty numberOfRating;
     private SimpleDoubleProperty averageRate;
     private SimpleStringProperty rate;
-    private SimpleListProperty<String> ListOfComment;
+    private SimpleListProperty<Comment> ListOfComment;
 
     public ShoesAverageGrade(String shoesName,
                              int shoesNumber, Long numberOfRating, double averageRate, String rate ,
-                             ObservableList<String> ListOfComment) {
+                             List<Comment> ListOfComment) {
         this.shoesName = new SimpleStringProperty (shoesName);
         this.shoesNumber = new SimpleIntegerProperty(shoesNumber);
         this.numberOfRating = new SimpleLongProperty(numberOfRating);
         this.averageRate = new SimpleDoubleProperty(averageRate);
         this.rate = new SimpleStringProperty (rate);
-        this.ListOfComment = new SimpleListProperty<>(ListOfComment);
+        this.ListOfComment = (SimpleListProperty<Comment>) ListOfComment;
     }
 
     public String getShoesName() {
@@ -92,15 +92,15 @@ public class ShoesAverageGrade {
         this.rate.set(rate);
     }
 
-    public ObservableList<String> getListOfComment() {
+    public ObservableList<Comment> getListOfComment() {
         return ListOfComment.get();
     }
 
-    public SimpleListProperty<String> listOfCommentProperty() {
+    public SimpleListProperty<Comment> listOfCommentProperty() {
         return ListOfComment;
     }
 
-    public void setListOfComment(ObservableList<String> listOfComment) {
+    public void setListOfComment(ObservableList<Comment> listOfComment) {
         this.ListOfComment.set(listOfComment);
     }
 }

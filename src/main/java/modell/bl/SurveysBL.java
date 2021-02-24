@@ -1,6 +1,7 @@
 package modell.bl;
 
 import modell.to.Surveys;
+import utils.Comment;
 import utils.ShoesAverageGrade;
 
 import java.sql.SQLException;
@@ -18,5 +19,6 @@ void setSurveys(Surveys surveys) throws SQLException;
 void setSurveys(int custId, int shoesID, int rate, String comment) throws SQLException;
 List<ShoesAverageGrade> getAvgGradeForAllShoes() throws SQLException;
 double getAvgForOneShoes(int shoesId) throws SQLException;
+List<Comment> getCommentByShoesId(int shoesId) throws SQLException;
 
 }
