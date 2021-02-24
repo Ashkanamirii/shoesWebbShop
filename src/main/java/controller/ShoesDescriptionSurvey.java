@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import modell.bl.ShoesManagerImpl;
+import modell.bl.SurveysBLImpl;
 import modell.to.Shoes;
 import org.controlsfx.control.Rating;
 import utils.UserLogin;
@@ -36,7 +37,8 @@ public class ShoesDescriptionSurvey {
     public Rating ratingStars;
     public TextField commentTextField;
     private List<Shoes> shoesList;
-    
+    private int ratingValue;
+    private SurveysBLImpl sendSurvey=new SurveysBLImpl();
     public void initialize(){
         try {
             shoesList=shoesManager.getAllShoes();
@@ -67,8 +69,15 @@ public class ShoesDescriptionSurvey {
 //the rating
 
 
-            ratingStars.setOnMouseClicked(e->ratingStars.getRating());
+            ratingStars.setOnMouseClicked(e->ratingValue=(int)ratingStars.getRating());
+            submitB.setOnAction(e->{
+                try {
+                    sendSurvey.setSurveys(UserLogin.getCustomer().getId(),shoesId,ratingValue,commentTextField.getText());
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
+            });
        
 
         //the labels and descriptions

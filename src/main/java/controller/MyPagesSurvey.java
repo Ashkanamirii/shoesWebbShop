@@ -73,8 +73,15 @@ public class MyPagesSurvey {
 
     invoiceTable.setItems(invoice);
 
+    //show description
     invoiceTable.setOnMouseClicked(e->{ if (e.getClickCount() == 2)
         loadShoesDesc( invoiceTable.getSelectionModel().getSelectedItem().getShoesId());});
+
+
+
+
+
+
 
 
         changeScene = new Utils();
