@@ -54,6 +54,7 @@ public class ShoesDescription {
     private SurveysBLImpl surveysManager=new SurveysBLImpl();
     private double ratingValue;
     private ObservableList<Comments> commentsList;
+    public Label quantityL;
     public void initialize() {
 
 
@@ -76,9 +77,12 @@ public class ShoesDescription {
         }
 
 
-        if (!UserLogin.getIsLogged())
+        if (!UserLogin.getIsLogged()) {
             addToCartB.setVisible(false);
+            quantityS.setVisible(false);
+            quantityL.setVisible(false);
 
+        }
 
 
 //the rating

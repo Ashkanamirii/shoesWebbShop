@@ -70,7 +70,7 @@
       </VBox>
       <Button fx:id="addToCartB" layoutX="701.0" layoutY="164.0" mnemonicParsing="false" stylesheets="@css/style.css" text="Add to cart" />
       <Spinner fx:id="quantityS" layoutX="706.0" layoutY="122.0" prefHeight="26.0" prefWidth="66.0" />
-      <Label layoutX="716.0" layoutY="91.0" text="Quantity" />
+      <Label fx:id="quantityL" layoutX="716.0" layoutY="91.0" text="Quantity" />
       <Pane layoutX="432.0" layoutY="8.0" prefHeight="50.0" prefWidth="200.0">
          <children>
             <Rating fx:id="averageRating" layoutX="12.0" layoutY="8.0" prefHeight="34.0" prefWidth="173.0" styleClass="myRating" />
