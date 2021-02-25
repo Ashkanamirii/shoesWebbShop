@@ -61,6 +61,7 @@ public class WebbshopPage {
     public AnchorPane mainPage;
     public Button removeCart;
     public Button myPageB;
+    public Button logout;
     private ObservableList<Shoes> shoesList;
     private ObservableList<Shoes> shoppingCart;
     private ShoesManagerImpl shoesManager = new ShoesManagerImpl();
@@ -89,6 +90,7 @@ public class WebbshopPage {
             }
         });
 
+
         try {
             shoesList = FXCollections.observableArrayList(shoesManager.getAllShoes());
         } catch (SQLException | IOException | ClassNotFoundException throwables) {
@@ -99,10 +101,12 @@ public class WebbshopPage {
 
         if (!UserLogin.getIsLogged()) {
             shoppinCartP.setVisible(false);
-
+            logout.setText("Top");
+        }
         else {
             loginPane.setVisible(false);
             loginL.setText("Welcome " + UserLogin.getCustomer().getName()); //we get here the customer name
+            logout.setText("Logout");
         }
 
 

@@ -35,7 +35,7 @@ public class MyPagesOrders {
     public Button logout;
     public Button goToShopping;
     public Button myPagesBtn;
-    public Button surveyBtn;
+    public Button editUserProfileBtn;
     public Label loginL;
     public VBox surveyBtnBox;
     public Button searchBtn;
@@ -189,7 +189,7 @@ System.out.println(invoice.get(0).getOrderId());
             }
         });
 
-        surveyBtn.setOnAction(e -> {
+        editUserProfileBtn.setOnAction(e -> {
             try {
                 changeScene.changeScene("EDITPROFILE");
             } catch (IOException ioException) {

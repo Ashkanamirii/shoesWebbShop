@@ -26,18 +26,18 @@
                      </font>
                   </Text>
                   <ButtonBar layoutX="625.0" layoutY="9.0" prefHeight="40.0" prefWidth="330.0">
-                    <buttons>
+                     <buttons>
                         <Button fx:id="goToShopping" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Go to shopping" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                      <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+                        <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                    </buttons>
+                     </buttons>
                   </ButtonBar>
                </children>
             </Pane>
@@ -48,19 +48,19 @@
                   <TextField fx:id="searchField" layoutX="26.0" layoutY="30.0" prefHeight="25.0" prefWidth="608.0" />
                   <Button fx:id="searchBtn" layoutX="646.0" layoutY="30.0" mnemonicParsing="false" text="Search" />
                   <TableView fx:id="invoiceTable" layoutX="231.0" layoutY="110.0" prefHeight="334.0" prefWidth="405.0">
-                    <columns>
-                      <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref. Nr." />
-                      <TableColumn fx:id="brandC" prefWidth="75.0" text="Brand" />
+                     <columns>
+                        <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref. Nr." />
+                        <TableColumn fx:id="brandC" prefWidth="75.0" text="Brand" />
                         <TableColumn fx:id="colorC" prefWidth="75.0" text="Color" />
                         <TableColumn fx:id="priceC" prefWidth="67.20001220703125" text="Price" />
-                        <TableColumn fx:id="quantityC" prefWidth="83.20001220703125" text="Quantity" />
-                    </columns>
+                        <TableColumn fx:id="quantityC" prefWidth="83.20001220703125" text="To Return" />
+                     </columns>
                   </TableView>
                   <TableView fx:id="ordersTable" layoutX="24.0" layoutY="106.0" prefHeight="342.0" prefWidth="186.0">
-                    <columns>
-                      <TableColumn fx:id="orderId" prefWidth="83.0" text="Order Nr." />
-                      <TableColumn fx:id="orderDate" prefWidth="83.0" text="Order Date" />
-                    </columns>
+                     <columns>
+                        <TableColumn fx:id="orderId" prefWidth="83.0" text="Order Nr." />
+                        <TableColumn fx:id="orderDate" prefWidth="83.0" text="Order Date" />
+                     </columns>
                   </TableView>
                   <Label fx:id="orderIdLabel" layoutX="295.0" layoutY="84.0" prefHeight="17.0" prefWidth="113.0" />
                   <Label layoutX="240.0" layoutY="84.0" prefHeight="17.0" prefWidth="57.0" text="Order Nr." />
@@ -94,7 +94,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="surveyBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" text="Servey">
+                  <Button fx:id="editUserProfileBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" text="Edit user profile">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -9,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -25,18 +23,18 @@
                      </font>
                   </Text>
                   <ButtonBar layoutX="625.0" layoutY="9.0" prefHeight="40.0" prefWidth="330.0">
-                    <buttons>
+                     <buttons>
                         <Button fx:id="goToShopping" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Go to shopping" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                      <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+                        <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                    </buttons>
+                     </buttons>
                   </ButtonBar>
                </children>
             </Pane>
@@ -44,20 +42,20 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="800.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="invoiceTable" layoutX="131.0" layoutY="68.0" prefHeight="160.0" prefWidth="553.0">
-                    <columns>
-                      <TableColumn fx:id="orderDateC" prefWidth="75.0" text="orderDate" />
+                  <TableView fx:id="invoiceTable" layoutX="207.0" layoutY="68.0" prefHeight="160.0" prefWidth="553.0">
+                     <columns>
+                        <TableColumn fx:id="orderDateC" prefWidth="75.0" text="orderDate" />
                         <TableColumn fx:id="brandC" prefWidth="75.0" text="Brand" />
                         <TableColumn fx:id="colorC" prefWidth="75.0" text="Color" />
                         <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref.Nr." />
                         <TableColumn fx:id="quantityC" prefWidth="75.0" text="Quantity" />
                         <TableColumn fx:id="priceC" prefWidth="75.0" text="Price" />
                         <TableColumn fx:id="totalPriceC" prefWidth="75.0" text="TotalPrice" />
-                    </columns>
+                     </columns>
                   </TableView>
-                  <Label layoutX="229.0" layoutY="32.0" prefHeight="27.0" prefWidth="358.0" text="Here is your invoice, please, rate the shoes by selecting them" />
-                  <Label fx:id="idNumber" layoutX="208.0" layoutY="156.0" prefHeight="17.0" prefWidth="71.0" />
-                  <Pane fx:id="shoesDescription_surveyP" layoutX="125.0" layoutY="268.0" prefHeight="197.0" prefWidth="565.0" />
+                  <Label layoutX="305.0" layoutY="32.0" prefHeight="27.0" prefWidth="358.0" text="Here is your invoice, please, rate the shoes by selecting them" />
+                  <Label fx:id="idNumber" layoutX="284.0" layoutY="156.0" prefHeight="17.0" prefWidth="71.0" />
+                  <Pane fx:id="shoesDescription_surveyP" layoutX="201.0" layoutY="268.0" prefHeight="197.0" prefWidth="565.0" />
                </children>
             </Pane>
          </center>
@@ -68,41 +66,6 @@
                </children>
             </Pane>
          </bottom>
-         <left>
-            <VBox fx:id="surveyBtnBox" prefHeight="513.0" prefWidth="214.0" style="-fx-background-color: #4682b4;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="myPagesBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0e0e6;" stylesheets="@css/style.css" text="MyPages">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="ordersBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" stylesheets="@css/style.css" text="Orders  History/Returns">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="30.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="surveyBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" styleClass="active" stylesheets="@css/style.css" text="Invoice/Survey">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="20.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="loginL" prefHeight="26.0" prefWidth="186.0">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" top="300.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
-         </left>
       </BorderPane>
    </children>
 </AnchorPane>

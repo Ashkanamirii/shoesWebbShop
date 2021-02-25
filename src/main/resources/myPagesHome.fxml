@@ -23,18 +23,18 @@
                      </font>
                   </Text>
                   <ButtonBar layoutX="624.0" layoutY="9.0" prefHeight="40.0" prefWidth="331.0">
-                    <buttons>
+                     <buttons>
                         <Button fx:id="goToShopping" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Go to shopping" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                      <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+                        <Button fx:id="logout" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                    </buttons>
+                     </buttons>
                   </ButtonBar>
                </children>
             </Pane>
@@ -85,7 +85,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="surveyBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" text="Invoice/Survey">
+                  <Button fx:id="editUserProfileBtn" maxWidth="200.0" minWidth="20.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-background-color: #b0c4de;" text="Edit user profile">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" top="20.0" />
                      </VBox.margin>
