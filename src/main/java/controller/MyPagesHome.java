@@ -23,15 +23,13 @@ public class MyPagesHome {
     public Button editUserProfileBtn;
     public Utils changeScene;
     public void initialize() {
-        changeScene = new Utils();
-
-
+        changeScene = new Utils(myPagesHomePane);
        cutomerName.setText( UserLogin.getCustomer().getName() );
 
        logout.setOnAction(e -> {
             UserLogin.getInstance().setLogged(false);
             try {
-                changeScene.changeScene("/home.fxml", myPagesHomePane);
+                changeScene.changeScene("HOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -46,7 +44,7 @@ public class MyPagesHome {
 
         goToShopping.setOnAction(e -> {
             try {
-                changeScene.changeScene("/webbshopPage.fxml", myPagesHomePane);
+                changeScene.changeScene("SHOP");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -55,19 +53,12 @@ public class MyPagesHome {
 
         ordersBtn.setOnAction(e -> {
             try {
-                changeScene.changeScene("/myPagesOrders.fxml", myPagesHomePane);
+                changeScene.changeScene("ORDERS");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
 
-        surveyBtn.setOnAction(e -> {
-            try {
-                changeScene.changeScene("/myPagesSurvey.fxml", myPagesHomePane);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
     }
 }
 

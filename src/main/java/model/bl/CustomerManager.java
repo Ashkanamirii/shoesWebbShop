@@ -20,4 +20,5 @@ public interface CustomerManager {
    Customer CheckValidCustomerByUserPswd(String email , String password) throws SQLException, IOException,
            ClassNotFoundException;
    List<History> customerHistory(int custId) throws SQLException, IOException, ClassNotFoundException;
+   void update (Customer OldCustomer) throws SQLException, IOException, ClassNotFoundException;
 }

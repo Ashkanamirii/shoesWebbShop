@@ -19,10 +19,10 @@ public class Home {
 
 
     public void initialize() {
-        changeScene = new Utils();
+        changeScene = new Utils(homePane);
         loginBtn.setOnAction(e -> {
             try {
-                changeScene.changeScene("/userProfile.fxml", homePane);
+                changeScene.changeScene("LOG_IN");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -30,7 +30,7 @@ public class Home {
 
         guestBtn.setOnAction(e -> {
             try {
-                changeScene.changeScene("/webbshopPage.fxml", homePane);
+                changeScene.changeScene("SHOP");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -39,7 +39,7 @@ public class Home {
 
         reg.setOnAction(e -> {
             try {
-                changeScene.changeScene("/registerCustomer.fxml", homePane);
+                changeScene.changeScene("REGISTER");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

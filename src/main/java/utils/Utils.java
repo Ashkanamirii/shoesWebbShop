@@ -26,6 +26,54 @@ import java.util.List;
  * Copyright: MIT
  */
 public class Utils {
+AnchorPane mainPane;
+public Utils(){}
+
+public Utils(AnchorPane mainPane){
+    this.mainPane=mainPane;
+}
+
+    public void changeScene(String nextPane) throws IOException {
+        String fxml = nextPane(nextPane);
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+        primaryStage.getScene().setRoot(pane);
+        primaryStage.setTitle("Your shoes web shop");
+        primaryStage.setWidth(((Pane) primaryStage.getScene().getRoot()).getPrefWidth());
+        primaryStage.setHeight(((Pane) primaryStage.getScene().getRoot()).getPrefHeight());
+    }
+
+    public String nextPane(String nextPane) {
+        switch (nextPane) {
+            case "MYPAGESHOME" -> {
+                return "/myPagesHome.fxml";
+            }
+            case "HOME"  -> {
+                return "/home.fxml";
+            }
+            case "ORDERS" -> {
+                return "/myPagesOrders.fxml";
+            }
+            case "INVOICE" -> {
+                return "/myPagesSurvey.fxml";
+            }
+            case "LOG_IN" -> {
+                return "/userProfile.fxml";
+            }
+            case "REGISTER" -> {
+                return "/registerCustomer.fxml";
+            }
+            case "SHOP"->{
+                return "/webbshopPage.fxml";
+            }
+            case "EDITPROFILE" ->{
+                return "/editProfile.fxml";
+            }
+            default -> {
+                return null;
+            }
+        }
+    }
 
     public void changeScene(String nextPane, Pane mainPane) throws IOException {
         String fxml = nextPane;

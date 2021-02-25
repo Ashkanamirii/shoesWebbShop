@@ -38,11 +38,27 @@ public class UserProfile {
     private Utils util;
 
     public void initialize() throws IOException {
-        util = new Utils();
+        util = new Utils(mainPane);
+        registerButton.setOnAction(event -> {
+            try {
+                util.changeScene("REGISTER");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+       /*
+        login.setOnAction(event -> {
+            try {
+                util.changeScene("SHOP");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
+        */
         top.setOnAction(e -> {
             try {
-                util.changeScene("/home.fxml", mainPane);
+                util.changeScene("HOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -57,7 +73,7 @@ public class UserProfile {
             try {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
-                        util.changeScene("/webbshopPage.fxml", mainPane);
+                        util.changeScene("SHOP");
                     } else {
                         registerButton.setVisible(true);
                         registerImage.setVisible(true);
@@ -82,7 +98,7 @@ public class UserProfile {
             try {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
-                        util.changeScene("/myPagesHome.fxml", mainPane);
+                        util.changeScene("MYPAGESHOME");
                     } else {
                         registerButton.setVisible(true);
                         registerImage.setVisible(true);

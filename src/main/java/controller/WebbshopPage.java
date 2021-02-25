@@ -70,10 +70,20 @@ public class WebbshopPage {
     public Utils utils;
 
     public void initialize() {
+        utils = new Utils(mainPage);
+
+        logout.setOnAction(e -> {
+            UserLogin.getInstance().setLogged(false);
+            try {
+                utils.changeScene("HOME");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
 
         myPageB.setOnAction(e -> {
             try {
-                utils.changeScene("/myPagesHome.fxml", mainPage);
+                utils.changeScene("MYPAGESHOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -87,17 +97,17 @@ public class WebbshopPage {
         }
 
 
-        utils = new Utils();
-        if (!UserLogin.getIsLogged())
+        if (!UserLogin.getIsLogged()) {
             shoppinCartP.setVisible(false);
 
         else {
             loginPane.setVisible(false);
             loginL.setText("Welcome " + UserLogin.getCustomer().getName()); //we get here the customer name
         }
+
+
         //shoping cart
         shoppingCart = FXCollections.observableArrayList();
-        //cartId.setCellValueFactory(new PropertyValueFactory("id"));
         cartPrice.setCellValueFactory(new PropertyValueFactory("price"));
         cartBrand.setCellValueFactory(new PropertyValueFactory("brand"));
         cartQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
@@ -115,7 +125,7 @@ public class WebbshopPage {
         // log in with the singleton
         toRegister.setOnAction(e -> {
             try {
-                utils.changeScene("/registerCustomer.fxml", mainPage);
+                utils.changeScene("REGISTER");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

@@ -167,7 +167,7 @@ System.out.println(invoice.get(0).getOrderId());
 
         logout.setOnAction(e -> {
             try {
-                changeScene.changeScene("/home.fxml", myPagesOrdersPane);
+                changeScene.changeScene("HOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -175,7 +175,7 @@ System.out.println(invoice.get(0).getOrderId());
 
         goToShopping.setOnAction(e -> {
             try {
-                changeScene.changeScene("/webbshopPage.fxml", myPagesOrdersPane);
+                changeScene.changeScene("SHOP");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -183,7 +183,7 @@ System.out.println(invoice.get(0).getOrderId());
 
         myPagesBtn.setOnAction(e -> {
             try {
-                changeScene.changeScene("/myPagesHome.fxml", myPagesOrdersPane);
+                changeScene.changeScene("MYPAGESHOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -191,7 +191,7 @@ System.out.println(invoice.get(0).getOrderId());
 
         surveyBtn.setOnAction(e -> {
             try {
-                changeScene.changeScene("/myPagesSurvey.fxml", myPagesOrdersPane);
+                changeScene.changeScene("EDITPROFILE");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

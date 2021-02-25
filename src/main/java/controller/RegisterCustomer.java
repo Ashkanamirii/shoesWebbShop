@@ -40,7 +40,7 @@ public class RegisterCustomer {
         changeScene = new Utils(regiPane);
         top.setOnAction(e -> {
             try {
-                changeScene.changeScene("/home.fxml", regiPane);
+                changeScene.changeScene("HOME");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -52,7 +52,7 @@ public class RegisterCustomer {
                 regBtn.setText("Login");
                 regBtn.setOnAction(event -> {
                     try {
-                        changeScene.changeScene("/userProfile.fxml", regiPane);
+                        changeScene.changeScene("LOG_IN");
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }

@@ -41,7 +41,9 @@ public class UserLogin {
         }
         return instance;
     }
-
+    public static UserLogin getInstance(){
+        return instance;
+    }
     private boolean checkPassword() throws SQLException, IOException, ClassNotFoundException {
         customer = customerManager.CheckValidCustomerByUserPswd(email,password);
         if (customer  == null){
