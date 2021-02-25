@@ -21,17 +21,17 @@ delimiter ;
 -- *************************************************************
 
 -- *************************************************************
-create trigger on_status_update_autoCancel
-    after update
-    on order_line_item
-    for each row
-BEGIN
-    if  OLD.status = 'PAYING' AND new.status = 'AUTO_CANCEL'
-    then
-        update LOW_PRIORITY IGNORE shoes sh set sh.quantity = sh.quantity + new.quantity
-        where sh.id = new.FK_shoes_id;
-    end if;
-end;
+# create trigger on_status_update_autoCancel
+#     after update
+#     on order_line_item
+#     for each row
+# BEGIN
+#     if  OLD.status = 'PAYING' AND new.status = 'AUTO_CANCEL'
+#     then
+#         update LOW_PRIORITY IGNORE shoes sh set sh.quantity = sh.quantity + new.quantity
+#         where sh.id = new.FK_shoes_id;
+#     end if;
+# end;
 
 
 -- *************************************************************
