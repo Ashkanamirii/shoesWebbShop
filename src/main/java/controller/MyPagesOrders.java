@@ -73,7 +73,7 @@ public class MyPagesOrders {
 
            userHistory=FXCollections.observableArrayList(historyList);
 
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
 
