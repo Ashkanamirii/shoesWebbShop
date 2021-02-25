@@ -69,11 +69,10 @@ BEGIN
                 else
                     if (_status = 5)
                     then -- RETURNED insertera i order line item och order och lägga till Q  shoes
-#                         insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-#                         VALUES (shoesId, orderId, ordered_quantity, _status);
-
-                        update order_line_item set quantity = ordered_quantity, status = _status
-                        where shoesId = FK_shoes_id and orderId = FK_order_id;
+                        update order_line_item set quantity = quantity - ordered_quantity
+                        where shoesId = FK_shoes_id and orderId = FK_order_id and status = 1;
+                        insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+                        VALUES (shoesId, orderId, ordered_quantity, _status);
                     END IF;
                 END IF;
             END IF;

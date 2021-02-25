@@ -144,7 +144,7 @@ System.out.println(invoice.get(0).getOrderId());
             invoice.forEach(i -> {
                 if (i.quantityToReturn() != 0) {
                     try {
-                        System.out.println(i.getOrderId() + "asasasasas" + i.quantityToReturn());
+                        System.out.println("ORDER ID--->"+ i.getOrderId() + "update -- Quantity-->" + i.quantityToReturn());
                         orderManager.getAddTOCart(
                                 UserLogin.getCustomer().getId(), i.getOrderId(),
                                 i.getShoesId(), i.quantityToReturn(), 5);
