@@ -13,6 +13,7 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import modell.bl.CustomerManagerImpl;
 import modell.bl.OrderLineItemManagerImpl;
+import modell.to.Shoes;
 import utils.History;
 import utils.Invoice;
 import utils.UserLogin;
@@ -20,7 +21,14 @@ import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class MyPagesOrders {
@@ -31,7 +39,6 @@ public class MyPagesOrders {
     public Button myPagesBtn;
     public Button surveyBtn;
     public Label loginL;
-    //public Pane shoesDescription_returnsP;
     public Utils changeScene;
     public VBox surveyBtnBox;
     public Button searchBtn;
@@ -48,25 +55,31 @@ public class MyPagesOrders {
     public TableColumn <History,String>orderDate;
     public Button updateOrderLine;
     public Label orderIdLabel;
+    public TextField searchField;
     private ObservableList<Invoice> invoice;
     private ObservableList<History> userHistory;
 
     public void initialize() {
 
-        //TODO: implement searching (there is already a method in webshoppage)
+        searchField.textProperty().addListener(((observableValue, s, t1) ->
+                ordersTable.setItems(filteredList(userHistory, t1))));
         //get the order
 
         try {
-//            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId());
-//            historyList.stream().map(h -> h.getOrderId() ).filter((f,s)-> f == s) // TODO fix it
-           userHistory=FXCollections.observableArrayList(customerManager.customerHistory(UserLogin.getCustomer().getId()));
-        } catch (SQLException | IOException | ClassNotFoundException throwables) {
+            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId())
+                    .stream()
+                    .filter(distinctByKey(History::getOrderId))
+                    .collect(Collectors.toList());
+
+           userHistory=FXCollections.observableArrayList(historyList);
+
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
 //set the orders
         ordersTable.setItems(userHistory);
-        System.out.println(UserLogin.getCustomer().getId());
+
         //set the orders
         orderId.setCellValueFactory(new PropertyValueFactory("orderId"));
         orderDate.setCellValueFactory(new PropertyValueFactory("orderDate"));
@@ -74,6 +87,7 @@ public class MyPagesOrders {
         //on order select show invoice
         ordersTable.setOnMouseClicked(e->{
             if(e.getClickCount()==2) {
+
                 int orderId=ordersTable.getSelectionModel().getSelectedItem().getOrderId();
 
                 orderIdLabel.setText(orderId+"");
@@ -112,22 +126,33 @@ public class MyPagesOrders {
         invoiceTable.setOnKeyPressed(e -> {
             TablePosition focus = invoiceTable.focusModelProperty().get().focusedCellProperty().get();
             invoiceTable.edit(focus.getRow(), focus.getTableColumn());
-            System.out.println(invoice.toString());
+
         });
 
         quantityC.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         invoiceTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
 
+
+
+
+ArrayList<Integer> quantityChangeLog=new ArrayList<>();
         quantityC.setOnEditCommit(e -> {
-            if(e.getNewValue()>e.getOldValue()){
+            quantityChangeLog.add(e.getOldValue());
+            if(e.getNewValue()>quantityChangeLog.get(0)){
+
+
                 Alert dialog=new Alert(Alert.AlertType.WARNING);
                 dialog.setContentText("you can't buy more shoes with this order\nBut you can always go back to the shop and buy more :)");
                 dialog.showAndWait();
             }
-            final Integer value = e.getNewValue() != null ? e.getNewValue() : e.getOldValue();
-            (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
 
+            else {
+
+                final Integer value = e.getNewValue() != null && quantityChangeLog.get(0).equals(e.getOldValue()) ? e.getNewValue() : quantityChangeLog.get(0);
+                (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
+
+            }
             invoiceTable.refresh();
         });
 
@@ -182,7 +207,25 @@ public class MyPagesOrders {
             }
         });
 
+    }
+    private boolean isFound(History history, String searchText) {
+        return (history.getShoesBrandName().toLowerCase().contains(searchText.toLowerCase())
+                || history.getOrderDate().toLowerCase().contains(searchText.toLowerCase())||
+                history.getShoesColor().toLowerCase().contains(searchText.toLowerCase()));
+    }
 
+
+    //method to search in observable list and update
+    private ObservableList<History> filteredList(ObservableList<History> list, String searchText) {
+        List<History> filteredList = new ArrayList();
+        for (History history : list) {
+            if (isFound(history, searchText)) filteredList.add(history);
+        }
+        return FXCollections.observableArrayList(filteredList);
+    }
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 }
 

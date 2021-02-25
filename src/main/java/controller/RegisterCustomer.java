@@ -72,7 +72,7 @@ public class RegisterCustomer {
             customerManager.registerCustomer(c);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Register " + name.getText() + " has been faild \n" + e.getMessage());
+            System.out.println("Register " + name.getText() + " has failed \n" + e.getMessage());
             e.getSQLState();
             e.getErrorCode();
         } catch (IOException e) {

@@ -54,6 +54,7 @@ public class MyPagesSurvey {
 
     public void initialize() {
 
+
         try {
             invoice = FXCollections.observableArrayList(orderLineItemManager.getInvoice(orderManager.getLastOrderId(
                     UserLogin.getCustomer().getId()))); //have to fix
@@ -74,6 +75,8 @@ public class MyPagesSurvey {
     //show description
     invoiceTable.setOnMouseClicked(e->{ if (e.getClickCount() == 2)
         loadShoesDesc( invoiceTable.getSelectionModel().getSelectedItem().getShoesId());});
+
+
 
         changeScene = new Utils();
         loginL.setText("You login as " + UserLogin.getCustomer().getName());

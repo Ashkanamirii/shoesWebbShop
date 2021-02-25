@@ -1,7 +1,12 @@
 package controller;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
@@ -63,15 +69,25 @@ public class ConfirmShopping {
         customerName.setText(UserLogin.getCustomer().getName());
         customerAddress.setText(UserLogin.getCustomer().getAddress());
         customerCountry.setText(UserLogin.getCustomer().getCountry());
-        deliveryCosts.setText(DELIVERYCOST + "");
+        deliveryCosts.setText(DELIVERYCOST+"");
 
         //totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
     }
 
 
-    public void setData(ObservableList<Shoes> shoesData, int orderId) {
-        this.shoesData = shoesData;
-        orderNr.setText(orderId + "");
+    public void setData(ObservableList<Shoes> shoesData,int orderId){
+        //for tests
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.minutes(2),
+                        new KeyValue(confirmB.visibleProperty(), false)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.minutes(2),
+                new KeyValue(cancelB.visibleProperty(), false)));
+        timeline.play();
+
+
+        this.shoesData=shoesData;
+        orderNr.setText(orderId+"");
         initialize();
         totalPrice.setText(shoesData.stream().map(
                 s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f, s) -> f + s) + DELIVERYCOST + "");
@@ -86,23 +102,8 @@ public class ConfirmShopping {
                 }
             });
 
-               /*
-           Alert a=new Alert(Alert.AlertType.INFORMATION);
-           a.setHeight(300);
-           try {
-               a.setContentText(
-                       "Your order is on the way, here an invoice:\n"+
-                       orderManager.getInvoice(orderId).toString()
-                               .replace('[',' ').replace(']',' ').replace(',',' ') +
-                       "\nif you want to change your order or update go to mypage. "); //TODO:Show the invoice
-           } catch (SQLException throwables) {
-               throwables.printStackTrace();
-           }
-           a.setHeaderText("SHOPPING CONFIRMED!");
-           a.showAndWait();
 
-                */
-            closeStage(e);
+                closeStage(e);
 
         });
         cancelB.setOnAction(e -> {
@@ -119,8 +120,8 @@ public class ConfirmShopping {
     }
 
     private void closeStage(Event e) {
-        Node source = (Node) e.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+        Node source = (Node)  e.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
     }
 }
