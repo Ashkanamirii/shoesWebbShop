@@ -58,7 +58,7 @@ public class MyPagesOrders {
     public Utils changeScene;
 
     public void initialize() {
-
+updateOrderLine.setText("UPDATE");
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 ordersTable.setItems(filteredList(userHistory, t1))));
 
