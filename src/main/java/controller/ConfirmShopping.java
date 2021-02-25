@@ -1,6 +1,9 @@
 package controller;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
@@ -79,6 +83,16 @@ public AnchorPane mainPage;
 
 
     public void setData(ObservableList<Shoes> shoesData,int orderId){
+        //for tests
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.minutes(2),
+                        new KeyValue(confirmB.visibleProperty(), false)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.minutes(2),
+                new KeyValue(cancelB.visibleProperty(), false)));
+        timeline.play();
+
+
         this.shoesData=shoesData;
         orderNr.setText(orderId+"");
         initialize();
@@ -95,22 +109,7 @@ public AnchorPane mainPage;
                    }
                });
 
-               /*
-           Alert a=new Alert(Alert.AlertType.INFORMATION);
-           a.setHeight(300);
-           try {
-               a.setContentText(
-                       "Your order is on the way, here an invoice:\n"+
-                       orderManager.getInvoice(orderId).toString()
-                               .replace('[',' ').replace(']',' ').replace(',',' ') +
-                       "\nif you want to change your order or update go to mypage. "); //TODO:Show the invoice
-           } catch (SQLException throwables) {
-               throwables.printStackTrace();
-           }
-           a.setHeaderText("SHOPPING CONFIRMED!");
-           a.showAndWait();
 
-                */
                 closeStage(e);
 
        });
