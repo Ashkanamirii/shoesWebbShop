@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import utils.UserLogin;
@@ -29,6 +30,11 @@ public class UserProfile {
     public Button login;
     public Button myPages;
     public Label regLabel;
+    public Button registerButton;
+    public Label loginTextField;
+    public Label registerTextField;
+    public Label myPageTextField;
+    public ImageView registerImage;
     private Utils util;
 
     public void initialize() throws IOException {
@@ -41,90 +47,59 @@ public class UserProfile {
                 ioException.printStackTrace();
             }
         });
-
-        //login button är inte active om man inte skriva både email och passward
+       // registerButton.setDisable(false);
+        registerImage.setVisible(false);
+        registerTextField.setVisible(false);
+        registerButton.setVisible(false);
         login.disableProperty().bind(email.textProperty().isEmpty().or(passField.textProperty().isEmpty()));
 
         login.setOnAction(e -> {
             try {
-                if (checkInput()) {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/webbshopPage.fxml", mainPane);
                     } else {
-                        regLabel.setText("You must be register first");
-                        login.setText("Register");
-                        login.setOnAction(event -> {
+                        registerButton.setVisible(true);
+                        registerImage.setVisible(true);
+                        registerTextField.setVisible(true);
+                        login.setText("Login as guest");
+                        login.setOnAction(l -> {
                             try {
-                                System.out.println("You must be register first");
-                                util.changeScene("/registerCustomer.fxml", mainPane);
+                                util.changeScene("SHOP");
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
                             }
                         });
                     }
-                } else {
-                    System.out.println("Invalid Email or Password");
-                    regLabel.setText("You must be register first");
-                    login.setText("Login as guest");
-                    login.setOnAction(event -> {
-                        try {
-                            System.out.println("login as guest");
-                            util.changeScene("/webbshopPage.fxml", mainPane);
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    });
 
-                }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
 
-        //myPages button är inte active om man inte skriva både email och passward
         myPages.disableProperty().bind(email.textProperty().isEmpty().or(passField.textProperty().isEmpty()));
-
         myPages.setOnAction(e -> {
             try {
-                if (checkInput()) {
                     UserLogin.UserLogin(email.getText(), passField.getText());
                     if (UserLogin.getIsLogged()) {
                         util.changeScene("/myPagesHome.fxml", mainPane);
                     } else {
-                        regLabel.setText("You must be register first");
-                        login.setText("Register");
-                        login.setOnAction(event -> {
+                        registerButton.setVisible(true);
+                        registerImage.setVisible(true);
+                        registerTextField.setVisible(true);
+                        login.setText("Login as guest");
+                        login.setOnAction(l -> {
                             try {
-                                System.out.println("You must be register first");
-                                util.changeScene("/registerCustomer.fxml", mainPane);
+                                util.changeScene("SHOP");
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
                             }
                         });
                     }
-                } else {
-                    System.out.println("Invalid Email or Password");
-                    regLabel.setText("You must be register first");
-                    login.setText("Login as guest");
-                    login.setOnAction(event -> {
-                        try {
-                            System.out.println("login as guest");
-                            util.changeScene("/webbshopPage.fxml", mainPane);
-                        } catch (IOException ioException) {
-                            ioException.printStackTrace();
-                        }
-                    });
-
-                }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
 
     }
-    private boolean checkInput() {
-        return !email.getText().isBlank() && !passField.getText().isBlank();
-    }
-
 }

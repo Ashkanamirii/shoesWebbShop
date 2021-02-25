@@ -19,26 +19,20 @@ public class CategoryManagerImpl implements CategoryManager {
     @Override
     public List<Category> getAllCategory() throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl category=new CategoryDAOImpl();
-
         return category.select();
     }
     @Override
     public Category getCategoryById(int categoryId) throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl category=new CategoryDAOImpl();
             return new Category(categoryId,category.getCategoryNameById(categoryId));
-
-
     }
-
     @Override
     public List<Category> getCategoryListByShoesId(int shoesId) throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl categories=new CategoryDAOImpl();
-
         List<Category>categoryByShoes;
         String categoryIdS=categories.getCategoryIdsByShoesId(shoesId);
-
-        List<Integer>categoryIds= (Arrays.asList(categoryIdS.split(", "))).stream().map(Integer::parseInt).collect(Collectors.toList());
-
+        List<Integer>categoryIds= (Arrays.asList(categoryIdS.split(", "))).
+                stream().map(Integer::parseInt).collect(Collectors.toList());
         categoryByShoes=categoryIds.stream().map(id-> {
             try {
                 return new Category(id,categories.getCategoryNameById(id));

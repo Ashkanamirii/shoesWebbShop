@@ -16,62 +16,69 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserProfile">
     <children>
-      <BorderPane prefHeight="600.0" prefWidth="1000.0">
-         <center>
-              <Pane fx:id="loginPane" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-                  <children>
-                      <TextField fx:id="email" layoutX="400.0" layoutY="120.0" />
-                      <PasswordField fx:id="passField" layoutX="400.0" layoutY="190.0" />
-                  <Button fx:id="myPages" layoutX="621.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-color: #bc8f8f;" text="MyPages" textFill="WHITE" />
-                      <Button fx:id="login" layoutX="621.0" layoutY="351.0" mnemonicParsing="false" style="-fx-background-color: #4682b4;" text="Login" textFill="WHITE" />
-                      <Label layoutX="400.0" layoutY="100.0" text="E-mail" />
-                      <Label layoutX="400.0" layoutY="170.0" text="Password" />
-                  <Label fx:id="regLabel" layoutX="400.0" layoutY="257.0" prefHeight="17.0" prefWidth="196.0" />
-                  <ImageView fitHeight="57.0" fitWidth="86.0" layoutX="63.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true" x="490.0" y="380.0">
-                     <image>
-                        <Image url="@img/shoes-icon.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="27.0" layoutY="-25.0" pickOnBounds="true" preserveRatio="true" x="530.0" y="430.0">
-                     <image>
-                        <Image url="@img/foldertealdocuments_92850.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="400.0" layoutY="355.0" prefHeight="17.0" prefWidth="114.0" text="Go to shopping " />
-                  <Label layoutX="400.0" layoutY="421.0" text="Go to orders and servey" />
-                  </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-              </Pane>
-         </center>
-         <top>
-            <Pane prefHeight="57.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
-               <children>
-                  <Text fill="GOLDENROD" layoutX="23.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AHM Shoes Webshop">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Text>
-                  <ButtonBar layoutX="718.0" layoutY="9.0" prefHeight="40.0" prefWidth="237.0">
-                     <buttons>
-                        <Button fx:id="top" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Top" textFill="WHITE">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                     </buttons>
-                  </ButtonBar>
-               </children>
-            </Pane>
-         </top>
-         <bottom>
-            <Pane prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
-               <children>
-                  <Text layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2021 AHM Shoes Webshop" />
-               </children>
-            </Pane>
-         </bottom>
-      </BorderPane>
+        <BorderPane prefHeight="600.0" prefWidth="1000.0">
+            <center>
+                <Pane fx:id="loginPane" prefHeight="200.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TextField fx:id="email" layoutX="400.0" layoutY="120.0" />
+                        <PasswordField fx:id="passField" layoutX="400.0" layoutY="190.0" />
+                        <Button fx:id="myPages" layoutX="621.0" layoutY="367.0" mnemonicParsing="false" style="-fx-background-color: #bc8f8f;" text="MyPages" textFill="WHITE" />
+                        <Button fx:id="login" layoutX="621.0" layoutY="300.0" mnemonicParsing="false" style="-fx-background-color: #4682b4;" text="Login" textFill="WHITE" />
+                        <Label layoutX="400.0" layoutY="100.0" text="E-mail" />
+                        <Label layoutX="400.0" layoutY="170.0" text="Password" />
+                        <Label fx:id="regLabel" layoutX="400.0" layoutY="257.0" prefHeight="17.0" prefWidth="196.0" />
+                        <ImageView fitHeight="57.0" fitWidth="86.0" layoutX="63.0" layoutY="-96.0" pickOnBounds="true" preserveRatio="true" x="490.0" y="380.0">
+                            <image>
+                                <Image url="@img/shoes-icon.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="50.0" fitWidth="51.0" layoutX="27.0" layoutY="-76.0" pickOnBounds="true" preserveRatio="true" x="530.0" y="430.0">
+                            <image>
+                                <Image url="@img/foldertealdocuments_92850.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="loginTextField" layoutX="367.0" layoutY="304.0" prefHeight="17.0" prefWidth="147.0" text="Go to shopping " />
+                        <Label fx:id="myPageTextField" layoutX="365.0" layoutY="370.0" prefHeight="17.0" prefWidth="162.0" text="Go to orders and servey" />
+                        <Button fx:id="registerButton" layoutX="621.0" layoutY="431.0" mnemonicParsing="false" style="-fx-background-color: #bc8f8f;" text="Register" textFill="WHITE" />
+                        <ImageView fx:id="registerImage" fitHeight="50.0" fitWidth="51.0" layoutX="27.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true" x="530.0" y="430.0">
+                            <image>
+                                <Image url="@img/foldertealdocuments_92850.png" />
+                            </image>
+                        </ImageView>
+                        <Label fx:id="registerTextField" layoutX="366.0" layoutY="434.0" prefHeight="17.0" prefWidth="164.0" text="You have to register first" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets />
+                    </BorderPane.margin>
+                </Pane>
+            </center>
+            <top>
+                <Pane prefHeight="57.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Text fill="GOLDENROD" layoutX="23.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AHM Shoes Webshop">
+                            <font>
+                                <Font name="System Bold" size="30.0" />
+                            </font>
+                        </Text>
+                        <ButtonBar layoutX="718.0" layoutY="9.0" prefHeight="40.0" prefWidth="237.0">
+                            <buttons>
+                                <Button fx:id="top" mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;" text="Top" textFill="WHITE">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                            </buttons>
+                        </ButtonBar>
+                    </children>
+                </Pane>
+            </top>
+            <bottom>
+                <Pane prefHeight="30.0" prefWidth="800.0" style="-fx-background-color: #708090;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Text layoutX="24.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© 2021 AHM Shoes Webshop" />
+                    </children>
+                </Pane>
+            </bottom>
+        </BorderPane>
     </children>
 </AnchorPane>

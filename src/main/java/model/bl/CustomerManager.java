@@ -17,6 +17,7 @@ import java.util.List;
 public interface CustomerManager {
    void registerCustomer(Customer customer) throws SQLException, IOException, ClassNotFoundException;
    List<Customer> getAllCustomer() throws SQLException, IOException, ClassNotFoundException;
-   Customer CheckValidCustomerByUserPswd(String email , String password) throws SQLException, IOException, ClassNotFoundException;
+   Customer CheckValidCustomerByUserPswd(String email , String password) throws SQLException, IOException,
+           ClassNotFoundException;
    List<History> customerHistory(int custId) throws SQLException, IOException, ClassNotFoundException;
 }

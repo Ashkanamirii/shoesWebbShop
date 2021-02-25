@@ -15,5 +15,4 @@ import java.util.List;
  */
 public interface BrandManager {
     List<Brand> getAllBrand() throws SQLException, IOException, ClassNotFoundException;
-
 }

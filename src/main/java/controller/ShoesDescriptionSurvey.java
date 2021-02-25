@@ -1,5 +1,6 @@
 package controller;
 
+import enumation.Error;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,13 +33,12 @@ public class ShoesDescriptionSurvey {
     public Label categoryL;
     public Button submitB;
     public Label priceL;
-    private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
     public Rating ratingStars;
+    public TextArea commentTextArea;
+    private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
     private List<Shoes> shoesList;
     private int ratingValue;
     private SurveysBLImpl sendSurvey=new SurveysBLImpl();
-    public TextArea commentTextArea;
-
     public void initialize(){
         try {
             shoesList=shoesManager.getAllShoes();
@@ -49,26 +49,9 @@ public class ShoesDescriptionSurvey {
     }
     public void setData(int shoesId){
         Shoes shoesData=shoesList.get(shoesId-1);
-        File file = new File("src/main/resources/img/reebok.jpg");
-        File file1 = new File("src/main/resources/img/adibas.png");
-        String imagepath = null;
-        String imagepath1 = null;
-        try {
-            imagepath = file.toURI().toURL().toString();
-            imagepath1 = file1.toURI().toURL().toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        switch(shoesData.getBrand().getName()){
-            case "Adidas"->shoesImage.setImage(new Image(imagepath1));
-            case "Reebok"->shoesImage.setImage(new Image(imagepath));
-        }
-        
-
-
-            ratingStars.setOnMouseClicked(e->ratingValue=(int)ratingStars.getRating());
+        ShoesDescription.getImagePath(shoesData, shoesImage);
+        ratingStars.setOnMouseClicked(e->ratingValue=(int)ratingStars.getRating());
             submitB.setOnAction(e->{
-                //Alert dialog
                 Alert a=new Alert(Alert.AlertType.INFORMATION);
                 a.setHeaderText("THANK YOU");
                 a.setContentText("Thank you for the rating and comment");
@@ -78,20 +61,14 @@ public class ShoesDescriptionSurvey {
                     sendSurvey.setSurveys(UserLogin.getCustomer().getId(),shoesId,ratingValue,commentTextArea.getText());
                 } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
+                    System.out.println(Error.DATABASE);
+                    System.out.println(Error.CONNECTION);
                 }
-
             });
-       
-
-        //the labels and descriptions
-
         brandL.setText(shoesData.getBrand().getName());
         colorL.setText(shoesData.getColor());
         categoryL.setText(shoesData.getCategoriesP());
         priceL.setText(shoesData.getPrice() + "");
         shoesNrL.setText(shoesData.getShoes_number() + "");
-
-
-
     }
 }

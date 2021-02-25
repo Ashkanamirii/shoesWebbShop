@@ -27,16 +27,17 @@ public class Shoes {
     private SimpleStringProperty color;
     private SimpleDoubleProperty price;
     private SimpleIntegerProperty quantity;
-    private String categoriesS;
-    public Shoes(int id, int size, int shoes_number, Brand brand, List<Category>categories,String color, double price, int quantity) {
+
+    public Shoes(int id, int size, int shoes_number, Brand brand,
+                 List<Category>categories,String color, double price, int quantity) {
         this.id = new SimpleIntegerProperty(id);
         this.size = new SimpleIntegerProperty(size);
         this.shoes_number = new SimpleIntegerProperty(shoes_number);
         this.brandP = new SimpleStringProperty(brand.getName());
         this.categories=categories;
-
         if (categories !=null && categories.size()>0) {
-            this.categoriesP = new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+            this.categoriesP = new SimpleStringProperty(categories.stream().
+                    map(Category::getName).collect(Collectors.joining(", ")));
         }
 
         this.brand=brand;

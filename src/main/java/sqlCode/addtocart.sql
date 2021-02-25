@@ -33,56 +33,50 @@ BEGIN
             RESIGNAL SET MESSAGE_TEXT = 'unique constraint broken, rollback done';
         END;
 
-
 -- första click
-
     start transaction;
-if
-orderId=-1 then set orderId=null;
-end if;
+    if
+        orderId = -1 then
+        set orderId = null;
+    end if;
 
     if (_status = 2 and orderId is null)
     then -- PAYING måste insertera i order line item
         insert into orders(FK_customer_id, order_date) VALUES (customerId, current_date());
         set
-getOrderID = last_insert_id();
-		set created_order_id=getOrderID;
-select created_order_id;
-insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-VALUES (shoesId, getOrderID, ordered_quantity, _status);
--- update shoes set quantity = quantity - ordered_quantity where id = shoesId; -- (Det kan fixa med triggers) eller kanske det behöver inte
-
-else if (_status = 2)
- then insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-            VALUES (shoesId, orderId, ordered_quantity, _status);
-
-else if (_status in (3, 4))
-        then -- lägga till shoes Q
+            getOrderID = last_insert_id();
+        set created_order_id = getOrderID;
+        select created_order_id;
+        insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+        VALUES (shoesId, getOrderID, ordered_quantity, _status);
+    else
+        if (_status = 2)
+        then
             insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
             VALUES (shoesId, orderId, ordered_quantity, _status);
--- update shoes set quantity = quantity + ordered_quantity where id = shoesId; (Det kan fixa med triggers) eller kanske det behöver inte
+        else
+            if (_status = 3)
+            then
+                insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+                VALUES (shoesId, orderId, ordered_quantity, _status);
+            else
+                if (_status = 1)
+                then -- CONFIRMED måste insertera i order line item
+                    update order_line_item set status = 1 where FK_order_id = orderId;
+                else
+                    if (_status = 5)
+                    then -- RETURNED insertera i order line item och order och lägga till Q  shoes
+#                         insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
+#                         VALUES (shoesId, orderId, ordered_quantity, _status);
 
-else
-            if (_status = 1)
-            then -- CONFIRMED måste insertera i order line item
-
-              --  insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-                -- VALUES (shoesId, orderId, ordered_quantity, _status);
-                update order_line_item set status = 1 where FK_order_id = orderId;
-
-else
-                if (_status = 5)
-                then -- RETURNED insertera i order line item och order och lägga till Q  shoes
-                    insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-                    VALUES (shoesId, orderId, ordered_quantity, _status);
-                --    update shoes set quantity = quantity + ordered_quantity where id = shoesId;
-
-END IF;
-END IF;
-END IF;
-END IF;
-END IF;
+                        update order_line_item set quantity = ordered_quantity, status = _status
+                        where shoesId = FK_shoes_id and orderId = FK_order_id;
+                    END IF;
+                END IF;
+            END IF;
+        END IF;
+    END IF;
     -- select ('') as error;
-commit;
+    commit;
 end//
 DELIMITER ;

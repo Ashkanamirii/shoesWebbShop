@@ -1,5 +1,6 @@
 package controller;
 
+import enumation.Error;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,10 +36,8 @@ public class RegisterCustomer {
     public Label regLabel;
     private CustomerManagerImpl customerManager = new CustomerManagerImpl();
 
-
     public void initialize() {
-        changeScene = new Utils();
-
+        changeScene = new Utils(regiPane);
         top.setOnAction(e -> {
             try {
                 changeScene.changeScene("/home.fxml", regiPane);
@@ -47,7 +46,6 @@ public class RegisterCustomer {
             }
         });
         regBtn.setOnAction(e -> {
-            if (checkInput()) {
                 registerNewCustomer();
                 System.out.println("register customer");
                 regLabel.setText("YOU HAVE BEEN REGISTERED SUCCESSFULLY");
@@ -59,9 +57,6 @@ public class RegisterCustomer {
                         ioException.printStackTrace();
                     }
                 });
-            } else {
-                System.out.println("Invalid");
-            }
         });
     }
 
@@ -75,14 +70,10 @@ public class RegisterCustomer {
             System.out.println("Register " + name.getText() + " has failed \n" + e.getMessage());
             e.getSQLState();
             e.getErrorCode();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+            System.out.println(Error.DATABASE);
+            System.out.println(Error.CONNECTION);
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean checkInput() {
-        return true;
     }
 }

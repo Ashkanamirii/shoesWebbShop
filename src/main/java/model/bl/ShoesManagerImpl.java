@@ -33,11 +33,8 @@ public class ShoesManagerImpl implements ShoesManager {
 // Test method for shoes objekt
     public List<Shoes> getAllShoes2() throws SQLException, IOException, ClassNotFoundException {
         ShoesDAO shoesDAO = new ShoesDAOImpl();
-
         CategoryManager categoryManager = new CategoryManagerImpl();
-
         List<Shoes> shoesList = shoesDAO.selectShoesWithBrand();//just get shoes
-
         for (Shoes s : shoesList) {
             s.setCategoriesNameList(categoryManager.getShoesCategory(s.getId()));
         }

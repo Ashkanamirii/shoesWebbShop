@@ -58,7 +58,6 @@ public class WebbshopPage {
     public Pane shoppinCartP;
     public Button confirmOrder;
     public Pane shoesDescriptionP;
-    public Utils utils;
     public AnchorPane mainPage;
     public Button removeCart;
     public Button myPageB;
@@ -68,6 +67,7 @@ public class WebbshopPage {
     private CategoryManagerImpl categoryManager = new CategoryManagerImpl();
     private BrandManagerImpl brandManager = new BrandManagerImpl();
     private OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    public Utils utils;
 
     public void initialize() {
 
@@ -78,7 +78,6 @@ public class WebbshopPage {
                 ioException.printStackTrace();
             }
         });
-
 
         try {
             shoesList = FXCollections.observableArrayList(shoesManager.getAllShoes());
@@ -97,7 +96,6 @@ public class WebbshopPage {
             loginL.setText("Welcome " + UserLogin.getCustomer().getName()); //we get here the customer name
         }
         //shoping cart
-
         shoppingCart = FXCollections.observableArrayList();
         //cartId.setCellValueFactory(new PropertyValueFactory("id"));
         cartPrice.setCellValueFactory(new PropertyValueFactory("price"));
@@ -123,10 +121,7 @@ public class WebbshopPage {
             }
         });
 
-        //login button är inte active om man inte skriva både email och passward
         startLogInB.disableProperty().bind(email.textProperty().isEmpty().or(passF.textProperty().isEmpty()));
-
-        //testing the log in with the singleton
         startLogInB.setOnAction(e -> {
             UserLogin.UserLogin(email.getText(), passF.getText());
             if (UserLogin.getIsLogged()) {
@@ -181,8 +176,6 @@ public class WebbshopPage {
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 shoesTable.setItems(filteredList(shoesList, t1))));
         //select by click this can call to addToCart (or display a new pane asking for confirm to add to cart)
-
-
         shoesTable.setOnMouseClicked(e -> {
                     if (e.getClickCount() == 2)
                         loadShoesDesc(((Shoes) shoesTable.getSelectionModel().getSelectedItem()),
@@ -194,8 +187,6 @@ public class WebbshopPage {
             shoesTable.setItems(shoesList);
         });
 
-
-        //create new order and get its id, then call addtocart and send the values for each element
         confirmOrder.setOnAction(e -> {
             try {
                 int orderId = orderManager.getOrderIdFromAddTOCart(UserLogin.getCustomer().getId(), -1,
@@ -203,7 +194,8 @@ public class WebbshopPage {
 
                 shoppingCart.stream().skip(1).forEach(s -> {
                     try {
-                        orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 2);
+                        orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(),
+                                s.getQuantity(), 2);
                     } catch (SQLException | IOException | ClassNotFoundException throwables) {
                         throwables.printStackTrace();
                     }
@@ -213,9 +205,8 @@ public class WebbshopPage {
             } catch (IOException | SQLException | ClassNotFoundException ioException) {
                 ioException.printStackTrace();
             }
-            Utils utils=new Utils();
             try {
-                utils.changeScene("/myPagesSurvey.fxml",mainPage);
+                utils.changeScene("INVOICE");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

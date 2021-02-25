@@ -127,15 +127,3 @@ END $$
 DELIMITER ;
 
 
-
-DELIMITER $$
-create procedure shoesObjekt()
-begin
-SELECT *from shoes sh
-    join shoes sh1 on sh.id = sh1.id
-    join shoes_category shc on shc.FK_shoes_id = sh.id
-    join category c on shc.FK_category_id = c.id
-    join brand b on b.id = sh.FK_brand_id
-    ;
-END $$
-DELIMITER ;

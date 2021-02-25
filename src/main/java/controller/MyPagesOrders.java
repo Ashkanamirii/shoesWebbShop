@@ -1,6 +1,7 @@
 package controller;
 
 
+import enumation.Error;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,7 +37,6 @@ public class MyPagesOrders {
     public Button myPagesBtn;
     public Button surveyBtn;
     public Label loginL;
-    public Utils changeScene;
     public VBox surveyBtnBox;
     public Button searchBtn;
     public TableView<Invoice> invoiceTable;
@@ -45,81 +45,75 @@ public class MyPagesOrders {
     public TableColumn<Invoice, String> colorC;
     public TableColumn<Invoice, Double> priceC;
     public TableColumn<Invoice, Integer> quantityC;
-    private final OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
-    private final CustomerManagerImpl customerManager =new CustomerManagerImpl();
     public TableView<History> ordersTable;
-    public TableColumn<History,Integer> orderId;
-    public TableColumn <History,String>orderDate;
+    public TableColumn<History, Integer> orderId;
+    public TableColumn<History, String> orderDate;
     public Button updateOrderLine;
     public Label orderIdLabel;
     public TextField searchField;
     private ObservableList<Invoice> invoice;
     private ObservableList<History> userHistory;
+    private final OrderLineItemManagerImpl orderManager = new OrderLineItemManagerImpl();
+    private final CustomerManagerImpl customerManager = new CustomerManagerImpl();
+    public Utils changeScene;
 
     public void initialize() {
 
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 ordersTable.setItems(filteredList(userHistory, t1))));
-        //get the order
 
         try {
-            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId())
+            List<History> historyList = customerManager.customerHistory(
+                    UserLogin.getCustomer().getId())
                     .stream()
                     .filter(distinctByKey(History::getOrderId))
                     .collect(Collectors.toList());
 
-           userHistory=FXCollections.observableArrayList(historyList);
+            userHistory = FXCollections.observableArrayList(historyList);
 
         } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
+            System.out.println(Error.DATABASE);
+            System.out.println(Error.CONNECTION);
         }
-
-//set the orders
         ordersTable.setItems(userHistory);
-
-        //set the orders
         orderId.setCellValueFactory(new PropertyValueFactory("orderId"));
         orderDate.setCellValueFactory(new PropertyValueFactory("orderDate"));
+        ordersTable.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
 
-        //on order select show invoice
-        ordersTable.setOnMouseClicked(e->{
-            if(e.getClickCount()==2) {
-
-                int orderId=ordersTable.getSelectionModel().getSelectedItem().getOrderId();
-
-                orderIdLabel.setText(orderId+"");
+                int orderId = ordersTable.getSelectionModel().getSelectedItem().getOrderId();
+                orderIdLabel.setText(orderId + "");
                 try {
                     invoice = FXCollections.observableArrayList(orderManager.getInvoice
                             (orderId));
                 } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
+                    System.out.println(Error.DATABASE);
+                    System.out.println(Error.CONNECTION);
                 }
                 invoiceTable.setItems(invoice);
                 invoiceTable.refresh();
             }
         });
 
-
-
-        //get the invoice
         try {
-            if(userHistory.size()>=0){
-            invoice = FXCollections.observableArrayList(orderManager.getInvoice(userHistory.get(0).getOrderId()));}
+            if (userHistory.size() >= 0) {
+                invoice = FXCollections.observableArrayList(orderManager.getInvoice(userHistory.get(0).getOrderId()));
+            }
         } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
+            System.out.println(Error.DATABASE);
+            System.out.println(Error.CONNECTION);
         }
-        //set the invoice
         brandC.setCellValueFactory(new PropertyValueFactory("shoesBrandName"));
         colorC.setCellValueFactory(new PropertyValueFactory("shoesColor"));
         priceC.setCellValueFactory(new PropertyValueFactory("price"));
         shoesNumberC.setCellValueFactory(new PropertyValueFactory("shoesNumber"));
-
         quantityC.setCellValueFactory(new PropertyValueFactory("quantity"));
 
         invoiceTable.setItems(invoice);
         invoiceTable.setEditable(true);
-//edit the invoice
-
         invoiceTable.setOnKeyPressed(e -> {
             TablePosition focus = invoiceTable.focusModelProperty().get().focusedCellProperty().get();
             invoiceTable.edit(focus.getRow(), focus.getTableColumn());
@@ -129,47 +123,46 @@ public class MyPagesOrders {
         quantityC.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         invoiceTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
 
-
-
-
-
-ArrayList<Integer> quantityChangeLog=new ArrayList<>();
+        ArrayList<Integer> quantityChangeLog = new ArrayList<>();
         quantityC.setOnEditCommit(e -> {
             quantityChangeLog.add(e.getOldValue());
-            if(e.getNewValue()>quantityChangeLog.get(0)){
-
-
-                Alert dialog=new Alert(Alert.AlertType.WARNING);
-                dialog.setContentText("you can't buy more shoes with this order\nBut you can always go back to the shop and buy more :)");
+            if (e.getNewValue() > quantityChangeLog.get(0)) {
+                Alert dialog = new Alert(Alert.AlertType.WARNING);
+                dialog.setContentText(Error.RETURNED_FAILED.toString());
                 dialog.showAndWait();
-            }
-
-            else {
-
-                final Integer value = e.getNewValue() != null && quantityChangeLog.get(0).equals(e.getOldValue()) ? e.getNewValue() : quantityChangeLog.get(0);
+            } else {
+                final Integer value = e.getNewValue() != null &&
+                        quantityChangeLog.get(0).equals(
+                                e.getOldValue()) ? e.getNewValue() : quantityChangeLog.get(0);
                 (e.getTableView().getItems().get(e.getTablePosition().getRow())).setQuantity(value);
-
             }
             invoiceTable.refresh();
         });
-
-
         //send to be returned
-        updateOrderLine.setOnAction(e->{
-            invoice.forEach(i->{
-                if(i.quantityToReturn()!=0){
-                try {
-                orderManager.getAddTOCart(
-                        UserLogin.getCustomer().getId(), i.getOrderId(), i.getShoesId(),i.quantityToReturn(),5);
-            } catch (SQLException | IOException | ClassNotFoundException throwables) {
-                throwables.printStackTrace();
-            }}});
+        updateOrderLine.setOnAction(e -> {
+System.out.println(invoice.get(0).getOrderId());
+            invoice.forEach(i -> {
+                if (i.quantityToReturn() != 0) {
+                    try {
+                        System.out.println(i.getOrderId() + "asasasasas" + i.quantityToReturn());
+                        orderManager.getAddTOCart(
+                                UserLogin.getCustomer().getId(), i.getOrderId(),
+                                i.getShoesId(), i.quantityToReturn(), 5);
+                    } catch (SQLException | IOException | ClassNotFoundException throwables) {
+                        throwables.printStackTrace();
+                    }
+                }
+            });
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Returned action");
+            alert.setContentText("We have taken your request ,\nYou will be charge with-->" +
+                    invoice.get(0).getTotal_price()+"Kr.");
+            alert.showAndWait();
+
 
         });
 
-
-        changeScene = new Utils();
-
+        changeScene = new Utils(myPagesOrdersPane);
         loginL.setText("You login as " + UserLogin.getCustomer().getName());
 
         logout.setOnAction(e -> {
@@ -205,9 +198,10 @@ ArrayList<Integer> quantityChangeLog=new ArrayList<>();
         });
 
     }
+
     private boolean isFound(History history, String searchText) {
         return (history.getShoesBrandName().toLowerCase().contains(searchText.toLowerCase())
-                || history.getOrderDate().toLowerCase().contains(searchText.toLowerCase())||
+                || history.getOrderDate().toLowerCase().contains(searchText.toLowerCase()) ||
                 history.getShoesColor().toLowerCase().contains(searchText.toLowerCase()));
     }
 
@@ -220,6 +214,7 @@ ArrayList<Integer> quantityChangeLog=new ArrayList<>();
         }
         return FXCollections.observableArrayList(filteredList);
     }
+
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
         return t -> seen.add(keyExtractor.apply(t));

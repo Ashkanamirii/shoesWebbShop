@@ -64,7 +64,7 @@
                   </TableView>
                   <Label fx:id="orderIdLabel" layoutX="295.0" layoutY="84.0" prefHeight="17.0" prefWidth="113.0" />
                   <Label layoutX="240.0" layoutY="84.0" prefHeight="17.0" prefWidth="57.0" text="Order Nr." />
-                  <Button fx:id="updateOrderLine" layoutX="645.0" layoutY="416.0" mnemonicParsing="false" text="Update" />
+                  <Button fx:id="updateOrderLine" layoutX="645.0" layoutY="416.0" mnemonicParsing="false" text="Return" />
                </children>
             </Pane>
          </center>

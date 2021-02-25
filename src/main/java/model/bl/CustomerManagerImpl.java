@@ -48,4 +48,10 @@ public class CustomerManagerImpl implements CustomerManager{
         CustomerDAOImpl c = new CustomerDAOImpl();
         return c.customerHistory(custId);
     }
+
+    @Override
+    public void update(Customer OldCustomer) throws SQLException, IOException, ClassNotFoundException {
+        CustomerDAOImpl c = new CustomerDAOImpl();
+        c.update(OldCustomer);
+    }
 }

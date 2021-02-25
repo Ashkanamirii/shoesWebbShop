@@ -36,7 +36,7 @@ public class Invoice {
         this.price = new SimpleDoubleProperty(price);
         this.total_price = new SimpleDoubleProperty(total_price);
         this.shoesId = new SimpleIntegerProperty(shoesId);
-        this.baseQuantity=getQuantity();
+        this.baseQuantity=quantity;
     }
     public int quantityToReturn(){
         return baseQuantity-getQuantity();

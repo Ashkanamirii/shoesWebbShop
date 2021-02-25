@@ -1,6 +1,7 @@
 package controller;
 
 
+import enumation.Error;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -69,17 +70,16 @@ public class ConfirmShopping {
         customerCountry.setText(UserLogin.getCustomer().getCountry());
         deliveryCosts.setText(DELIVERYCOST+"");
 
-        //totalPrice.setText(shoesData.stream().map(s -> s.getPrice() * s.getQuantity()).reduce(0, Integer::sum).toString());
     }
 
 
     public void setData(ObservableList<Shoes> shoesData,int orderId){
-        //for tests
+        // Det här för auto_cancel
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(
-                new KeyFrame(Duration.minutes(2),
+                new KeyFrame(Duration.seconds(30),
                         new KeyValue(confirmB.visibleProperty(), false)));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.minutes(2),
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(30),
                 new KeyValue(cancelB.visibleProperty(), false)));
         timeline.play();
 
@@ -88,7 +88,7 @@ public class ConfirmShopping {
         orderNr.setText(orderId+"");
         initialize();
         totalPrice.setText(shoesData.stream().map(
-                s -> s.getPrice() * s.getQuantity()).reduce(0.0, (f, s) -> f + s) + DELIVERYCOST + "");
+                s -> s.getPrice() * s.getQuantity()).reduce(0.0, Double::sum) + DELIVERYCOST + "");
         confirmB.setOnAction(e -> {
 
             shoesData.forEach(s -> {
@@ -97,6 +97,8 @@ public class ConfirmShopping {
                             UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 1);
                 } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
+                    System.out.println(Error.DATABASE);
+                    System.out.println(Error.CONNECTION);
                 }
             });
 
@@ -107,9 +109,12 @@ public class ConfirmShopping {
         cancelB.setOnAction(e -> {
             shoesData.forEach(s -> {
                 try {
-                    orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 3);
+                    orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(),
+                            s.getQuantity(), 3);
                 } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
+                    System.out.println(Error.DATABASE);
+                    System.out.println(Error.CONNECTION);
                 }
             });
             closeStage(e);

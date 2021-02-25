@@ -12,9 +12,8 @@ END //
 delimiter ;
 
 
-
-drop  trigger on_status_update_autoCancel;
 -- Det kör efter SP
+drop  trigger on_status_update_autoCancel;
 delimiter //
 create trigger on_status_update_autoCancel
     AFTER UPDATE
@@ -25,5 +24,23 @@ BEGIN
         update LOW_PRIORITY IGNORE shoes sh set sh.quantity = sh.quantity + new.quantity
         where sh.id = new.FK_shoes_id;
     end if;
+     if OLD.status = 1 AND  NEW.status = 5
+         then
+             update LOW_PRIORITY IGNORE shoes sh set sh.quantity = sh.quantity + new.quantity
+             where sh.id = new.FK_shoes_id;
+         end if;
 end //
 delimiter ;
+
+
+create definer = root@localhost trigger on_status_update_autoCancel
+    after update
+    on order_line_item
+    for each row
+BEGIN
+    if  OLD.status = 'PAYING' AND new.status = 'AUTO_CANCEL'
+    then
+        update LOW_PRIORITY IGNORE shoes sh set sh.quantity = sh.quantity + new.quantity
+        where sh.id = new.FK_shoes_id;
+    end if;
+end;

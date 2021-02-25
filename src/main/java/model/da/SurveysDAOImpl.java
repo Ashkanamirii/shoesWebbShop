@@ -26,10 +26,6 @@ public class SurveysDAOImpl implements SurveysDAO {
         connection = new ConnectionDB().getConnection();
     }
 
-    @Override
-    public List<Surveys> select() throws SQLException {
-        return null;
-    }
 
     @Override
     public void insert(Surveys surveys) throws SQLException {
@@ -68,7 +64,8 @@ public class SurveysDAOImpl implements SurveysDAO {
             System.out.println("ERROR-->Insert rate into database");
         callableStatement.close();
         connection.close();
-    }//List<Comments> name,comment SImpleStringPorpert
+    }
+
     @Override
     public List<Comments> getCommentByShoesId(int shoesNr) throws SQLException {
         List<Comments> listOfComment =new ArrayList<>();
@@ -84,26 +81,6 @@ public class SurveysDAOImpl implements SurveysDAO {
         pStmt.close();
         return listOfComment;
     }
-
-//    @Override
-//    public List<ShoesAverageGrade> shoesAverageGrade() throws SQLException {
-//        SurveysDAOImpl s = new SurveysDAOImpl();
-//        List<ShoesAverageGrade> shoesAverageRateView = new ArrayList<>();
-//        preparedStatement = connection.prepareStatement("SELECT * from product_average_rate");
-//        ResultSet resultSet = preparedStatement.executeQuery();
-//        while (resultSet.next()) {
-//            shoesAverageRateView.add(new ShoesAverageGrade(resultSet.getString("shoes_name")
-//            ,resultSet.getInt("shoesNumber")
-//            ,resultSet.getLong("Number_Of_Rating")
-//            ,resultSet.getDouble("Average_Rate")
-//            ,resultSet.getString("Rate")
-//                    // här sätter jag alla comment för en shoes Det sparas som observableList(Hoppas funkar)
-//            ,s.getCommentByShoesId(resultSet.getInt("shoesNumber"))));
-//        }
-//        close();
-//        return shoesAverageRateView;
-//    }
-
     @Override
     public double getShoesAverageRate(int shoesId) throws SQLException {
         double avg = 0;

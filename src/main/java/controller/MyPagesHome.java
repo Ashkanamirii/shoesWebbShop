@@ -18,21 +18,27 @@ public class MyPagesHome {
     public Button logout;
     public Button goToShopping;
     public Button ordersBtn;
-    public Button surveyBtn;
     public Text cutomerName;
-    public Utils changeScene;
     public VBox surveyBtnBox;
-
-
+    public Button editUserProfileBtn;
+    public Utils changeScene;
     public void initialize() {
         changeScene = new Utils();
 
 
        cutomerName.setText( UserLogin.getCustomer().getName() );
 
-        logout.setOnAction(e -> {
+       logout.setOnAction(e -> {
+            UserLogin.getInstance().setLogged(false);
             try {
                 changeScene.changeScene("/home.fxml", myPagesHomePane);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        editUserProfileBtn.setOnAction(e -> {
+            try {
+                changeScene.changeScene("EDITPROFILE");
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
