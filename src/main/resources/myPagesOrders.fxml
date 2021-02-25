@@ -45,8 +45,8 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="800.0" stylesheets="@css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <TextField fx:id="searchField" layoutX="38.0" layoutY="30.0" prefHeight="25.0" prefWidth="467.0" />
-                  <Button fx:id="searchBtn" layoutX="586.0" layoutY="29.0" mnemonicParsing="false" text="Search" />
+                  <TextField fx:id="searchField" layoutX="26.0" layoutY="30.0" prefHeight="25.0" prefWidth="608.0" />
+                  <Button fx:id="searchBtn" layoutX="646.0" layoutY="30.0" mnemonicParsing="false" text="Search" />
                   <TableView fx:id="invoiceTable" layoutX="231.0" layoutY="110.0" prefHeight="334.0" prefWidth="405.0">
                     <columns>
                       <TableColumn fx:id="shoesNumberC" prefWidth="75.0" text="Ref. Nr." />
@@ -62,9 +62,9 @@
                       <TableColumn fx:id="orderDate" prefWidth="83.0" text="Order Date" />
                     </columns>
                   </TableView>
-                  <Label fx:id="orderIdLabel" layoutX="256.0" layoutY="84.0" prefHeight="17.0" prefWidth="113.0" />
-                  <Label layoutX="240.0" layoutY="84.0" prefHeight="17.0" prefWidth="31.0" text="ID:" />
-                  <Button fx:id="updateOrderLine" layoutX="645.0" layoutY="416.0" mnemonicParsing="false" text="UPDATE" />
+                  <Label fx:id="orderIdLabel" layoutX="295.0" layoutY="84.0" prefHeight="17.0" prefWidth="113.0" />
+                  <Label layoutX="240.0" layoutY="84.0" prefHeight="17.0" prefWidth="57.0" text="Order Nr." />
+                  <Button fx:id="updateOrderLine" layoutX="645.0" layoutY="416.0" mnemonicParsing="false" text="Update" />
                </children>
             </Pane>
          </center>

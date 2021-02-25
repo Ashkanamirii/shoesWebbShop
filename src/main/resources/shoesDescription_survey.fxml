@@ -25,7 +25,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Shoes Nr">
+            <Label text="Ref.Nr.">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -59,7 +59,7 @@
             <Label fx:id="priceL" text="Label" />
          </children>
       </VBox>
-      <Button fx:id="submitB" layoutX="395.0" layoutY="145.0" mnemonicParsing="false" text="SubmitRate" />
+      <Button fx:id="submitB" layoutX="395.0" layoutY="145.0" mnemonicParsing="false" text="Submit Rate" />
       <Rating fx:id="ratingStars" layoutX="345.0" layoutY="15.0" />
       <TextArea fx:id="commentTextArea" layoutX="358.0" layoutY="65.0" prefHeight="74.0" prefWidth="150.0" wrapText="true" />
    </children>
