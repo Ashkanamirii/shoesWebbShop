@@ -35,7 +35,6 @@ public class MyPagesSurvey {
     public Button myPagesBtn;
     public Button ordersBtn;
     public Label loginL;
-    //public Pane shoesDescription_surveyP;
     public Utils changeScene;
     public TableView <Invoice>invoiceTable;
     public TableColumn<Invoice,String> orderDateC;

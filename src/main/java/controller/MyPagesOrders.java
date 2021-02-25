@@ -61,7 +61,6 @@ public class MyPagesOrders {
 
     public void initialize() {
 
-        //TODO: implement searching (there is already a method in webshoppage)
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 ordersTable.setItems(filteredList(userHistory, t1))));
         //get the order

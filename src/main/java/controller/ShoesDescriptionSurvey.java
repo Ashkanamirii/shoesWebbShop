@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -35,17 +33,18 @@ public class ShoesDescriptionSurvey {
     public Label priceL;
     private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
     public Rating ratingStars;
-    public TextField commentTextField;
     private List<Shoes> shoesList;
     private int ratingValue;
     private SurveysBLImpl sendSurvey=new SurveysBLImpl();
+    public TextArea commentTextArea;
     public void initialize(){
         try {
             shoesList=shoesManager.getAllShoes();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        
+        ratingStars.setRating(2.5);
+        ratingStars.setPartialRating(true);
     }
     public void setData(int shoesId){
         Shoes shoesData=shoesList.get(shoesId-1);
@@ -71,8 +70,14 @@ public class ShoesDescriptionSurvey {
 
             ratingStars.setOnMouseClicked(e->ratingValue=(int)ratingStars.getRating());
             submitB.setOnAction(e->{
+                //Alert dialog
+                Alert a=new Alert(Alert.AlertType.INFORMATION);
+                a.setHeaderText("THANK YOU");
+                a.setContentText("Thank you for the rating and comment");
+                submitB.setDisable(true);
+                a.showAndWait();
                 try {
-                    sendSurvey.setSurveys(UserLogin.getCustomer().getId(),shoesId,ratingValue,commentTextField.getText());
+                    sendSurvey.setSurveys(UserLogin.getCustomer().getId(),shoesId,ratingValue,commentTextArea.getText());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
