@@ -1,5 +1,8 @@
--- renewed addtocart, will write it more beautiful another day. just inserts in order line item with the given status.
+-- *************************************************************
+-- renewed addtocart, will write it more beautiful another day.
+-- just inserts in order line item with the given status.
 -- to update the shoes stock we use update_stock_on_status (look on triggers_views_och storeProcedure.sql)
+-- *************************************************************
 drop procedure if exists AddToCart;
 DELIMITER //
 create procedure AddToCart(
@@ -80,3 +83,6 @@ BEGIN
     commit;
 end//
 DELIMITER ;
+-- *************************************************************
+
+-- *************************************************************

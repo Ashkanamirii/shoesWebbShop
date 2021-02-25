@@ -1,3 +1,7 @@
+-- ***********************************************************
+
+-- ***********************************************************
+
 DROP EVENT  auto_cancel;
 delimiter //
 use shoes_enum;
@@ -7,3 +11,6 @@ create event auto_cancel ON SCHEDULE EVERY 2 MINUTE
     call shoes_enum.help_auto_cancel();
 delimiter ;
 SHOW PROCESSLIST;
+-- ***********************************************************
+
+-- ***********************************************************

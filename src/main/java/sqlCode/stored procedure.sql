@@ -1,65 +1,8 @@
--- Skapa en funktion som tar ett produktId som parameter och returnerar medelbetyget för den
--- produkten. Om du inte har sifferbetyg sedan innan, lägg till dessa, så att en siffra motsvarar ett av de
--- skriftliga betygsvärdena.
 
-
-USE shoes_enum;
-DROP function IF EXISTS getShoesAverageGrade;
-
-DELIMITER $$
-CREATE FUNCTION getShoesAverageGrade (shoesId int)
-    RETURNS double
-    reads sql data
-BEGIN
-    DECLARE avrageGrade DECIMAL(10,2);
-    select avg(grade) into avrageGrade from surveys where FK_shoes_id = shoesId;
-    RETURN avrageGrade;
-END $$
-
-DELIMITER ;
-
-select getShoesAverageGrade(10); -- 4,5
-
-
--- Skapa en vy som visar medelbetyget i siffror och i text för samtliga produkter (om en produkt inte
--- har fått något betyg så skall den ändå visas, med null eller tomt värde, i medelbetyg).
-drop view if exists product_average_rate;
-create view product_average_rate as
-with rate as(
-    SELECT
-        sh.id as shoes_ID,
-        count(*) as Number_Of_Rating,
-        b.name AS shoes_name,
-        sh.shoes_number as shoesNumber,
-        cast(avg(s.grade) as decimal(10,2)) AS Average_Rate
-    FROM
-        shoes sh
-            LEFT JOIN
-        surveys s ON sh.id = s.FK_shoes_id
-            JOIN
-        brand b ON b.id = sh.FK_brand_id
-    GROUP BY sh.shoes_number
-)
-select shoes_name , shoesNumber , Number_Of_Rating ,  Average_Rate,
-       case when Average_Rate >= 4.70 then 'FANTASTIC'
-            when Average_Rate >= 4 then 'VERY GOOD'
-            when Average_Rate >= 3 then 'GOOD'
-            when Average_Rate >= 2 then 'GOODISH'
-            when Average_Rate >= 1 then 'BAD'
-           end as 'Rate'
-from rate
-group by shoes_ID
-order by  average_rate DESC;
-
-
-select * from product_average_rate;
-
-
-
+-- *************************************************************
 -- Skapa en stored procedure ”Rate” som lägger till ett betyg och en kommentar på en specifik produkt
 -- för en specifik kund
-
-
+-- *************************************************************
 DROP procedure IF EXISTS rate;
 
 DELIMITER $$
@@ -82,7 +25,9 @@ call rate(6,3,1,'I hate these shoes');
 call rate(1,5,5,'BEST IN THE WORLD');
 
 select *  from surveys;
+-- *************************************************************
 
+-- *************************************************************
 
 DELIMITER $$
 create procedure customerHistory(
@@ -102,7 +47,9 @@ END $$
 
 DELIMITER ;
 
+-- *************************************************************
 
+-- *************************************************************
 
 DELIMITER $$
 create procedure invoice(
@@ -126,4 +73,31 @@ END $$
 
 DELIMITER ;
 
+-- *************************************************************
 
+-- *************************************************************
+DELIMITER //
+create procedure getOrderIDForInvoice(OUT orderId int, IN customerId int)
+BEGIN
+    select max(id)  into orderId from orders o where customerId= o.FK_customer_id;
+end//
+DELIMITER ;
+
+-- *************************************************************
+
+-- *************************************************************
+delimiter //
+create procedure help_auto_cancel()
+BEGIN
+    Declare ss int DEFAULT 0;
+    select count(status) into ss from order_line_item where status = 2;
+    if ss > 0
+    then
+        update LOW_PRIORITY IGNORE order_line_item  set status = 4
+        where status = 2;
+    end if;
+END //
+delimiter ;
+-- *************************************************************
+
+-- *************************************************************
