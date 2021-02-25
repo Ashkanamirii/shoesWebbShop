@@ -87,6 +87,7 @@ public class ShoesDescription {
 
 
 //the rating
+
         try {
             ratingValue = surveysManager.getAvgForOneShoes(shoesData.getId());
         } catch (SQLException throwables) {
