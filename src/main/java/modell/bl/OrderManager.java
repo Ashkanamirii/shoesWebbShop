@@ -1,5 +1,6 @@
 package modell.bl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -10,5 +11,5 @@ import java.sql.SQLException;
  * Copyright: MIT
  */
 public interface OrderManager {
-    int getLastOrderId(int custId) throws SQLException;
+    int getLastOrderId(int custId) throws SQLException, IOException, ClassNotFoundException;
 }

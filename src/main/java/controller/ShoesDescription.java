@@ -91,6 +91,10 @@ public class ShoesDescription {
             ratingValue = surveysManager.getAvgForOneShoes(shoesData.getId());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         averageRating.setRating(ratingValue);
         averageRating.setPartialRating(true);
@@ -132,7 +136,7 @@ public class ShoesDescription {
 //set comments
         try {
             commentsList= FXCollections.observableArrayList(surveysManager.getCommentsByShoesId(shoesData.getShoes_number()));
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
 

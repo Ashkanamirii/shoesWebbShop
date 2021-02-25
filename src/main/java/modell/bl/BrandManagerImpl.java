@@ -3,6 +3,7 @@ package modell.bl;
 import modell.da.BrandDAOImpl;
 import modell.to.Brand;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class BrandManagerImpl implements BrandManager {
 
     @Override
-    public List<Brand> getAllBrand() throws SQLException {
+    public List<Brand> getAllBrand() throws SQLException, IOException, ClassNotFoundException {
         BrandDAOImpl brand=new BrandDAOImpl();
         return brand.select();
     }

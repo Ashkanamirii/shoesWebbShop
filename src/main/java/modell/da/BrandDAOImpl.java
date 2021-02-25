@@ -3,6 +3,7 @@ package modell.da;
 import connection.ConnectionDB;
 import modell.to.Brand;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class BrandDAOImpl implements BrandDAO{
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public BrandDAOImpl(){
+    public BrandDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection=new ConnectionDB().getConnection();
     }
     @Override

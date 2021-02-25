@@ -41,6 +41,10 @@ public class ShoesCommentsAndRatings {
             ratingValue=surveys.getAvgForOneShoes(shoesId);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         ratingStars.setRating(ratingValue);
         ratingStars.setOnMouseClicked(e->ratingStars.setRating(ratingValue));

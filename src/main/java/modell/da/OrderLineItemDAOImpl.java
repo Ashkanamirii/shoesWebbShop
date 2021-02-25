@@ -3,6 +3,7 @@ package modell.da;
 import connection.ConnectionDB;
 import utils.Invoice;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OrderLineItemDAOImpl implements OrderLineItemDAO {
     Connection connection;
 
-    public OrderLineItemDAOImpl() {
+    public OrderLineItemDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
 

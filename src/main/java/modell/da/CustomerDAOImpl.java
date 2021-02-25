@@ -4,6 +4,7 @@ import connection.ConnectionDB;
 import modell.to.Customer;
 import utils.History;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public CustomerDAOImpl() {
+    public CustomerDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
 

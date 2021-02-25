@@ -5,6 +5,7 @@ import modell.to.Customer;
 import modell.to.NoStock;
 import modell.to.Shoes;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class NoStockDAOImpl implements NoStockDAO{
     private Connection connection;
     private PreparedStatement preparedStatement;
 
-    public NoStockDAOImpl() {
+    public NoStockDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
 

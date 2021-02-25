@@ -2,6 +2,7 @@ package modell.bl;
 
 import modell.da.OrdersDAOImpl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 public class OrderManagerImpl implements OrderManager {
 
     @Override
-    public int getLastOrderId(int custId) throws SQLException {
+    public int getLastOrderId(int custId) throws SQLException, IOException, ClassNotFoundException {
         OrdersDAOImpl o = new OrdersDAOImpl();
         return o.selectLastOrderId(custId);
     }

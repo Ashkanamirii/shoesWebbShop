@@ -4,6 +4,7 @@ import modell.to.Surveys;
 import utils.Comments;
 //import utils.ShoesAverageGrade;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface SurveysBL {
-void setSurveys(Surveys surveys) throws SQLException;
-void setSurveys(int custId, int shoesID, int rate, String comment) throws SQLException;
+void setSurveys(Surveys surveys) throws SQLException, IOException, ClassNotFoundException;
+void setSurveys(int custId, int shoesID, int rate, String comment) throws SQLException, IOException, ClassNotFoundException;
 //List<ShoesAverageGrade> getAvgGradeForAllShoes() throws SQLException;
-double getAvgForOneShoes(int shoesId) throws SQLException;
-List<Comments> getCommentsByShoesId(int shoesId) throws SQLException;
+double getAvgForOneShoes(int shoesId) throws SQLException, IOException, ClassNotFoundException;
+List<Comments> getCommentsByShoesId(int shoesId) throws SQLException, IOException, ClassNotFoundException;
 
 }

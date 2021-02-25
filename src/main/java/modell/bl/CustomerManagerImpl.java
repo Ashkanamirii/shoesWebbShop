@@ -5,6 +5,7 @@ import modell.to.Customer;
 import utils.History;
 import utils.UserLogin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,19 +18,20 @@ import java.util.List;
  */
 public class CustomerManagerImpl implements CustomerManager{
     @Override
-    public void registerCustomer(Customer customer) throws SQLException {
+    public void registerCustomer(Customer customer) throws SQLException, IOException, ClassNotFoundException {
         CustomerDAOImpl c = new CustomerDAOImpl();
         c.insert(customer);
     }
 
     @Override
-    public List<Customer> getAllCustomer() throws SQLException {
+    public List<Customer> getAllCustomer() throws SQLException, IOException, ClassNotFoundException {
         CustomerDAOImpl c = new CustomerDAOImpl();
         return c.select();
     }
 
     @Override
-    public Customer CheckValidCustomerByUserPswd(String email, String password)  {
+    public Customer CheckValidCustomerByUserPswd(String email, String password)
+            throws SQLException, IOException, ClassNotFoundException {
         CustomerDAOImpl c = new CustomerDAOImpl();
         Customer customer = null;
         try {
@@ -43,7 +45,7 @@ public class CustomerManagerImpl implements CustomerManager{
     }
 
     @Override
-    public List<History> customerHistory(int custId) throws SQLException {
+    public List<History> customerHistory(int custId) throws SQLException, IOException, ClassNotFoundException {
         CustomerDAOImpl c = new CustomerDAOImpl();
         return c.customerHistory(custId);
     }

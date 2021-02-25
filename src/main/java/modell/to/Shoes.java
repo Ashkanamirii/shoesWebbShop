@@ -35,7 +35,9 @@ public class Shoes {
         this.brandP = new SimpleStringProperty(brand.getName());
         this.categories=categories;
 
-     this.categoriesP=new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+        if (categories !=null && categories.size()>0) {
+            this.categoriesP = new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+        }
 
         this.brand=brand;
         this.color = new SimpleStringProperty(color);
@@ -77,6 +79,11 @@ public class Shoes {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
+    public void setCategoriesNameList(List<Category> categories) {
+        this.categoriesP = new SimpleStringProperty(categories.stream().map(Category::getName).collect(Collectors.joining(", ")));
+    }
+
+
 
     public int getId() {
         return id.get();

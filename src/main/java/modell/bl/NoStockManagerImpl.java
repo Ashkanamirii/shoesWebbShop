@@ -3,6 +3,7 @@ package modell.bl;
 import modell.da.NoStockDAOImpl;
 import modell.to.NoStock;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
  */
 public class NoStockManagerImpl implements NoStockManager{
     @Override
-    public List<NoStock> getNoStockShoes() throws SQLException {
+    public List<NoStock> getNoStockShoes()
+            throws SQLException, IOException, ClassNotFoundException {
         NoStockDAOImpl noStockDAO = new NoStockDAOImpl();
         noStockDAO.select();
         return noStockDAO.select();

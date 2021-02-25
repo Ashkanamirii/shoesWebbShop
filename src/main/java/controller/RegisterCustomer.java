@@ -75,6 +75,10 @@ public class RegisterCustomer {
             System.out.println("Register " + name.getText() + " has been faild \n" + e.getMessage());
             e.getSQLState();
             e.getErrorCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

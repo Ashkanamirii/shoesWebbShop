@@ -82,8 +82,9 @@ public class WebbshopPage {
 
         try {
             shoesList = FXCollections.observableArrayList(shoesManager.getAllShoes());
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
         }
 
 
@@ -201,13 +202,13 @@ public class WebbshopPage {
                 shoppingCart.stream().skip(1).forEach(s -> {
                     try {
                         orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 2);
-                    } catch (SQLException throwables) {
+                    } catch (SQLException | IOException | ClassNotFoundException throwables) {
                         throwables.printStackTrace();
                     }
                 });
 
                 loadConfirmDialog(shoppingCart, orderId);
-            } catch (IOException | SQLException ioException) {
+            } catch (IOException | SQLException | ClassNotFoundException ioException) {
                 ioException.printStackTrace();
             }
             Utils utils=new Utils();

@@ -3,6 +3,7 @@ package modell.bl;
 import modell.to.Customer;
 import utils.History;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,8 +15,8 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface CustomerManager {
-   void registerCustomer(Customer customer) throws SQLException;
-   List<Customer> getAllCustomer() throws SQLException;
-   Customer CheckValidCustomerByUserPswd(String email , String password);
-   List<History> customerHistory(int custId) throws SQLException;
+   void registerCustomer(Customer customer) throws SQLException, IOException, ClassNotFoundException;
+   List<Customer> getAllCustomer() throws SQLException, IOException, ClassNotFoundException;
+   Customer CheckValidCustomerByUserPswd(String email , String password) throws SQLException, IOException, ClassNotFoundException;
+   List<History> customerHistory(int custId) throws SQLException, IOException, ClassNotFoundException;
 }

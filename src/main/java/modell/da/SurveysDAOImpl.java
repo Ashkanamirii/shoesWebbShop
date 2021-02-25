@@ -5,6 +5,8 @@ import modell.to.Surveys;
 import utils.Comments;
 //import utils.ShoesAverageGrade;
 import utils.Utils;
+
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class SurveysDAOImpl implements SurveysDAO {
     Connection connection;
     PreparedStatement preparedStatement;
 
-    public SurveysDAOImpl() {
+    public SurveysDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
 

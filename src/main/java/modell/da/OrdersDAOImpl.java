@@ -2,6 +2,7 @@ package modell.da;
 
 import connection.ConnectionDB;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ import java.sql.Types;
  */
 public class OrdersDAOImpl implements  OrdersDAO{
     Connection connection;
-    public OrdersDAOImpl() {
+    public OrdersDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
 

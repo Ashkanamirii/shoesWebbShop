@@ -16,6 +16,7 @@ import modell.bl.OrderLineItemManagerImpl;
 import modell.to.Shoes;
 import utils.UserLogin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -80,7 +81,7 @@ public class ConfirmShopping {
                 try {
                     orderManager.getAddTOCart(
                             UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 1);
-                } catch (SQLException throwables) {
+                } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
                 }
             });
@@ -108,7 +109,7 @@ public class ConfirmShopping {
             shoesData.forEach(s -> {
                 try {
                     orderManager.getAddTOCart(UserLogin.getCustomer().getId(), orderId, s.getId(), s.getQuantity(), 3);
-                } catch (SQLException throwables) {
+                } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
                 }
             });

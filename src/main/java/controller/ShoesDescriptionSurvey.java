@@ -13,6 +13,7 @@ import org.controlsfx.control.Rating;
 import utils.UserLogin;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ShoesDescriptionSurvey {
     public void initialize(){
         try {
             shoesList=shoesManager.getAllShoes();
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
         
@@ -67,13 +68,13 @@ public class ShoesDescriptionSurvey {
 
 
 //the rating
-
+// TODO  fixe ratingValue
 
             ratingStars.setOnMouseClicked(e->ratingValue=(int)ratingStars.getRating());
             submitB.setOnAction(e->{
                 try {
                     sendSurvey.setSurveys(UserLogin.getCustomer().getId(),shoesId,ratingValue,commentTextField.getText());
-                } catch (SQLException throwables) {
+                } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
                 }
 

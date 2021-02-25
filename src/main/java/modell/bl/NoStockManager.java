@@ -2,6 +2,7 @@ package modell.bl;
 
 import modell.to.NoStock;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,5 +14,5 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface NoStockManager {
-    List<NoStock> getNoStockShoes() throws SQLException;
+    List<NoStock> getNoStockShoes() throws SQLException, IOException, ClassNotFoundException;
 }

@@ -5,6 +5,7 @@ import modell.to.Surveys;
 import utils.Comments;
 //import utils.ShoesAverageGrade;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,14 +18,14 @@ import java.util.List;
  */
 public class SurveysBLImpl implements SurveysBL {
     @Override
-    public void setSurveys(Surveys s) throws SQLException {
+    public void setSurveys(Surveys s) throws SQLException, IOException, ClassNotFoundException {
         SurveysDAOImpl surveys = new SurveysDAOImpl();
         surveys.insert(s);
 
     }
 
     @Override
-    public void setSurveys(int custId, int shoesID, int rate, String comment) throws SQLException {
+    public void setSurveys(int custId, int shoesID, int rate, String comment) throws SQLException, IOException, ClassNotFoundException {
         SurveysDAOImpl surveys = new SurveysDAOImpl();
         surveys.setRate(shoesID,custId,rate,comment);
     }
@@ -36,13 +37,13 @@ public class SurveysBLImpl implements SurveysBL {
 //    }
 
     @Override
-    public double getAvgForOneShoes(int shoesId) throws SQLException {
+    public double getAvgForOneShoes(int shoesId) throws SQLException, IOException, ClassNotFoundException {
         SurveysDAOImpl surveys = new SurveysDAOImpl();
         return surveys.getShoesAverageRate(shoesId);
     }
 
     @Override
-    public List<Comments> getCommentsByShoesId(int shoesId) throws SQLException {
+    public List<Comments> getCommentsByShoesId(int shoesId) throws SQLException, IOException, ClassNotFoundException {
         SurveysDAOImpl surveys = new SurveysDAOImpl();
         return surveys.getCommentByShoesId(shoesId);
     }

@@ -60,7 +60,7 @@ public class MyPagesOrders {
 //            List<History> historyList = customerManager.customerHistory(UserLogin.getCustomer().getId());
 //            historyList.stream().map(h -> h.getOrderId() ).filter((f,s)-> f == s) // TODO fix it
            userHistory=FXCollections.observableArrayList(customerManager.customerHistory(UserLogin.getCustomer().getId()));
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
 
@@ -80,7 +80,7 @@ public class MyPagesOrders {
                 try {
                     invoice = FXCollections.observableArrayList(orderManager.getInvoice
                             (orderId));
-                } catch (SQLException throwables) {
+                } catch (SQLException | IOException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
                 }
                 invoiceTable.setItems(invoice);
@@ -94,7 +94,7 @@ public class MyPagesOrders {
         try {
             if(userHistory.size()>=0){
             invoice = FXCollections.observableArrayList(orderManager.getInvoice(userHistory.get(0).getOrderId()));}
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
         //set the invoice
@@ -139,7 +139,7 @@ public class MyPagesOrders {
                 try {
                 orderManager.getAddTOCart(
                         UserLogin.getCustomer().getId(), i.getOrderId(), i.getShoesId(),i.quantityToReturn(),5);
-            } catch (SQLException throwables) {
+            } catch (SQLException | IOException | ClassNotFoundException throwables) {
                 throwables.printStackTrace();
             }}});
 

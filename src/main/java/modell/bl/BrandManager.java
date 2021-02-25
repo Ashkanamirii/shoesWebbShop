@@ -2,6 +2,7 @@ package modell.bl;
 
 import modell.to.Brand;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,6 +14,6 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface BrandManager {
-    List<Brand> getAllBrand() throws SQLException;
+    List<Brand> getAllBrand() throws SQLException, IOException, ClassNotFoundException;
 
 }

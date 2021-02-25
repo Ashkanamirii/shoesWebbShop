@@ -35,8 +35,6 @@ public class MyPagesSurvey {
     public Button myPagesBtn;
     public Button ordersBtn;
     public Label loginL;
-    //public Pane shoesDescription_surveyP;
-    public Utils changeScene;
     public TableView <Invoice>invoiceTable;
     public TableColumn<Invoice,String> orderDateC;
     public TableColumn <Invoice,String> brandC;
@@ -51,18 +49,15 @@ public class MyPagesSurvey {
     public Button surveyBtn;
     private ObservableList<Invoice> invoice;
     private final OrderLineItemManagerImpl orderLineItemManager = new OrderLineItemManagerImpl();
-    private final ShoesManagerImpl shoesManager=new ShoesManagerImpl();
-    private List<Shoes> shoesList;
     private OrderManagerImpl orderManager = new OrderManagerImpl();
+    public Utils changeScene;
 
     public void initialize() {
-
-
 
         try {
             invoice = FXCollections.observableArrayList(orderLineItemManager.getInvoice(orderManager.getLastOrderId(
                     UserLogin.getCustomer().getId()))); //have to fix
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
         //set the invoice

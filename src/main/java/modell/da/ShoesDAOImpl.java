@@ -9,6 +9,7 @@ import modell.to.Brand;
 import modell.to.Category;
 import modell.to.Shoes;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class ShoesDAOImpl implements ShoesDAO {
     Connection connection;
     PreparedStatement preparedStatement;
 
-    public ShoesDAOImpl() {
+    public ShoesDAOImpl() throws SQLException, IOException, ClassNotFoundException {
         connection = new ConnectionDB().getConnection();
     }
     public ObservableList<String> getColorList() throws SQLException {
@@ -48,7 +49,7 @@ public class ShoesDAOImpl implements ShoesDAO {
 
 
     @Override
-    public Shoes getShoesById(int shoesId) throws SQLException {
+    public Shoes getShoesById(int shoesId) throws SQLException, IOException, ClassNotFoundException {
         CategoryManager categoryManager=new CategoryManagerImpl();
         Shoes shoes = null;
         preparedStatement = connection.prepareStatement("SELECT * FROM shoes sh " +
@@ -71,7 +72,7 @@ public class ShoesDAOImpl implements ShoesDAO {
     }
 
 
-    public List<Shoes> select() throws SQLException {
+    public List<Shoes> select() throws SQLException, IOException, ClassNotFoundException {
         CategoryManager categoryManager=new CategoryManagerImpl();
         List<Shoes>shoesResult =new ArrayList<>();
         preparedStatement=connection.prepareStatement("with categories as(select FK_shoes_id,group_concat(c.name separator ', ') as category,group_concat(c.id separator ', ') as categoryIds\n" +
@@ -101,6 +102,27 @@ public class ShoesDAOImpl implements ShoesDAO {
     public void close() throws SQLException {
         preparedStatement.close();
         connection.close();
+    }
+
+
+    public List<Shoes> selectShoesWithBrand() throws SQLException {
+        List<Shoes> shoesList = new ArrayList<>();
+        Shoes shoes = null;
+        preparedStatement = connection.prepareStatement("SELECT * FROM shoes sh " +
+                "JOIN brand b on b.id = sh.FK_brand_id");
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+            Brand brand = new Brand(rs.getInt(10), rs.getString(11));
+            shoesList.add(new Shoes(rs.getInt("id"),
+                    rs.getInt("size"),
+                    rs.getInt("shoes_number"),
+                    brand,null,
+                    rs.getString("color"),
+                    rs.getDouble("price"),
+                    rs.getInt("quantity")));
+        }
+        close();
+        return shoesList;
     }
 
 

@@ -4,6 +4,7 @@ import connection.ConnectionDB;
 import modell.to.Brand;
 import modell.to.Category;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,9 @@ import java.util.List;
 public class CategoryDAOImpl implements CategoryDAO {
     private Connection connection;
     private PreparedStatement preparedStatement;
-    public CategoryDAOImpl(){connection=new ConnectionDB().getConnection();}
+    public CategoryDAOImpl() throws SQLException, IOException, ClassNotFoundException {
+        connection=new ConnectionDB().getConnection();
+    }
     @Override
     public List<Category> select() throws SQLException {
         List<Category>brandResult=new ArrayList<>();
@@ -63,6 +66,22 @@ public class CategoryDAOImpl implements CategoryDAO {
         //connection.close(); // todo HAr öppnat det
         return categoryName;
     }
+
+    @Override
+    public List<Category> selectCategoryListByShoesId(int shoesId) throws SQLException {
+        List<Category> categoryList = new ArrayList<>();
+        preparedStatement = connection.prepareStatement("SELECT * from category c " +
+                "join shoes_category sc on c.id = sc.FK_category_id where sc.FK_shoes_id = ?");
+        preparedStatement.setInt(1,shoesId);
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()){
+            categoryList.add(new Category(
+            rs.getInt(1),rs.getString(2)));
+        }
+        close();
+        return categoryList;
+    }
+
     public void close() throws SQLException {
         preparedStatement.close();
         connection.close();

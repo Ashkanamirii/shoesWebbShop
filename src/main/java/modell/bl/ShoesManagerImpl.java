@@ -5,7 +5,7 @@ import modell.da.ShoesDAO;
 import modell.da.ShoesDAOImpl;
 import modell.to.Shoes;
 
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,30 +19,51 @@ import java.util.List;
 public class ShoesManagerImpl implements ShoesManager {
 
     @Override
-    public List<Shoes> getAllShoes() throws SQLException {
-        ShoesDAO shoes=new ShoesDAOImpl();
+    public List<Shoes> getAllShoes() throws SQLException, IOException, ClassNotFoundException {
+        ShoesDAO shoes = new ShoesDAOImpl();
         return shoes.select();
     }
 
     @Override
-    public ObservableList<String> getColorList() throws SQLException {
-        ShoesDAO shoes=new ShoesDAOImpl();
+    public ObservableList<String> getColorList() throws SQLException, IOException, ClassNotFoundException {
+        ShoesDAO shoes = new ShoesDAOImpl();
         return shoes.getColorList();
     }
 
-
-    public List<Shoes> getAllShoes2(){
+// Test method for shoes objekt
+    public List<Shoes> getAllShoes2() throws SQLException, IOException, ClassNotFoundException {
         ShoesDAO shoesDAO = new ShoesDAOImpl();
-        CategoryManager categoryManager= new CategoryManagerImpl();
 
-        List<Shoes> shoesList=shoesDAO.select();//just get shoes
+        CategoryManager categoryManager = new CategoryManagerImpl();
 
-        for (Shoes s : shoesList){
+        List<Shoes> shoesList = shoesDAO.selectShoesWithBrand();//just get shoes
 
-            s.setCategories(categoryManager.getShoesCategory(s.getId()));
-
+        for (Shoes s : shoesList) {
+            s.setCategoriesNameList(categoryManager.getShoesCategory(s.getId()));
         }
-
+        return shoesList;
     }
+
+//    public static void main(String[] args) {
+//        ShoesManagerImpl s = new ShoesManagerImpl();
+//        try {
+//             List<Shoes> shoesList = s.getAllShoes2();
+//            for (Shoes shoes : shoesList ) {
+//                System.out.println("shoes.getId() = " + shoes.getId());
+//                System.out.println("--------");
+//
+//                System.out.println(shoes.getCategoriesP());
+//                /*if (shoes.getCategories() !=null && shoes.getCategories().size()>0){
+//                    for (Category c:shoes.getCategories()){
+//                        System.out.println(c.getName());
+//                    }
+//                }*/
+//
+//            }
+//            System.out.println();
+//        } catch (SQLException | IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

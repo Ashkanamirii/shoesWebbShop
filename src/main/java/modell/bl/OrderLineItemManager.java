@@ -2,6 +2,7 @@ package modell.bl;
 
 import utils.Invoice;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,7 +14,9 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface OrderLineItemManager {
-    void getAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException;
-    int getOrderIdFromAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status) throws SQLException;
-    List<Invoice> getInvoice(int orderId) throws SQLException;
+    void getAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status)
+            throws SQLException, IOException, ClassNotFoundException;
+    int getOrderIdFromAddTOCart(int customerId, int orderId, int shoesId, int quantity, int status)
+            throws SQLException, IOException, ClassNotFoundException;
+    List<Invoice> getInvoice(int orderId) throws SQLException, IOException, ClassNotFoundException;
 }

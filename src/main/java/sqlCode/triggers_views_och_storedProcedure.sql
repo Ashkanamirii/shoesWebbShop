@@ -6,7 +6,7 @@ create trigger on_status_update
     for each row
 begin
 case
-    when new.status='RETURNED' or new.status='CANCEL' or new.status ='AUTO_CANCEL'
+    when new.status='RETURNED' or new.status='CANCEL'
 		then update shoes set quantity=shoes.quantity+new.quantity where shoes.id=new.FK_shoes_id;
 when new.status='PAYING'
 		then update shoes set quantity=shoes.quantity-new.quantity where shoes.id=new.FK_shoes_id;
@@ -15,40 +15,6 @@ end case;
 -- end if;
 end//
 delimiter ;
-
-delimiter //
-create trigger on_status_update_autoCancel
-    after update
-    on order_line_item
-    for each row
-begin
-    case
-        when new.status ='AUTO_CANCEL'
-            then update shoes set quantity = shoes.quantity + new.quantity where shoes.id=new.FK_shoes_id;
-        end case;
-end //
-delimiter ;
-
-
-drop trigger if exists update_stock_on_status;
-/*
-create trigger update_stock_on_status
-
-    after insert
-    on order_line_item
-    for each row
-begin
-    case
-        when new.status = 'RETURNED' or new.status = 'CANCEL' or new.status = 'AUTO_CANCEL'
-            then update shoes set quantity = shoes.quantity + new.quantity where shoes.id = new.FK_shoes_id;
-        when new.status = 'PAYING'
-            then update shoes set quantity = shoes.quantity - new.quantity where shoes.id = new.FK_shoes_id;
-        end case;
-end//
-delimiter ;
-
- */
-
 
 
 drop trigger if exists update_no_stock;

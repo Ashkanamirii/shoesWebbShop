@@ -1,13 +1,9 @@
 DROP EVENT  auto_cancel;
-SET GLOBAL event_scheduler = ON;
-
 delimiter //
-create event auto_cancel ON SCHEDULE EVERY 1 MINUTE
+use shoes_enum;
+create event auto_cancel ON SCHEDULE EVERY 2 MINUTE
     STARTS CURRENT_TIMESTAMP
     do
-    if (select count(status) from order_line_item where status = 2)  > 0
-    then update order_line_item set status = 4 where status = 2;
-    end if//
+    call shoes_enum.help_auto_cancel();
 delimiter ;
-
 SHOW PROCESSLIST;

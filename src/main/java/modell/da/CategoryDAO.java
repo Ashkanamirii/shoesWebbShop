@@ -16,4 +16,5 @@ public interface CategoryDAO {
     List<Category> select() throws SQLException;
     String getCategoryNameById(int id) throws SQLException;
     String getCategoryIdsByShoesId(int shoesId) throws SQLException;
+    List<Category> selectCategoryListByShoesId(int shoesId) throws SQLException;
 }

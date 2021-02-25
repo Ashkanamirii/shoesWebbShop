@@ -1,5 +1,6 @@
 package connection;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,23 +17,10 @@ public class ConnectionDB {
     private Properties p= new Properties();
     private Connection con;
 
-    public ConnectionDB(){
-        try {
+    public ConnectionDB() throws IOException, SQLException, ClassNotFoundException {
             p.load(new FileInputStream("src/main/resources/setting.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con= DriverManager.getConnection(p.getProperty("address"),p.getProperty("name"),p.getProperty("password"));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
     }
     public Connection getConnection(){
         return con;

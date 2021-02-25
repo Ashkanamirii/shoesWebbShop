@@ -3,6 +3,7 @@ package modell.bl;
 import modell.da.CategoryDAOImpl;
 import modell.to.Category;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,13 +17,13 @@ import java.util.stream.Collectors;
  */
 public class CategoryManagerImpl implements CategoryManager {
     @Override
-    public List<Category> getAllCategory() throws SQLException {
+    public List<Category> getAllCategory() throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl category=new CategoryDAOImpl();
 
         return category.select();
     }
     @Override
-    public Category getCategoryById(int categoryId) throws SQLException{
+    public Category getCategoryById(int categoryId) throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl category=new CategoryDAOImpl();
             return new Category(categoryId,category.getCategoryNameById(categoryId));
 
@@ -30,7 +31,7 @@ public class CategoryManagerImpl implements CategoryManager {
     }
 
     @Override
-    public List<Category> getCategoryListByShoesId(int shoesId) throws SQLException {
+    public List<Category> getCategoryListByShoesId(int shoesId) throws SQLException, IOException, ClassNotFoundException {
         CategoryDAOImpl categories=new CategoryDAOImpl();
 
         List<Category>categoryByShoes;
@@ -49,5 +50,11 @@ public class CategoryManagerImpl implements CategoryManager {
 
 
         return categoryByShoes;
+    }
+
+    @Override
+    public List<Category> getShoesCategory(int id) throws SQLException, IOException, ClassNotFoundException {
+        CategoryDAOImpl category=new CategoryDAOImpl();
+        return category.selectCategoryListByShoesId(id);
     }
 }

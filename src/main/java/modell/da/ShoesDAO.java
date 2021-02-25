@@ -3,6 +3,7 @@ package modell.da;
 import javafx.collections.ObservableList;
 import modell.to.Shoes;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
  * Copyright: MIT
  */
 public interface ShoesDAO {
-    Shoes getShoesById(int id) throws SQLException;
-    List<Shoes> select() throws SQLException;
+    Shoes getShoesById(int id) throws SQLException, IOException, ClassNotFoundException;
+    List<Shoes> select() throws SQLException, IOException, ClassNotFoundException;
+    List<Shoes> selectShoesWithBrand() throws SQLException;
     ObservableList<String> getColorList() throws SQLException;
 }
