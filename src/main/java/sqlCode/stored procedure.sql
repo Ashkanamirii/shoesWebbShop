@@ -11,9 +11,9 @@ CREATE PROCEDURE rate (
     IN rate INT, IN surveysComment varchar(255)
 )
 BEGIN
-    INSERT INTO surveys(comment,grade, FK_shoes_id, FK_customer_id)
+    INSERT INTO surveys(comment,grade, FK_shoes_id, FK_customer_id, issue_date)
     VALUES
-    (surveysComment, rate, shoesId, customerId);
+    (surveysComment, rate, shoesId, customerId , current_time);
 END $$
 
 DELIMITER ;
