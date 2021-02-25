@@ -13,13 +13,12 @@
     requires org.controlsfx.controls;
     requires org.apache.commons.codec;
     requires java.xml.bind;
-    //opens view;
     opens connection;
     opens controller;
     opens main;
-    opens modell.bl;
-    opens modell.da;
-    opens modell.to;
+    opens model.bl;
+    opens model.da;
+    opens model.to;
     opens utils;
 
 

@@ -13,18 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import modell.bl.OrderLineItemManagerImpl;
-import modell.bl.OrderManagerImpl;
-import modell.bl.ShoesManagerImpl;
-import modell.to.Shoes;
-import utils.Invoice;
+import model.bl.OrderLineItemManagerImpl;
+import model.bl.OrderManagerImpl;
+import model.to.Invoice;
 import utils.UserLogin;
 import utils.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 
 public class MyPagesSurvey {

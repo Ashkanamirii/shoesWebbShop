@@ -1,9 +1,8 @@
 package utils;
 
 
-import modell.bl.CustomerManager;
-import modell.bl.CustomerManagerImpl;
-import modell.to.Customer;
+import model.bl.CustomerManagerImpl;
+import model.to.Customer;
 
 import java.io.IOException;
 import java.sql.SQLException;

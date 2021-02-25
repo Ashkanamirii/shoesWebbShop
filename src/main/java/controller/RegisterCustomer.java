@@ -5,8 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import modell.bl.CustomerManagerImpl;
-import modell.to.Customer;
+import model.bl.CustomerManagerImpl;
+import model.to.Customer;
 import utils.Utils;
 
 import java.io.IOException;

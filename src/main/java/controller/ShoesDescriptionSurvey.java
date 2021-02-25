@@ -4,9 +4,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import modell.bl.ShoesManagerImpl;
-import modell.bl.SurveysBLImpl;
-import modell.to.Shoes;
+import model.bl.ShoesManagerImpl;
+import model.bl.SurveysBLImpl;
+import model.to.Shoes;
 import org.controlsfx.control.Rating;
 import utils.UserLogin;
 
@@ -38,14 +38,14 @@ public class ShoesDescriptionSurvey {
     private int ratingValue;
     private SurveysBLImpl sendSurvey=new SurveysBLImpl();
     public TextArea commentTextArea;
+
     public void initialize(){
         try {
             shoesList=shoesManager.getAllShoes();
         } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
-        ratingStars.setRating(2.5);
-        ratingStars.setPartialRating(true);
+        ratingStars.setRating(3);
     }
     public void setData(int shoesId){
         Shoes shoesData=shoesList.get(shoesId-1);

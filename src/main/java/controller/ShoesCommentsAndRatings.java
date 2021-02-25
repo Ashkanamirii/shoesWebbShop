@@ -1,16 +1,9 @@
 package controller;
 
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import modell.bl.SurveysBLImpl;
-import modell.to.Shoes;
+import model.bl.SurveysBLImpl;
 import org.controlsfx.control.Rating;
 
 import java.io.IOException;
