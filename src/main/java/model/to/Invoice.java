@@ -160,4 +160,7 @@ public class Invoice {
                 " " + getPrice() +
                 " " + getTotal_price()+"\n";
     }
+    public Double multiplyPriceQuantity(){
+        return this.quantity.get()*this.price.get();
+    }
 }
