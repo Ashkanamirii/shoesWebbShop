@@ -9,10 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -71,7 +68,12 @@ public class ConfirmShopping {
         deliveryCosts.setText(DELIVERYCOST+"");
 
     }
-
+    public void showAlert(){
+        Alert a=new Alert(Alert.AlertType.INFORMATION);
+        a.setHeaderText("TIMED OUT");
+        a.setContentText("TIMED OUT,your order has been cancelled due to your slow response.");
+        a.show();
+    }
 
     public void setData(ObservableList<Shoes> shoesData,int orderId){
         // Det här för auto_cancel
@@ -81,6 +83,9 @@ public class ConfirmShopping {
                         new KeyValue(confirmB.visibleProperty(), false)));
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(30),
                 new KeyValue(cancelB.visibleProperty(), false)));
+
+        timeline.setOnFinished(e->showAlert());
+
         timeline.play();
 
 
