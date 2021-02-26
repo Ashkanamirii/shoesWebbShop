@@ -71,6 +71,11 @@ public class UserLogin {
     public void setLogged(boolean logged) {
         isLogged = logged;
     }
+
+    public void resetEmail(){
+        this.email="default";
+        this.password = "default";
+    }
 }
 
 

@@ -71,8 +71,11 @@ BEGIN
                     then -- RETURNED insertera i order line item och order och lägga till Q  shoes
                         update order_line_item set quantity = quantity - ordered_quantity
                         where shoesId = FK_shoes_id and orderId = FK_order_id and status = 1;
+
                         insert into order_line_item(FK_shoes_id, FK_order_id, quantity, status)
-                        VALUES (shoesId, orderId, ordered_quantity, _status);
+                        VALUES (shoesId, orderId, ordered_quantity, _status)
+                        on duplicate key update quantity= ordered_quantity;
+
                     END IF;
                 END IF;
             END IF;

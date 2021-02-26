@@ -38,6 +38,7 @@ public class UserProfile {
     private Utils util;
 
     public void initialize() throws IOException {
+        UserLogin.getInstance().resetEmail();
         util = new Utils(mainPane);
         registerButton.setOnAction(event -> {
             try {
