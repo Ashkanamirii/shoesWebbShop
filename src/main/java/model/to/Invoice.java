@@ -39,7 +39,7 @@ public class Invoice {
         this.baseQuantity=quantity;
     }
     public int quantityToReturn(){
-        return baseQuantity-getQuantity();
+        return getQuantity();
     }
     public int getShoesId() {
         return shoesId.get();
