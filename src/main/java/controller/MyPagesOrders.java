@@ -58,7 +58,7 @@ public class MyPagesOrders {
     public Utils changeScene;
 
     public void initialize() {
-updateOrderLine.setText("UPDATE");
+        updateOrderLine.setText("UPDATE");
         searchField.textProperty().addListener(((observableValue, s, t1) ->
                 ordersTable.setItems(filteredList(userHistory, t1))));
 
@@ -140,11 +140,11 @@ updateOrderLine.setText("UPDATE");
         });
         //send to be returned
         updateOrderLine.setOnAction(e -> {
-System.out.println(invoice.get(0).getOrderId());
+            System.out.println(invoice.get(0).getOrderId());
             invoice.forEach(i -> {
                 if (i.quantityToReturn() != 0) {
                     try {
-                        System.out.println("ORDER ID--->"+ i.getOrderId() + "update -- Quantity-->" + i.quantityToReturn());
+                        System.out.println("ORDER ID--->" + i.getOrderId() + "update -- Quantity-->" + i.quantityToReturn());
                         orderManager.getAddTOCart(
                                 UserLogin.getCustomer().getId(), i.getOrderId(),
                                 i.getShoesId(), i.quantityToReturn(), 5);
@@ -156,7 +156,7 @@ System.out.println(invoice.get(0).getOrderId());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Returned action");
             alert.setContentText("We have taken your request ,\nYou will be charge with-->" +
-                    invoice.stream().map(Invoice::multiplyPriceQuantity).reduce(0.0,Double::sum)+"Kr.");
+                    invoice.stream().map(Invoice::multiplyPriceQuantity).reduce(0.0, Double::sum) + "Kr.");
             alert.showAndWait();
 
 

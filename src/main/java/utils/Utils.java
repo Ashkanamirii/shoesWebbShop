@@ -85,21 +85,21 @@ public Utils(AnchorPane mainPane){
         primaryStage.setWidth(((Pane) primaryStage.getScene().getRoot()).getPrefWidth());
         primaryStage.setHeight(((Pane) primaryStage.getScene().getRoot()).getPrefHeight());
     }
-    public void changeSceneandSendId(String nextPane, Pane mainPane, int shoesId) throws IOException {
-        String fxml = nextPane;
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
-        primaryStage.getScene().setRoot(pane);
-
-        primaryStage.setWidth(((Pane) primaryStage.getScene().getRoot()).getPrefWidth());
-        primaryStage.setHeight(((Pane) primaryStage.getScene().getRoot()).getPrefHeight());
-        /*
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.setScene(primaryStage.getScene());
-        primaryStage.showAndWait();
-
-         */
-    }
+//    public void changeSceneandSendId(String nextPane, Pane mainPane, int shoesId) throws IOException {
+//        String fxml = nextPane;
+//        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+//        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+//        primaryStage.getScene().setRoot(pane);
+//
+//        primaryStage.setWidth(((Pane) primaryStage.getScene().getRoot()).getPrefWidth());
+//        primaryStage.setHeight(((Pane) primaryStage.getScene().getRoot()).getPrefHeight());
+//        /*
+//        primaryStage.initModality(Modality.APPLICATION_MODAL);
+//        primaryStage.setScene(primaryStage.getScene());
+//        primaryStage.showAndWait();
+//
+//         */
+//    }
 
     public static void md5Hashing(String password) {
         MessageDigest md = null;

@@ -41,7 +41,7 @@ BEGIN
         join order_line_item oli on oli.FK_order_id = o.id
         join shoes sh on sh.id = oli.FK_shoes_id
         join brand b on b.id = sh.FK_brand_id
-    where c.id = custID and oli.status = 1
+    where c.id = custID and oli.status = 1 and oli.quantity > 0
     order by DATE;
 END $$
 
